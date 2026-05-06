@@ -2,8 +2,9 @@
 name: Epic Template
 about: Describe the epic purpose here.
 title: ''
-labels: ''
+labels: enhancement
 assignees: ''
+type: Epic
 
 ---
 
