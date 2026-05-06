@@ -1,29 +1,43 @@
 ---
 name: User Story
 about: Creating a clear and concise user story
-title: "[STORY]"
-labels: enhancement
+title: ''
+labels: ''
 assignees: ''
 type: Feature
 
 ---
 
-**Is your feature request related to a problem? Please describe.**
-A clear and concise description of what the problem is. Ex. I'm always frustrated when [...]
+## User Story
 
-**Describe this as a user**
-As a [...]
+As a [role / user type]  
+I want [goal / feature]  
+So that [benefit / reason]
 
-**Describe what you want**
-I want [...]
+---
 
-**What would this solve/add**
-So that [...]
+## Notes
+- 
+- 
+- 
 
-**Additional context**
-Add any other context or screenshots about the feature request here.
+---
 
-**Acceptance criteria**
+## Acceptance Criteria
 - [ ] 
 - [ ] 
-- [ ]
+- [ ] 
+
+---
+
+## Definition of Done
+
+- [ ] The feature meets all acceptance criteria
+- [ ] The feature works as described in the user story
+- [ ] Code is written according to project conventions
+- [ ] Code is clean, readable, and understandable
+- [ ] Code is committed to GitLab
+- [ ] The feature does not break existing functionality
+- [ ] The feature has been tested locally
+- [ ] Merge request has been created (if applicable)
+- [ ] Code review has been done and feedback is resolved

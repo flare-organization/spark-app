@@ -2,29 +2,27 @@
 name: Epic Template
 about: Describe the epic purpose here.
 title: ''
-labels: enhancement
+labels: ''
 assignees: ''
 type: Epic
 
 ---
 
-**Summary**
-Implementation of [...]
+## Epic
 
-**Details**
-This epic involves developing [...]
+As a [user / stakeholder]  
+I want [big feature / goal]  
+So that [benefit]
 
-**Goals**
-- Enhance speed of API response
-- 
-- 
+---
 
-**Success Criteria**
-- Achieve 30% speed improvement across all endpoints
-- Reduce downtime
-- 
+## Description
+Short explanation of the epic.
 
-**Definition of Done (DoD)**
-- Code is reviewed and approved
-- All unit and integration tests passed
-- Documentation has been updated
+---
+
+## Definition of Done
+
+- [ ] All linked user stories are completed
+- [ ] The epic works as a whole (end-to-end)
+- [ ] No critical bugs remain
