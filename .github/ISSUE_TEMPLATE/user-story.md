@@ -36,8 +36,9 @@ So that [benefit / reason]
 - [ ] The feature works as described in the user story
 - [ ] Code is written according to project conventions
 - [ ] Code is clean, readable, and understandable
-- [ ] Code is committed to GitLab
+- [ ] Code is committed to GitHub
 - [ ] The feature does not break existing functionality
+- [ ] Test has been written for this story
 - [ ] The feature has been tested locally
 - [ ] Merge request has been created (if applicable)
 - [ ] Code review has been done and feedback is resolved
