@@ -1,0 +1,78 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0">
+    <modelVersion>4.0.0</modelVersion>
+    <artifactId>backend</artifactId>
+
+    <parent>
+        <groupId>com.bit-academy.package-manager</groupId>
+        <artifactId>parent</artifactId>
+        <version>1</version>
+    </parent>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <!-- Import dependency management from Spring Boot -->
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-dependencies</artifactId>
+                <version>4.0.6</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+
+        <!-- Swagger -->
+        <dependency>
+            <groupId>io.swagger.core.v3</groupId>
+            <artifactId>swagger-annotations</artifactId>
+            <version>${swagger-annotations.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>jakarta.validation</groupId>
+            <artifactId>jakarta.validation-api</artifactId>
+            <version>${jakarta.version}</version>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+        <plugin>
+            <groupId>org.openapitools</groupId>
+            <artifactId>openapi-generator-maven-plugin</artifactId>
+            <version>${openapi-generator-maven-plugin.version}</version>
+            <executions>
+                <execution>
+                    <id>rest-api</id>
+                    <goals>
+                        <goal>generate</goal>
+                    </goals>
+                    <configuration>
+                        <inputSpec>${basedir}/../rest-api.yml</inputSpec>
+                        <generatorName>spring</generatorName>
+                        <modelPackage>com.bitacademy.packagemanager.generated.api.model</modelPackage>
+                        <apiPackage>com.bitacademy.packagemanager.generated.api</apiPackage>
+                        <generateModels>true</generateModels>
+                        <generateApis>false</generateApis>
+                        <generateSupportingFiles>false</generateSupportingFiles>
+                        <modelNameSuffix>Dto</modelNameSuffix>
+                        <openapiNormalizer>REF_AS_PARENT_IN_ALLOF=true</openapiNormalizer>
+                        <configOptions>
+                            <library>spring-boot</library>
+                            <sourceFolder>src/gen/java/</sourceFolder>
+                            <useBeanValidation>false</useBeanValidation>
+                            <openApiNullable>false</openApiNullable>
+                        </configOptions>
+                    </configuration>
+                </execution>
+            </executions>
+        </plugin>
+        </plugins>
+    </build>
+</project>
