@@ -3,7 +3,7 @@
     <artifactId>frontend</artifactId>
 
     <parent>
-        <groupId>com.teamflare.spark</groupId>
+        <groupId>com.flare.spark</groupId>
         <artifactId>parent</artifactId>
         <version>1</version>
     </parent>

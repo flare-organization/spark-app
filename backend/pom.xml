@@ -3,7 +3,7 @@
     <artifactId>backend</artifactId>
 
     <parent>
-        <groupId>com.teamflare.spark</groupId>
+        <groupId>com.flare.spark</groupId>
         <artifactId>parent</artifactId>
         <version>1</version>
     </parent>
@@ -54,8 +54,8 @@
                     <configuration>
                         <inputSpec>${basedir}/../rest-api.yml</inputSpec>
                         <generatorName>spring</generatorName>
-                        <modelPackage>com.teamflare.spark.generated.api.model</modelPackage>
-                        <apiPackage>com.teamflare.spark.generated.api</apiPackage>
+                        <modelPackage>com.flare.spark.generated.api.model</modelPackage>
+                        <apiPackage>com.flare.spark.generated.api</apiPackage>
                         <generateModels>true</generateModels>
                         <generateApis>false</generateApis>
                         <generateSupportingFiles>false</generateSupportingFiles>

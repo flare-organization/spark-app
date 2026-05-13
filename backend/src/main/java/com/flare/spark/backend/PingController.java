@@ -1,6 +1,6 @@
-package com.teamflare.spark.backend;
+package com.flare.spark.backend;
 
-import com.teamflare.spark.generated.api.model.PingResultDto;
+import com.flare.spark.generated.api.model.PingResultDto;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
