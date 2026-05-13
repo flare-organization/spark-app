@@ -1,0 +1,162 @@
+# =========================================================
+# Flare Package Manager - .gitignore
+# =========================================================
+
+# =========================================================
+# OS files
+# =========================================================
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# =========================================================
+# IDEs / Editors
+# =========================================================
+
+# IntelliJ IDEA
+.idea/
+*.iml
+out/
+
+# VS Code
+.vscode/
+
+# Eclipse
+.project
+.classpath
+.settings/
+
+# NetBeans
+nbproject/
+
+# Vim
+*.swp
+*.swo
+
+# =========================================================
+# Java / Maven
+# =========================================================
+
+# Maven
+target/
+!.mvn/wrapper/maven-wrapper.jar
+
+# Compiled class files
+*.class
+
+# Logs
+*.log
+
+# JVM crash logs
+hs_err_pid*
+replay_pid*
+
+# =========================================================
+# Spring Boot
+# =========================================================
+
+# Application local overrides
+application-local.yml
+application-local.yaml
+application-dev.yml
+application-dev.yaml
+application-secrets.yml
+application-secrets.yaml
+
+# Environment files
+.env
+.env.*
+
+# =========================================================
+# Generated sources
+# =========================================================
+
+# OpenAPI generated backend code
+backend/target/generated-sources/
+
+# OpenAPI generated frontend models
+frontend/src/app/shared/models/api/
+
+# Generated compiled classes
+backend/target/
+
+# =========================================================
+# Frontend / Node future-proofing
+# =========================================================
+
+node_modules/
+dist/
+build/
+coverage/
+
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Vite
+vite.svg
+
+# =========================================================
+# Testing
+# =========================================================
+
+# Test reports
+surefire-reports/
+failsafe-reports/
+
+# JaCoCo
+jacoco.exec
+.jacoco/
+site/jacoco/
+
+# =========================================================
+# Docker
+# =========================================================
+
+# Docker overrides
+docker-compose.override.yml
+
+# Local docker data
+docker-data/
+volumes/
+
+# =========================================================
+# Temporary files
+# =========================================================
+
+tmp/
+temp/
+*.tmp
+
+# =========================================================
+# Archive files
+# =========================================================
+
+*.zip
+*.tar
+*.tar.gz
+*.rar
+
+# =========================================================
+# Database files
+# =========================================================
+
+*.db
+*.sqlite
+*.sqlite3
+
+# =========================================================
+# Secrets / Keys
+# =========================================================
+
+*.pem
+*.key
+*.p12
+*.jks
+
+# =========================================================
+# Misc
+# =========================================================
+
+.cache/
