@@ -1,1 +1,1 @@
-# flare
+# Team Flare — Package Manager

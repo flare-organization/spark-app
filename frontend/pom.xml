@@ -3,7 +3,7 @@
     <artifactId>frontend</artifactId>
 
     <parent>
-        <groupId>com.bit-academy.package-manager</groupId>
+        <groupId>com.bitacademy.hbo.teamflare.packagemanager</groupId>
         <artifactId>parent</artifactId>
         <version>1</version>
     </parent>

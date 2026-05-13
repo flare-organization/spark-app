@@ -1,4 +1,4 @@
-package com.bitacademy.packagemanager.backend;
+package com.bitacademy.hbo.teamflare.packagemanager.backend;
 
 import com.bitacademy.packagemanager.generated.api.model.PingResultDto;
 import org.springframework.web.bind.annotation.GetMapping;
