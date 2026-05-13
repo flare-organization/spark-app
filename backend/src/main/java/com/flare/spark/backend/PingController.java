@@ -1,6 +1,6 @@
-package com.bitacademy.packagemanager.backend;
+package com.flare.spark.backend;
 
-import com.bitacademy.packagemanager.generated.api.model.PingResultDto;
+import com.flare.spark.generated.api.model.PingResultDto;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;

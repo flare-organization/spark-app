@@ -3,7 +3,7 @@
     <artifactId>backend</artifactId>
 
     <parent>
-        <groupId>com.bit-academy.package-manager</groupId>
+        <groupId>com.flare.spark</groupId>
         <artifactId>parent</artifactId>
         <version>1</version>
     </parent>
@@ -11,7 +11,6 @@
     <dependencyManagement>
         <dependencies>
             <dependency>
-                <!-- Import dependency management from Spring Boot -->
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-dependencies</artifactId>
                 <version>4.0.6</version>
@@ -27,7 +26,6 @@
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
 
-        <!-- Swagger -->
         <dependency>
             <groupId>io.swagger.core.v3</groupId>
             <artifactId>swagger-annotations</artifactId>
@@ -56,8 +54,8 @@
                     <configuration>
                         <inputSpec>${basedir}/../rest-api.yml</inputSpec>
                         <generatorName>spring</generatorName>
-                        <modelPackage>com.bitacademy.packagemanager.generated.api.model</modelPackage>
-                        <apiPackage>com.bitacademy.packagemanager.generated.api</apiPackage>
+                        <modelPackage>com.flare.spark.generated.api.model</modelPackage>
+                        <apiPackage>com.flare.spark.generated.api</apiPackage>
                         <generateModels>true</generateModels>
                         <generateApis>false</generateApis>
                         <generateSupportingFiles>false</generateSupportingFiles>
