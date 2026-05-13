@@ -1,6 +1,6 @@
-package com.bitacademy.hbo.teamflare.packagemanager.backend;
+package com.teamflare.spark.backend;
 
-import com.bitacademy.packagemanager.generated.api.model.PingResultDto;
+import com.teamflare.spark.generated.api.model.PingResultDto;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;

@@ -1,4 +1,4 @@
-package com.bitacademy.hbo.teamflare.packagemanager.backend;
+package com.teamflare.spark.backend;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

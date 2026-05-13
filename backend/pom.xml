@@ -3,7 +3,7 @@
     <artifactId>backend</artifactId>
 
     <parent>
-        <groupId>com.bitacademy.hbo.teamflare.packagemanager</groupId>
+        <groupId>com.teamflare.spark</groupId>
         <artifactId>parent</artifactId>
         <version>1</version>
     </parent>
@@ -54,8 +54,8 @@
                     <configuration>
                         <inputSpec>${basedir}/../rest-api.yml</inputSpec>
                         <generatorName>spring</generatorName>
-                        <modelPackage>com.bitacademy.packagemanager.generated.api.model</modelPackage>
-                        <apiPackage>com.bitacademy.packagemanager.generated.api</apiPackage>
+                        <modelPackage>com.teamflare.spark.generated.api.model</modelPackage>
+                        <apiPackage>com.teamflare.spark.generated.api</apiPackage>
                         <generateModels>true</generateModels>
                         <generateApis>false</generateApis>
                         <generateSupportingFiles>false</generateSupportingFiles>
