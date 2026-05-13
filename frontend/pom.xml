@@ -23,7 +23,7 @@
                         <configuration>
                             <inputSpec>${basedir}/../rest-api.yml</inputSpec>
                             <generatorName>typescript-angular</generatorName>
-                            <output>${basedir}/src/app/shared/models/api</output>
+                            <output>flare-app/shared/models/api</output>
                             <generateModels>true</generateModels>
                             <generateApis>false</generateApis>
                             <generateApiTests>false</generateApiTests>
