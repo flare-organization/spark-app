@@ -1,0 +1,28 @@
+services:
+  database_postgres:
+    image: postgres:18
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: ${DB_NAME}
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USER} -d ${DB_NAME}"]
+      interval: 30s
+      timeout: 5s
+      retries: 5
+      start_period: 20s
+    volumes:
+      - postgres_data:/var/lib/postgresql
+    networks:
+      - spark-network
+    env_file:
+      - .env
+
+volumes:
+  postgres_data:
+
+networks:
+  spark-network:
+    driver: bridge

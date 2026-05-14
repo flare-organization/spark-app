@@ -66,6 +66,7 @@ application-secrets.yaml
 # Environment files
 .env
 .env.*
+!.env.example
 
 # =========================================================
 # Generated sources
