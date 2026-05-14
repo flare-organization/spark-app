@@ -1,5 +1,6 @@
 CREATE TABLE users (
     id UUID PRIMARY KEY DEFAULT UUIDV7(),
+    role Roles,
     email TEXT UNIQUE NOT NULL,
     username TEXT UNIQUE NOT NULL,
     password TEXT NOT NULL,
@@ -10,20 +11,7 @@ CREATE TABLE users (
     deleted_at TIMESTAMPTZ
 );
 
-CREATE TABLE roles (
-    id UUID PRIMARY KEY DEFAULT UUIDV7(),
-    name TEXT UNIQUE NOT NULL,
-    created_at TIMESTAMPTZ DEFAULT NOW(),
-    updated_at TIMESTAMPTZ DEFAULT NOW(),
-    deleted_at TIMESTAMPTZ
-);
-
-CREATE TABLE user_roles (
-    user_id UUID REFERENCES users(id),
-    role_id UUID REFERENCES roles(id),
-    created_at TIMESTAMPTZ DEFAULT NOW(),
-    updated_at TIMESTAMPTZ DEFAULT NOW()
-);
+CREATE TYPE roles as ENUM ('Owner', 'Admin', 'Member', 'Guest');
 
 CREATE TABLE organizations (
     id UUID PRIMARY KEY DEFAULT UUIDV7(),
@@ -37,7 +25,7 @@ CREATE TABLE organizations (
 CREATE TABLE organization_invites (
     id UUID PRIMARY KEY DEFAULT UUIDV7(),
     organization_id UUID REFERENCES organizations(id),
-    role_id UUID REFERENCES roles(id),
+    role roles,
     email TEXT,
     created_at TIMESTAMPTZ DEFAULT NOW(),
     updated_at TIMESTAMPTZ DEFAULT NOW()
@@ -68,8 +56,7 @@ CREATE TABLE package_versions (
 CREATE TABLE package_dependencies (
     id UUID PRIMARY KEY DEFAULT UUIDV7(),
     package_version_id UUID REFERENCES package_versions(id),
-    dependency_package_id UUID REFERENCES package_dependencies(id),
-    version_constraint TEXT,
+    version_constraint VERSION_CONSTRAINT NOT NULL,
     created_at TIMESTAMPTZ DEFAULT NOW(),
     updated_at TIMESTAMPTZ DEFAULT NOW(),
     deleted_at TIMESTAMPTZ
@@ -153,16 +140,6 @@ CREATE TRIGGER users_set_updated_at
     FOR EACH ROW
 EXECUTE FUNCTION set_current_timestamp_updated_at();
 
-CREATE TRIGGER roles_set_updated_at
-    BEFORE UPDATE ON roles
-    FOR EACH ROW
-EXECUTE FUNCTION set_current_timestamp_updated_at();
-
-CREATE TRIGGER roles_set_updated_at
-    BEFORE UPDATE ON roles
-    FOR EACH ROW
-EXECUTE FUNCTION set_current_timestamp_updated_at();
-
 CREATE TRIGGER packages
     BEFORE UPDATE ON packages
     FOR EACH ROW
@@ -177,3 +154,8 @@ CREATE TRIGGER package_dependencies
     BEFORE UPDATE ON package_dependencies
     FOR EACH ROW
 EXECUTE FUNCTION set_current_timestamp_updated_at();
+
+--- domains
+CREATE DOMAIN VERSION_CONSTRAINT TEXT CHECK (
+    VALUE ~ '^(\^|~|>=|<=|>|<|=)?\d+(\.\d+){0,2}(,\s*(\^|~|>=|<=|>|<|=)?\d+(\.\d+){0,2})*$'
+)
