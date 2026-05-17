@@ -1,4 +1,4 @@
-CREATE TYPE roles as ENUM ('owner', 'admin', 'member', );
+CREATE TYPE roles as ENUM ('owner', 'admin', 'member');
 
 CREATE DOMAIN version_constraint AS TEXT CHECK (
     VALUE ~ '^(\^|~|>=|<=|>|<|=)?\d+(\.\d+){0,2}(,\s*(\^|~|>=|<=|>|<|=)?\d+(\.\d+){0,2})*$'
@@ -94,7 +94,7 @@ CREATE TABLE package_versions (
     created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
     updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
     deleted_at TIMESTAMPTZ,
-    PRIMARY KEY (package_id, version)
+    UNIQUE (package_id, version)
 );
 
 CREATE TABLE package_version_downloads (
