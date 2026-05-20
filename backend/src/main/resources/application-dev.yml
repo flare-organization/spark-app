@@ -1,0 +1,13 @@
+spring:
+  docker:
+    compose:
+      lifecycle-management: start_only
+  datasource:
+    url: jdbc:postgresql://localhost:5432/${DB_NAME}
+    username: ${DB_USER}
+    password: ${DB_PASSWORD}
+
+logging:
+  level:
+    root: INFO
+    com.flare.spark: DEBUG

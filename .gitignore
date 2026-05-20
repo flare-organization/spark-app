@@ -58,8 +58,6 @@ replay_pid*
 # Application local overrides
 application-local.yml
 application-local.yaml
-application-dev.yml
-application-dev.yaml
 application-secrets.yml
 application-secrets.yaml
 
