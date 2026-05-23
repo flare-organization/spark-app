@@ -56,36 +56,36 @@
 
     <build>
         <plugins>
-        <plugin>
-            <groupId>org.openapitools</groupId>
-            <artifactId>openapi-generator-maven-plugin</artifactId>
-            <version>${openapi-generator-maven-plugin.version}</version>
-            <executions>
-                <execution>
-                    <id>rest-api</id>
-                    <goals>
-                        <goal>generate</goal>
-                    </goals>
-                    <configuration>
-                        <inputSpec>${basedir}/../rest-api.yml</inputSpec>
-                        <generatorName>spring</generatorName>
-                        <modelPackage>com.flare.spark.generated.api.model</modelPackage>
-                        <apiPackage>com.flare.spark.generated.api</apiPackage>
-                        <generateModels>true</generateModels>
-                        <generateApis>false</generateApis>
-                        <generateSupportingFiles>false</generateSupportingFiles>
-                        <modelNameSuffix>Dto</modelNameSuffix>
-                        <openapiNormalizer>REF_AS_PARENT_IN_ALLOF=true</openapiNormalizer>
-                        <configOptions>
-                            <library>spring-boot</library>
-                            <sourceFolder>src/gen/java/</sourceFolder>
-                            <useBeanValidation>false</useBeanValidation>
-                            <openApiNullable>false</openApiNullable>
-                        </configOptions>
-                    </configuration>
-                </execution>
-            </executions>
-        </plugin>
+            <plugin>
+                <groupId>org.openapitools</groupId>
+                <artifactId>openapi-generator-maven-plugin</artifactId>
+                <version>${openapi-generator-maven-plugin.version}</version>
+                <executions>
+                    <execution>
+                        <id>rest-api</id>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                        <configuration>
+                            <inputSpec>${basedir}/../rest-api.yml</inputSpec>
+                            <generatorName>spring</generatorName>
+                            <modelPackage>com.flare.spark.generated.api.model</modelPackage>
+                            <apiPackage>com.flare.spark.generated.api</apiPackage>
+                            <generateModels>true</generateModels>
+                            <generateApis>false</generateApis>
+                            <generateSupportingFiles>false</generateSupportingFiles>
+                            <modelNameSuffix>Dto</modelNameSuffix>
+                            <openapiNormalizer>REF_AS_PARENT_IN_ALLOF=true</openapiNormalizer>
+                            <configOptions>
+                                <library>spring-boot</library>
+                                <sourceFolder>src/gen/java/</sourceFolder>
+                                <useBeanValidation>false</useBeanValidation>
+                                <openApiNullable>false</openApiNullable>
+                            </configOptions>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
     </build>
 </project>
