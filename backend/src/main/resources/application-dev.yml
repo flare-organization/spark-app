@@ -2,10 +2,16 @@ spring:
   docker:
     compose:
       lifecycle-management: start_only
+
   datasource:
     url: jdbc:postgresql://localhost:5432/${DB_NAME}
     username: ${DB_USER}
     password: ${DB_PASSWORD}
+
+  flyway:
+    enabled: true
+    validate-on-migrate: true
+    validate-migration-naming: true
 
 logging:
   level:
