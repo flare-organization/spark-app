@@ -19,12 +19,6 @@ public class BundleController {
 
     @GetMapping
     public List<BundleDto> getAllBundles() {
-        return bundleService.getAllBundles()
-                .stream()
-                .map(b -> new BundleDto()
-                        .id(b.getId())
-                        .name(b.getName())
-                        .slug(b.getSlug()))
-                .toList();
+        return bundleService.getAllBundles();
     }
 }

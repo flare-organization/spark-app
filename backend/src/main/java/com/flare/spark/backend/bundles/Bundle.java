@@ -7,6 +7,12 @@ import java.util.UUID;
 @Table(name = "bundles")
 public class Bundle {
 
+    public Bundle (UUID id, String name, String slug) {
+        this.id = id;
+        this.name = name;
+        this.slug = slug;
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
