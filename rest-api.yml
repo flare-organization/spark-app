@@ -1,32 +1,35 @@
 openapi: 3.0.0
 info:
-  title: Spark Package API
+  title: Spark Bundle API
   version: 0.0.1
 
 paths:
-  /api/v1/packages:
+  /api/v1/bundles:
     get:
-      summary: Get all packages
+      summary: Get all bundles
       responses:
         '200':
-          description: List of packages
+          description: List of bundles
           content:
             application/json:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/PackageDto'
+                  $ref: '#/components/schemas/Bundle'
 
 components:
   schemas:
-    PackageDto:
+    Bundle:
       type: object
       required:
         - id
         - name
+        - slug
       properties:
         id:
-          type: integer
-          format: int64
+          type: string
+          format: uuid
         name:
+          type: string
+        slug:
           type: string
