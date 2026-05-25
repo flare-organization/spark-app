@@ -65,6 +65,10 @@
             <artifactId>flyway-database-postgresql</artifactId>
             <version>12.6.2</version>
         </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
     </dependencies>
 
     <build>
@@ -91,7 +95,6 @@
                             <openapiNormalizer>REF_AS_PARENT_IN_ALLOF=true</openapiNormalizer>
                             <configOptions>
                                 <library>spring-boot</library>
-                                <sourceFolder>src/gen/java/</sourceFolder>
                                 <useBeanValidation>false</useBeanValidation>
                                 <openApiNullable>false</openApiNullable>
                             </configOptions>

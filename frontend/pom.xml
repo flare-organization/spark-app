@@ -23,7 +23,6 @@
                         <configuration>
                             <inputSpec>${basedir}/../rest-api.yml</inputSpec>
                             <generatorName>typescript-angular</generatorName>
-                            <output>spark-app/src/shared/models/api</output>
                             <generateModels>true</generateModels>
                             <generateApis>false</generateApis>
                             <generateApiTests>false</generateApiTests>

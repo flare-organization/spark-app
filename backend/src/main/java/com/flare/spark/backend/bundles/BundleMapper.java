@@ -7,9 +7,10 @@ import org.springframework.stereotype.Component;
 public class BundleMapper {
     public BundleDto toDto(Bundle bundle) {
         return new BundleDto(
-                bundle.getId(),
-                bundle.getName(),
-                bundle.getSlug()
+            bundle.getId(),
+            bundle.getName(),
+            bundle.getSlug(),
+            bundle.getReadme()
         );
     }
 }
