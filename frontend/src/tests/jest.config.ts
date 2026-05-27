@@ -1,10 +1,16 @@
 // rootDir is relative to this config file, so '../..' points back at the
 // frontend project root. All <rootDir>/... paths below resolve from there.
-/** @type {import('jest').Config} */
-module.exports = {
+import { TextEncoder, TextDecoder } from 'node:util';
+import type { Config } from 'jest';
+
+const config: Config = {
   rootDir: '../..',
   testEnvironment: 'jsdom',
-  setupFilesAfterEnv: ['<rootDir>/src/tests/setup.ts'],
+  setupFilesAfterEnv: ['@testing-library/jest-dom'],
+  globals: {
+    TextEncoder,
+    TextDecoder,
+  },
   transform: {
     '^.+\\.tsx?$': [
       'ts-jest',
@@ -24,3 +30,5 @@ module.exports = {
     '\\.(css|less|scss|sass)$': 'identity-obj-proxy',
   },
 };
+
+export default config;
