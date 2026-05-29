@@ -8,6 +8,7 @@ export default defineConfig({
   resolve: {
     alias: {
       '@': path.resolve(__dirname, './src'),
+      '@openapi': path.resolve(__dirname, './target/generated-sources/openapi'),
     },
   },
   server: {

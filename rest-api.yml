@@ -34,7 +34,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/CreateBundle'
+              $ref: '#/components/schemas/CreateBundleRequest'
       responses:
         200:
           description: Returns the generated Bundle
@@ -63,7 +63,7 @@ components:
         readme:
           type: string
 
-    CreateBundle:
+    CreateBundleRequest:
       type: object
       required:
         - name

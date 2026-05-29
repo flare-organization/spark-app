@@ -11,17 +11,3 @@ CREATE TABLE bundles (
     updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
     deleted_at TIMESTAMPTZ
 );
-
-CREATE FUNCTION set_current_timestamp_updated_at()
-    RETURNS TRIGGER AS
-$$
-BEGIN
-    NEW.updated_at := NOW();
-    RETURN NEW;
-END;
-$$ LANGUAGE plpgsql;
-
-CREATE TRIGGER bundles_set_updated_at
-    BEFORE UPDATE ON bundles
-    FOR EACH ROW
-EXECUTE FUNCTION set_current_timestamp_updated_at();

@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { createBundle } from '@/services/bundleService'
+import type {CreateBundleRequest} from "@openapi/model/createBundleRequest.ts";
 
 export default function BundlesCreatePage() {
   const navigate = useNavigate()
@@ -16,8 +17,15 @@ export default function BundlesCreatePage() {
     if (!name.trim()) return
     setLoading(true)
     setError(null)
+
+    const request: CreateBundleRequest = {
+      name: name.trim(),
+      readme: "",
+      slug: Math.random().toString(36).substring(2, 10) + Math.random().toString(36).substring(2, 10) // <--random slug for testing purposes :)
+    }
+
     try {
-      await createBundle(name.trim())
+      await createBundle(request)
       navigate('/bundles')
     } catch {
       setError('Failed to create bundle')
