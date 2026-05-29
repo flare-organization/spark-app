@@ -6,9 +6,9 @@ type Options = Omit<RenderOptions, 'wrapper'> & {
   routerProps?: MemoryRouterProps
 }
 
-export function renderWithRouter(ui: ReactElement, options: Options = {}) {
+export function renderWithRouter(component: ReactElement, options: Options = {}) {
   const { routerProps, ...rest } = options
-  return render(ui, {
+  return render(component, {
     wrapper: ({ children }) => <MemoryRouter {...routerProps}>{children}</MemoryRouter>,
     ...rest,
   })
