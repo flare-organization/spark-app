@@ -38,10 +38,10 @@ jobs:
 
       - name: Run Maven tests
         working-directory: backend
-        run: mvn test
+        run: mvn verify
 
       - name: Upload coverage report
         uses: actions/upload-artifact@v7
         with:
           name: backend-coverage
-          path: target/site/jacoco
+          path: backend/target/site/jacoco
