@@ -4,11 +4,16 @@ import AboutPage from './pages/AboutPage'
 import ComponentsPage from './pages/ComponentsPage'
 import BundlesPage from './pages/BundlesPage'
 import BundlesCreatePage from './pages/BundlesCreatePage'
+import LoginPage from '@/pages/LoginPage.tsx'
 
 export const router = createBrowserRouter([
     {
         path: '/',
         element: <HomePage />,
+    },
+    {
+        path: '/login',
+        element: <LoginPage />,
     },
     {
         path: '/about',
