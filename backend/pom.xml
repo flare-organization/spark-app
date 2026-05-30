@@ -129,6 +129,9 @@
                 <configuration>
                     <output>file</output>
                     <append>true</append>
+                    <excludes>
+                        <exclude>com/flare/spark/generated/**</exclude>
+                    </excludes>
                 </configuration>
                 <executions>
                     <execution>
