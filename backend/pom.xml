@@ -8,6 +8,10 @@
         <version>1</version>
     </parent>
 
+    <properties>
+        <mockito.version>5.20.0</mockito.version>
+    </properties>
+
     <dependencyManagement>
         <dependencies>
             <dependency>
@@ -104,6 +108,17 @@
                         </configuration>
                     </execution>
                 </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>3.5.3</version>
+
+                <configuration>
+                    <argLine>
+                        -javaagent:${settings.localRepository}/org/mockito/mockito-core/${mockito.version}/mockito-core-${mockito.version}.jar
+                    </argLine>
+                </configuration>
             </plugin>
         </plugins>
     </build>

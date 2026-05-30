@@ -9,10 +9,9 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+// This file is a showcase and always (both) true test
 @ExtendWith(MockitoExtension.class)
 class MockitoSetupTest {
-
-    // This file is a showcase and always (both) true test
 
     interface StringHolder {
         String hold(String name);
