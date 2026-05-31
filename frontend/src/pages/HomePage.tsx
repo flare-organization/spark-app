@@ -1,6 +1,6 @@
-import { Link } from 'react-router-dom'
-import { useTheme } from '@/hooks/use-theme'
-import { Button } from '@/components/ui/button'
+import { Link } from "react-router-dom"
+import { useTheme } from "@/hooks/use-theme"
+import { Button } from "@/components/ui/button"
 
 export default function HomePage() {
   const { theme, setTheme } = useTheme()
@@ -15,15 +15,15 @@ export default function HomePage() {
         <span className="text-sm text-muted-foreground">Theme</span>
         <Button
           size="sm"
-          variant={theme === 'latte' ? 'default' : 'outline'}
-          onClick={() => setTheme('latte')}
+          variant={theme === "latte" ? "default" : "outline"}
+          onClick={() => setTheme("latte")}
         >
           Latte
         </Button>
         <Button
           size="sm"
-          variant={theme === 'mocha' ? 'default' : 'outline'}
-          onClick={() => setTheme('mocha')}
+          variant={theme === "mocha" ? "default" : "outline"}
+          onClick={() => setTheme("mocha")}
         >
           Mocha
         </Button>
