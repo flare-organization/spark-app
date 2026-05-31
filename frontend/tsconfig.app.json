@@ -22,10 +22,10 @@
     "noFallthroughCasesInSwitch": true,
 
     /* Path aliases */
-    "baseUrl": ".",
     "paths": {
-      "@/*": ["./src/*"]
+      "@/*": ["./src/*"],
+      "@openapi/*": ["./target/generated-sources/openapi/*"]
     }
   },
-  "include": ["src"]
+  "include": ["src"],
 }

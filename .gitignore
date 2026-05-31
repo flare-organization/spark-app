@@ -74,7 +74,7 @@ application-secrets.yaml
 backend/target/generated-sources/
 
 # OpenAPI generated frontend models
-frontend/src/app/shared/models/api/
+frontend/src/shared/models/api/
 
 # Generated compiled classes
 backend/target/
@@ -87,6 +87,9 @@ node_modules/
 dist/
 build/
 coverage/
+
+# frontend-maven-plugin downloads node here
+frontend/node/
 
 npm-debug.log*
 yarn-debug.log*
