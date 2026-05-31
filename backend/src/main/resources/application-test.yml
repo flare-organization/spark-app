@@ -1,0 +1,8 @@
+cors:
+  allowed-origin: http://localhost:3000
+
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/spark-db-name
+    username: spark-db-user-name
+    password: spark-db-password
