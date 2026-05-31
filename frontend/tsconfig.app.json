@@ -24,11 +24,8 @@
     /* Path aliases */
     "baseUrl": ".",
     "paths": {
-      "@/*": ["./src/*"]
+      "@/*": ["./src/*"],
     }
   },
-  "include": [
-    "src",
-    "node_modules/@types/jest/index.d.ts"
-  ]
+  "include": ["src"],
 }
