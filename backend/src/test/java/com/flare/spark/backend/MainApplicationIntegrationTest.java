@@ -4,7 +4,7 @@ import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-class MainApplicationTest extends IntegrationTest {
+class MainApplicationIntegrationTest extends IntegrationTest {
 
     @BeforeAll
     static void beforeAll() {
