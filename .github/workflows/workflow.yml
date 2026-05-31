@@ -40,11 +40,3 @@ jobs:
       - name: Run Maven tests
         working-directory: backend
         run: mvn verify
-
-      - name: Show backend files
-        working-directory: backend
-        run: ls -R
-
-      - name: Show tests
-        working-directory: backend
-        run: find src/test/java -type f
