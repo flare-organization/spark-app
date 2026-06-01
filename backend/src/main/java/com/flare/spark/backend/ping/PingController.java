@@ -16,8 +16,6 @@ class PingController {
             RequestMethod.PUT,
             RequestMethod.PATCH,
             RequestMethod.DELETE,
-            RequestMethod.OPTIONS,
-            RequestMethod.HEAD,
         }
     )
     public ResponseEntity<Void> ping() {

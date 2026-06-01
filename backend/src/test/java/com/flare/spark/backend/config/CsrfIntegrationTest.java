@@ -10,7 +10,12 @@ import org.springframework.web.context.WebApplicationContext;
 
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.head;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.patch;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 class CsrfIntegrationTest extends IntegrationTest {
@@ -32,13 +37,6 @@ class CsrfIntegrationTest extends IntegrationTest {
     public void testCsrfProtectionIsDisabledOnGetRoute() throws Exception {
         mvc.perform(
             get("/api/v1/ping")
-        ).andExpect(status().isNoContent());
-    }
-
-    @Test
-    public void testCsrfProtectionIsDisabledOnOptionsRoute() throws Exception {
-        mvc.perform(
-            options("/api/v1/ping")
         ).andExpect(status().isNoContent());
     }
 

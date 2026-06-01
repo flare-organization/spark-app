@@ -1,5 +1,5 @@
 cors:
-  allowed-origin: http://localhost:3000
+  allowed-origin: http://localhost:5173
 
 spring:
   datasource:
