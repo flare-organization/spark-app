@@ -28,5 +28,5 @@
       "@openapi/*": ["./target/generated-sources/openapi/*"],
     }
   },
-  "include": ["src"]
+  "include": ["src"],
 }
