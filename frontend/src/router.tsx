@@ -4,6 +4,7 @@ import AboutPage from "./pages/AboutPage"
 import ComponentsPage from "./pages/ComponentsPage"
 import BundlesPage from "./pages/BundlesPage"
 import BundlesCreatePage from "./pages/BundlesCreatePage"
+import UploadPage from "./pages/UploadPage"
 
 export const router = createBrowserRouter([
   {
@@ -25,5 +26,9 @@ export const router = createBrowserRouter([
   {
     path: "/bundles/create",
     element: <BundlesCreatePage />,
+  },
+  {
+    path: "/upload",
+    element: <UploadPage />,
   },
 ])
