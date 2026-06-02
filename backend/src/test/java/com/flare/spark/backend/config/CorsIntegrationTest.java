@@ -62,7 +62,7 @@ class CorsIntegrationTest extends IntegrationTest {
                 .header("Access-Control-Request-Method", "GET")
             )
             .andExpect(status().isOk())
-            .andExpect(header().string("Access-Control-Allow-Methods", "GET,POST,PUT,PATCH,DELETE"));
+            .andExpect(header().string("Access-Control-Allow-Methods", "GET,POST,PUT,PATCH,DELETE,OPTIONS"));
     }
 
     @Test
