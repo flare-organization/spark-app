@@ -9,7 +9,7 @@ export async function getBundles(): Promise<Bundle[]> {
 }
 
 export async function createBundle(bundleRequest: CreateBundleRequest): Promise<Bundle> {
-    const res = await http.post<Bundle>('/api/v1/bundles/create', bundleRequest);
+    const res = await http.post<Bundle>('/api/v1/bundles', bundleRequest);
 
     return res.data
 }

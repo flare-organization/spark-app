@@ -22,8 +22,6 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Bundle'
-
-  /api/v1/bundles/create:
     post:
       tags:
         - Bundles
@@ -34,7 +32,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/CreateBundleRequest'
+              $ref: '#/components/schemas/CreateBundle'
       responses:
         200:
           description: Returns the generated Bundle
@@ -63,7 +61,7 @@ components:
         readme:
           type: string
 
-    CreateBundleRequest:
+    CreateBundle:
       type: object
       required:
         - name
