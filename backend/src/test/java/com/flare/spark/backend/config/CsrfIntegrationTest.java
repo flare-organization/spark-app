@@ -2,8 +2,12 @@ package com.flare.spark.backend.config;
 
 import com.flare.spark.backend.IntegrationTest;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.MethodOrderer;
+import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestMethodOrder;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
@@ -12,13 +16,14 @@ import static org.springframework.security.test.web.servlet.request.SecurityMock
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.head;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.patch;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.cookie;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+@TestMethodOrder(value = MethodOrderer.OrderAnnotation.class)
+@DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_CLASS)
 class CsrfIntegrationTest extends IntegrationTest {
 
     @Autowired
@@ -32,6 +37,14 @@ class CsrfIntegrationTest extends IntegrationTest {
                 .webAppContextSetup(context)
                 .apply(springSecurity())
                 .build();
+    }
+
+    @Test
+    @Order(1) // We set the order to 1, because we need a fresh application context
+    public void testCsrfCookieIsSetOnGetRequest() throws Exception {
+        mvc.perform(
+                get("/api/v1/ping")
+        ).andExpect(cookie().exists("XSRF-TOKEN"));
     }
 
     @Test
@@ -95,12 +108,5 @@ class CsrfIntegrationTest extends IntegrationTest {
         mvc.perform(
             patch("/api/v1/bundles").with(csrf().useInvalidToken())
         ).andExpect(status().isForbidden());
-    }
-
-    @Test
-    public void testCsrfCookieIsSetOnGetRequest() throws Exception {
-        mvc.perform(
-                get("/api/v1/bundles")
-        ).andExpect(cookie().exists("XSRF-TOKEN"));
     }
 }
