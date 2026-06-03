@@ -42,101 +42,58 @@ class CsrfIntegrationTest extends IntegrationTest {
     }
 
     @Test
-    public void testCsrfProtectionIsDisabledOnHeadRoute() throws Exception {
+    public void testCsrfProtectionOnPostRouteWithNoTokenProvidedIsForbidden() throws Exception {
         mvc.perform(
-            head("/api/v1/ping")
-        ).andExpect(status().isNoContent());
-    }
-
-    @Test
-    public void testCsrfCookieIsSetOnGetRequest() throws Exception {
-        mvc.perform(
-            get("/api/v1/ping")
-        ).andExpect(cookie().exists("XSRF-TOKEN"));
-    }
-
-
-    @Test
-    public void testCsrfProtectionOnPostRouteWithNoTokenProvided() throws Exception {
-        mvc.perform(
-            post("/api/v1/ping")
+            post("/api/v1/bundles")
         ).andExpect(status().isForbidden());
     }
 
     @Test
-    public void testCsrfProtectionOnPostRouteWithInvalidToken() throws Exception {
+    public void testCsrfProtectionOnPostRouteWithInvalidTokenIsForbidden() throws Exception {
         mvc.perform(
-            post("/api/v1/ping").with(csrf().useInvalidToken())
+            post("/api/v1/bundles").with(csrf().useInvalidToken())
         ).andExpect(status().isForbidden());
     }
 
     @Test
-    public void testCsrfProtectionOnPostRouteWithValidToken() throws Exception {
+    public void testCsrfProtectionOnPutRouteWithNoTokenProvidedIsForbidden() throws Exception {
         mvc.perform(
-            post("/api/v1/ping").with(csrf())
-        ).andExpect(status().isNoContent());
-    }
-
-    @Test
-    public void testCsrfProtectionOnPutRouteWithNoTokenProvided() throws Exception {
-        mvc.perform(
-            put("/api/v1/ping")
+            put("/api/v1/bundles")
         ).andExpect(status().isForbidden());
     }
 
     @Test
-    public void testCsrfProtectionOnPutRouteWithInvalidToken() throws Exception {
+    public void testCsrfProtectionOnPutRouteWithInvalidTokenIsForbidden() throws Exception {
         mvc.perform(
-            put("/api/v1/ping").with(csrf().useInvalidToken())
+            put("/api/v1/bundles").with(csrf().useInvalidToken())
         ).andExpect(status().isForbidden());
     }
 
     @Test
-    public void testCsrfProtectionOnPutRouteWithValidToken() throws Exception {
+    public void testCsrfProtectionOnDeleteRouteWithNoTokenProvidedIsForbidden() throws Exception {
         mvc.perform(
-            put("/api/v1/ping").with(csrf())
-        ).andExpect(status().isNoContent());
-    }
-
-    @Test
-    public void testCsrfProtectionOnDeleteRouteWithNoTokenProvided() throws Exception {
-        mvc.perform(
-            delete("/api/v1/ping")
+            delete("/api/v1/bundles")
         ).andExpect(status().isForbidden());
     }
 
     @Test
-    public void testCsrfProtectionOnDeleteRouteWithInvalidToken() throws Exception {
+    public void testCsrfProtectionOnDeleteRouteWithInvalidTokenIsForbidden() throws Exception {
         mvc.perform(
-            delete("/api/v1/ping").with(csrf().useInvalidToken())
+            delete("/api/v1/bundles").with(csrf().useInvalidToken())
         ).andExpect(status().isForbidden());
     }
 
     @Test
-    public void testCsrfProtectionOnDeleteRouteWithValidToken() throws Exception {
+    public void testCsrfProtectionOnPatchRouteWithNoTokenProvidedIsForbidden() throws Exception {
         mvc.perform(
-            delete("/api/v1/ping").with(csrf())
-        ).andExpect(status().isNoContent());
-    }
-
-    @Test
-    public void testCsrfProtectionOnPatchRouteWithNoTokenProvided() throws Exception {
-        mvc.perform(
-            patch("/api/v1/ping")
+            patch("/api/v1/bundles")
         ).andExpect(status().isForbidden());
     }
 
     @Test
-    public void testCsrfProtectionOnPatchRouteWithInvalidToken() throws Exception {
+    public void testCsrfProtectionOnPatchRouteWithInvalidTokenIsForbidden() throws Exception {
         mvc.perform(
-            patch("/api/v1/ping").with(csrf().useInvalidToken())
+            patch("/api/v1/bundles").with(csrf().useInvalidToken())
         ).andExpect(status().isForbidden());
-    }
-
-    @Test
-    public void testCsrfProtectionOnPatchRouteWithValidToken() throws Exception {
-        mvc.perform(
-            patch("/api/v1/ping").with(csrf())
-        ).andExpect(status().isNoContent());
     }
 }

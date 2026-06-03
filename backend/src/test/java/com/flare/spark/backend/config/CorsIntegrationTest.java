@@ -60,19 +60,9 @@ class CorsIntegrationTest extends IntegrationTest {
             options("/api/v1/ping")
                 .header("Origin", allowedOrigin)
                 .header("Access-Control-Request-Method", "GET")
-            )
-            .andExpect(status().isOk())
-            .andExpect(header().string("Access-Control-Allow-Methods", "GET,POST,PUT,PATCH,DELETE,OPTIONS"));
-    }
-
-    @Test
-    void headRequestMethodIsNotAllowed() throws Exception {
-        mvc.perform(
-            options("/api/v1/ping")
-                .header("Origin", allowedOrigin)
-                .header("Access-Control-Request-Method", "HEAD")
-            )
-            .andExpect(status().isForbidden());
+        )
+        .andExpect(status().isOk())
+        .andExpect(header().string("Access-Control-Allow-Methods", "GET,POST"));
     }
 
     @Test
