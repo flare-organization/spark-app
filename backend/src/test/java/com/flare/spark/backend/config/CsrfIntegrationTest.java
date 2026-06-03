@@ -96,4 +96,11 @@ class CsrfIntegrationTest extends IntegrationTest {
             patch("/api/v1/bundles").with(csrf().useInvalidToken())
         ).andExpect(status().isForbidden());
     }
+
+    @Test
+    public void testCsrfCookieIsSetOnGetRequest() throws Exception {
+        mvc.perform(
+                get("/api/v1/bundles")
+        ).andExpect(cookie().exists("XSRF-TOKEN"));
+    }
 }
