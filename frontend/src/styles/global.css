@@ -53,8 +53,7 @@
     --radius-4xl: calc(var(--radius) * 2.6);
 }
 
-/* ─── Catppuccin Latte (light) ─────────────────────────────────────────── */
-/* accent-h=49 orange/amber, accent-c=0.16, accent-l=0.65 for latte         */
+/* Catppuccin Latte */
 :root {
     --background: oklch(0.9583 0.009 258);
     --foreground: oklch(0.352 0.0274 263);
@@ -62,7 +61,6 @@
     --card-foreground: oklch(0.352 0.0274 263);
     --popover: oklch(0.9583 0.009 258);
     --popover-foreground: oklch(0.352 0.0274 263);
-    /* orange/amber primary — matches styles.css accent-h:49 */
     --primary: oklch(0.65 0.16 49);
     --primary-foreground: oklch(0.99 0.002 49);
     --primary-hover: oklch(0.53 0.16 49);
@@ -94,8 +92,7 @@
     --sidebar-ring: oklch(0.65 0.16 49);
 }
 
-/* ─── Catppuccin Mocha (dark) ──────────────────────────────────────────── */
-/* accent-l=0.81 gives bright golden-orange against dark bg                  */
+/* Catppuccin Mocha */
 .mocha {
     --background: oklch(0.1438 0.0243 264);
     --foreground: oklch(0.8624 0.0536 255);
@@ -103,7 +100,6 @@
     --card-foreground: oklch(0.8624 0.0536 255);
     --popover: oklch(0.1438 0.0243 264);
     --popover-foreground: oklch(0.8624 0.0536 255);
-    /* bright golden-orange for dark mode */
     --primary: oklch(0.81 0.16 49);
     --primary-foreground: oklch(0.1438 0.0243 264);
     --primary-hover: oklch(0.69 0.16 49);
@@ -168,14 +164,12 @@
   --density-row-h: 52px;
 }
 
-/* Pulse dot animation — components set --pulse-color to control the ring */
 @keyframes pulse-ring {
   0%   { box-shadow: 0 0 0 0 color-mix(in oklab, var(--pulse-color, var(--color-success)) 60%, transparent); }
   70%  { box-shadow: 0 0 0 6px transparent; }
   100% { box-shadow: 0 0 0 0 transparent; }
 }
 
-/* Syntax highlight tokens */
 @layer utilities {
   .hl-kw      { color: var(--color-primary); }
   .hl-str     { color: var(--color-success); }
