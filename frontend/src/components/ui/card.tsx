@@ -17,15 +17,11 @@ function Card({
       data-size={size}
       data-variant={variant}
       className={cn(
-        /* shared base */
         "group/card flex flex-col gap-4 overflow-hidden rounded-xl py-4 text-sm text-card-foreground transition-all has-data-[slot=card-footer]:pb-0 has-[>img:first-child]:pt-0 data-[size=sm]:gap-3 data-[size=sm]:py-3 data-[size=sm]:has-data-[slot=card-footer]:pb-0 *:[img:first-child]:rounded-t-xl *:[img:last-child]:rounded-b-xl",
-        /* default — card bg (mantle), crisp border, hover → orange accent border */
         variant === "default" &&
           "bg-card border border-border hover:border-primary/60",
-        /* elevated — muted bg, hover lifts + strong shadow */
         variant === "elevated" &&
           "bg-muted border border-border hover:-translate-y-0.5 hover:shadow-[0_8px_24px_rgba(0,0,0,0.18)] dark:hover:shadow-[0_8px_24px_rgba(0,0,0,0.45)] hover:border-border",
-        /* flat — no bg or border, hover reveals card surface */
         variant === "flat" &&
           "bg-transparent border border-transparent hover:bg-card hover:border-border",
         className
