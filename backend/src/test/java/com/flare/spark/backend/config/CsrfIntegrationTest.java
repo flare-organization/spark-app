@@ -16,6 +16,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.patch;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.cookie;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 class CsrfIntegrationTest extends IntegrationTest {
@@ -46,6 +47,14 @@ class CsrfIntegrationTest extends IntegrationTest {
             head("/api/v1/ping")
         ).andExpect(status().isNoContent());
     }
+
+    @Test
+    public void testCsrfCookieIsSetOnGetRequest() throws Exception {
+        mvc.perform(
+            get("/api/v1/ping")
+        ).andExpect(cookie().exists("XSRF-TOKEN"));
+    }
+
 
     @Test
     public void testCsrfProtectionOnPostRouteWithNoTokenProvided() throws Exception {
