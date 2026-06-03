@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { MoonIcon, SunIcon, InfoIcon, AlertTriangleIcon, BellIcon, UserIcon } from 'lucide-react'
+import { MoonIcon, SunIcon, InfoIcon, AlertTriangleIcon, BellIcon, UserIcon, TagIcon, CheckCircleIcon, TrendingUpIcon } from 'lucide-react'
 import { useTheme } from '@/hooks/use-theme'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
@@ -12,11 +12,13 @@ import { Select, SelectTrigger, SelectValue, SelectContent, SelectGroup, SelectL
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs'
 import { Alert, AlertTitle, AlertDescription } from '@/components/ui/alert'
 import { Progress } from '@/components/ui/progress'
-import { Avatar, AvatarImage, AvatarFallback, AvatarGroup, AvatarGroupCount } from '@/components/ui/avatar'
+import { Avatar, AvatarImage, AvatarFallback, AvatarGroup, AvatarGroupCount, AvatarBadge } from '@/components/ui/avatar'
 import { Skeleton } from '@/components/ui/skeleton'
 import { Spinner } from '@/components/ui/spinner'
 import { Separator } from '@/components/ui/separator'
 import { Label } from '@/components/ui/label'
+import { Kbd, KbdGroup } from '@/components/ui/kbd'
+import { PulseDot } from '@/components/ui/pulse-dot'
 
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
   return (
@@ -57,8 +59,8 @@ export default function ComponentsPage() {
             <p className="text-sm text-muted-foreground">All UI components in one place</p>
           </div>
           <div className="flex items-center gap-2">
+            <Badge variant="version">v0.1.0</Badge>
             <Badge variant="outline">{theme === 'latte' ? 'Latte' : 'Mocha'}</Badge>
-            <Badge variant="secondary">{Object.keys(import.meta.env).length > 0 ? 'Dev' : 'Prod'}</Badge>
           </div>
         </div>
       </header>
@@ -95,37 +97,63 @@ export default function ComponentsPage() {
 
         {/* Badges */}
         <Section title="Badges">
-          <DemoCard label="Variants">
+          <DemoCard label="Base variants">
             <Badge variant="default">Default</Badge>
             <Badge variant="secondary">Secondary</Badge>
             <Badge variant="outline">Outline</Badge>
             <Badge variant="destructive">Destructive</Badge>
             <Badge variant="ghost">Ghost</Badge>
           </DemoCard>
+          <DemoCard label="Semantic variants">
+            <Badge variant="version">v1.4.2</Badge>
+            <Badge variant="latest"><CheckCircleIcon />latest</Badge>
+            <Badge variant="trending"><TrendingUpIcon />trending</Badge>
+            <Badge variant="tag"><TagIcon />react</Badge>
+            <Badge variant="info"><InfoIcon />info</Badge>
+            <Badge variant="deprecated">deprecated</Badge>
+          </DemoCard>
         </Section>
 
         {/* Cards */}
         <Section title="Cards">
-          <Card className="w-72">
+          <Card className="w-64">
             <CardHeader>
-              <CardTitle>Default card</CardTitle>
-              <CardDescription>This is a card description with some extra detail.</CardDescription>
+              <CardTitle>Default</CardTitle>
+              <CardDescription>Subtle ring, hover brightens border.</CardDescription>
             </CardHeader>
             <CardContent>
-              <p className="text-sm text-muted-foreground">Card body content goes here. You can put anything inside.</p>
+              <p className="text-sm text-muted-foreground">Standard card with hover feedback.</p>
             </CardContent>
             <CardFooter className="gap-2">
               <Button size="sm">Action</Button>
               <Button size="sm" variant="ghost">Cancel</Button>
             </CardFooter>
           </Card>
-          <Card size="sm" className="w-72">
+          <Card variant="elevated" className="w-64">
             <CardHeader>
-              <CardTitle>Small card</CardTitle>
-              <CardDescription>A more compact card variant.</CardDescription>
+              <CardTitle>Elevated</CardTitle>
+              <CardDescription>Muted bg, lifts on hover.</CardDescription>
             </CardHeader>
             <CardContent>
-              <p className="text-sm text-muted-foreground">Same card, tighter spacing.</p>
+              <p className="text-sm text-muted-foreground">Hover to see the lift effect.</p>
+            </CardContent>
+          </Card>
+          <Card variant="flat" className="w-64">
+            <CardHeader>
+              <CardTitle>Flat</CardTitle>
+              <CardDescription>Transparent bg, hover reveals surface.</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <p className="text-sm text-muted-foreground">Minimal footprint until hovered.</p>
+            </CardContent>
+          </Card>
+          <Card size="sm" className="w-64">
+            <CardHeader>
+              <CardTitle>Small card</CardTitle>
+              <CardDescription>Compact spacing variant.</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <p className="text-sm text-muted-foreground">Same card, tighter padding.</p>
             </CardContent>
           </Card>
         </Section>
@@ -177,15 +205,15 @@ export default function ComponentsPage() {
           </DemoCard>
         </Section>
 
-        {/* Checkboxes & Switches */}
+        {/* Controls */}
         <Section title="Controls">
           <DemoCard label="Checkbox">
             <div className="flex flex-col gap-3 w-full">
-              <label className="flex items-center gap-2 cursor-pointer">
+              <label className="inline-flex w-fit items-center gap-2 cursor-pointer">
                 <Checkbox checked={checked} onCheckedChange={(v) => setChecked(!!v)} />
                 <span className="text-sm">{checked ? 'Checked' : 'Unchecked'}</span>
               </label>
-              <label className="flex items-center gap-2 cursor-pointer opacity-50">
+              <label className="inline-flex w-fit items-center gap-2 cursor-not-allowed opacity-50">
                 <Checkbox disabled defaultChecked />
                 <span className="text-sm">Disabled checked</span>
               </label>
@@ -193,11 +221,11 @@ export default function ComponentsPage() {
           </DemoCard>
           <DemoCard label="Switch">
             <div className="flex flex-col gap-3 w-full">
-              <label className="flex items-center gap-2 cursor-pointer">
+              <label className="inline-flex w-fit items-center gap-2 cursor-pointer">
                 <Switch checked={switchOn} onCheckedChange={setSwitchOn} />
                 <span className="text-sm">{switchOn ? 'On' : 'Off'}</span>
               </label>
-              <label className="flex items-center gap-2 cursor-pointer">
+              <label className="inline-flex w-fit items-center gap-2 cursor-pointer">
                 <Switch size="sm" />
                 <span className="text-sm">Small switch</span>
               </label>
@@ -241,6 +269,57 @@ export default function ComponentsPage() {
               <TabsContent value="c"><p className="text-sm text-muted-foreground pt-2">Line variant — Activity content.</p></TabsContent>
             </Tabs>
           </div>
+        </Section>
+
+        {/* Kbd */}
+        <Section title="Kbd">
+          <DemoCard label="Keys">
+            <Kbd>⌘</Kbd>
+            <Kbd>K</Kbd>
+            <Kbd>Esc</Kbd>
+            <Kbd>Enter</Kbd>
+            <Kbd>Tab</Kbd>
+          </DemoCard>
+          <DemoCard label="Combinations">
+            <KbdGroup><Kbd>⌘</Kbd><Kbd>K</Kbd></KbdGroup>
+            <KbdGroup><Kbd>Ctrl</Kbd><Kbd>Shift</Kbd><Kbd>P</Kbd></KbdGroup>
+            <span className="text-sm text-muted-foreground">
+              Press <KbdGroup><Kbd>⌘</Kbd><Kbd>/</Kbd></KbdGroup> to search
+            </span>
+          </DemoCard>
+        </Section>
+
+        {/* Pulse Dot */}
+        <Section title="PulseDot">
+          <DemoCard label="Status indicators">
+            <div className="flex flex-col gap-3 w-full text-sm">
+              <div className="flex items-center gap-2"><PulseDot variant="online" /><span>Online</span></div>
+              <div className="flex items-center gap-2"><PulseDot variant="busy" /><span>Busy</span></div>
+              <div className="flex items-center gap-2"><PulseDot variant="away" /><span>Away</span></div>
+              <div className="flex items-center gap-2"><PulseDot variant="offline" /><span>Offline</span></div>
+            </div>
+          </DemoCard>
+          <DemoCard label="Sizes">
+            <div className="flex items-center gap-3">
+              <PulseDot size="sm" variant="online" />
+              <PulseDot size="default" variant="online" />
+              <PulseDot size="lg" variant="online" />
+            </div>
+          </DemoCard>
+          <DemoCard label="In context">
+            <div className="flex items-center gap-2">
+              <Avatar size="sm">
+                <AvatarFallback>JD</AvatarFallback>
+                <AvatarBadge />
+              </Avatar>
+              <div className="flex flex-col">
+                <span className="text-sm font-medium">Jane Doe</span>
+                <span className="text-xs text-muted-foreground flex items-center gap-1">
+                  <PulseDot size="sm" variant="online" />Active now
+                </span>
+              </div>
+            </div>
+          </DemoCard>
         </Section>
 
         {/* Progress */}
