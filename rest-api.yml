@@ -49,7 +49,7 @@ components:
         - id
         - name
         - slug
-        - readme
+        - description
       properties:
         id:
           type: string
@@ -58,19 +58,20 @@ components:
           type: string
         slug:
           type: string
-        readme:
+        description:
           type: string
 
     CreateBundle:
       type: object
       required:
         - name
-        - slug
-        - readme
+        - description
+        - status
       properties:
         name:
           type: string
-        slug:
+        description:
           type: string
-        readme:
+        status:
           type: string
+          enum: [PUBLIC, PRIVATE]

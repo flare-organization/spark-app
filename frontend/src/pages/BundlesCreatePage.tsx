@@ -1,10 +1,10 @@
-import { useState } from 'react'
-import { useNavigate, Link } from 'react-router-dom'
-import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
-import { createBundle } from '@/services/bundleService'
-import type {CreateBundleRequest} from "@openapi/model/createBundleRequest.ts";
+import {useState} from 'react'
+import {Link, useNavigate} from 'react-router-dom'
+import {Button} from '@/components/ui/button'
+import {Input} from '@/components/ui/input'
+import {Label} from '@/components/ui/label'
+import {createBundle} from '@/services/bundleService'
+import {type CreateBundle, CreateBundleStatusEnum} from "@openapi/model/createBundle.ts";
 
 export default function BundlesCreatePage() {
   const navigate = useNavigate()
@@ -18,10 +18,10 @@ export default function BundlesCreatePage() {
     setLoading(true)
     setError(null)
 
-    const request: CreateBundleRequest = {
+    const request: CreateBundle = {
       name: name.trim(),
-      readme: "",
-      slug: Math.random().toString(36).substring(2, 10) + Math.random().toString(36).substring(2, 10) // <--random slug for testing purposes :)
+      description: "",
+      status: CreateBundleStatusEnum.PUBLIC
     }
 
     try {
