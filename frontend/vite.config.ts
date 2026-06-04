@@ -8,6 +8,12 @@ export default defineConfig({
   resolve: {
     alias: {
       '@': path.resolve(__dirname, './src'),
+      '@openapi': path.resolve(__dirname, './target/generated-sources/openapi'),
+    },
+  },
+  server: {
+    proxy: {
+      '/api': 'http://localhost:8080',
     },
   },
   test: {

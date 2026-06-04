@@ -18,14 +18,13 @@
     /* Linting */
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "erasableSyntaxOnly": true,
     "noFallthroughCasesInSwitch": true,
 
     /* Path aliases */
     "ignoreDeprecations": "6.0",
-    "baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"],
+      "@openapi/*": ["./target/generated-sources/openapi/*"],
     }
   },
   "include": ["src"],

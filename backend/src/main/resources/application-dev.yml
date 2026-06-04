@@ -4,6 +4,7 @@ cors:
 spring:
   docker:
     compose:
+      file: docker-compose.yaml
       lifecycle-management: start_only
 
   datasource:
