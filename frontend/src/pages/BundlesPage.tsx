@@ -1,11 +1,14 @@
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { Button } from '@/components/ui/button'
-import { getBundles, type Bundle } from '@/services/bundleService'
+import { getBundles } from '@/services/bundleService'
+import type {Bundle} from "@openapi/model/bundle.ts";
 
 export default function BundlesPage() {
   const [bundles, setBundles] = useState<Bundle[]>([])
   const [error, setError] = useState<string | null>(null)
+
+    console.log("hello")
 
   useEffect(() => {
     getBundles()

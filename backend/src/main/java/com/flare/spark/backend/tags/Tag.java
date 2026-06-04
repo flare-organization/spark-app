@@ -1,4 +1,4 @@
-package com.flare.spark.backend.tags.bundles;
+package com.flare.spark.backend.tags;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

@@ -5,10 +5,11 @@
     { "path": "./tsconfig.node.json" }
   ],
   "compilerOptions": {
+    "strict": true,
     "baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"],
-      "@openapi/*": ["./target/generated-sources/openapi/*"],
+      "@openapi/*": ["./target/generated-sources/openapi/*"]
     }
   }
 }

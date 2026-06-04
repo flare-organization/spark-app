@@ -51,7 +51,7 @@ public class Bundle {
     @Setter
     @Column(name = "status", columnDefinition = "BundleStatus")
     @Enumerated(EnumType.STRING)
-    private Status status; // <---- This thing is ***
+    private Status status;
 
     @CreationTimestamp
     @Column(name = "created_at")
