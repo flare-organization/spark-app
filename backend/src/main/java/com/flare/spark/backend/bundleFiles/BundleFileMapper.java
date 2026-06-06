@@ -8,6 +8,8 @@ public class BundleFileMapper {
 
     public UploadResultDto toUploadResult(BundleFile bundleFile) {
 //        TODO will have to see what we do with this in the future
-        return new UploadResultDto(bundleFile.getId());
+        return new UploadResultDto(
+                bundleFile.getId()
+        );
     }
 }

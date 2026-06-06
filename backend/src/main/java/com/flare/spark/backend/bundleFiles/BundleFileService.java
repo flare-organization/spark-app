@@ -2,12 +2,11 @@ package com.flare.spark.backend.bundleFiles;
 
 import com.flare.spark.generated.api.model.UploadResultDto;
 import java.io.IOException;
+import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import java.util.UUID;
+import java.nio.file.StandardCopyOption;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -24,36 +23,17 @@ public class BundleFileService {
         this.mapper = mapper;
     }
 
-    public UploadResultDto store(MultipartFile file) throws IOException {
+    public UploadResultDto store(MultipartFile file, String fileName) throws IOException {
         Files.createDirectories(UPLOAD_DIR);
 
-        String originalName = file.getOriginalFilename() == null ? "unnamed" : file.getOriginalFilename();
-        String storedName = UUID.randomUUID() + "-" + originalName;
-        Path destination = UPLOAD_DIR.resolve(storedName);
+        Path destination = UPLOAD_DIR.resolve(fileName);
+        try (InputStream inputStream = file.getInputStream()) {
+            Files.copy(inputStream, destination, StandardCopyOption.REPLACE_EXISTING);
+        }
 
-//        grab all the bytes out of the uploaded file and dump them onto disk
-        byte[] bytes = file.getBytes();
-        Files.write(destination, bytes);
-
-        BundleFile bundleFile = new BundleFile(originalName, destination.toString(), bytes.length, checksum(bytes)
-        );
+        BundleFile bundleFile = new BundleFile(fileName, destination.toString(), file.getSize());
         BundleFile saved = repository.save(bundleFile);
 
         return mapper.toUploadResult(saved);
-    }
-
-    private String checksum(byte[] bytes) {
-        try {
-            MessageDigest digest = MessageDigest.getInstance("SHA-256");
-            byte[] hash = digest.digest(bytes);
-            // we turn the hash into a hex format to make it "somewhat" readable as a person
-            StringBuilder hex = new StringBuilder();
-            for (byte b : hash) {
-                hex.append(String.format("%02x", b));
-            }
-            return hex.toString();
-        } catch (NoSuchAlgorithmException e) {
-            throw new IllegalStateException("SHA-256 not available", e);
-        }
     }
 }

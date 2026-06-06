@@ -43,9 +43,31 @@ paths:
               schema:
                 $ref: '#/components/schemas/Bundle'
 
-  /api/upload:
+  /api/v1/bundles/{id}/upload:
     post:
+      tags:
+        - Bundles
       summary: Will be to upload files to the backend
+      operationId: uploadBundleFile
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              required:
+                - file
+              properties:
+                file:
+                  type: string
+                  format: binary
       responses:
         '200':
           description: Uploaded succesfully
@@ -91,7 +113,8 @@ components:
     UploadResult:
       type: object
       required:
-        - result
+        - id
       properties:
-        result:
+        id:
           type: string
+          format: uuid

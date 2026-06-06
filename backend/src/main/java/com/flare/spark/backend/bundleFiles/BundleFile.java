@@ -6,30 +6,14 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
-
 import java.time.ZonedDateTime;
 import java.util.UUID;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 @Entity
 @Table(name = "bundle_files")
 public class BundleFile {
-
-    public BundleFile(
-        String fileName,
-        String filePath,
-        double fileSize,
-        String checksum
-    ) {
-        this.fileName = fileName;
-        this.filePath = filePath;
-        this.fileSize = fileSize;
-        this.checksum = checksum;
-    }
-
-    protected BundleFile() {
-    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
@@ -37,25 +21,32 @@ public class BundleFile {
 
     @Column(name = "file_name")
     private String fileName;
-
     @Column(name = "file_path")
     private String filePath;
-
     @Column(name = "file_size")
     private double fileSize;
-
-    private String checksum;
-
     @CreationTimestamp
     @Column(name = "created_at")
     private ZonedDateTime createdAt;
-
     @UpdateTimestamp
     @Column(name = "updated_at")
     private ZonedDateTime updatedAt;
-
     @Column(name = "deleted_at")
     private ZonedDateTime deletedAt;
+
+    public BundleFile(
+            String fileName,
+            String filePath,
+            double fileSize
+    ) {
+        this.fileName = fileName;
+        this.filePath = filePath;
+        this.fileSize = fileSize;
+    }
+
+    protected BundleFile() {
+
+    }
 
     public UUID getId() {
         return id;
@@ -83,14 +74,6 @@ public class BundleFile {
 
     public void setFileSize(double fileSize) {
         this.fileSize = fileSize;
-    }
-
-    public String getChecksum() {
-        return checksum;
-    }
-
-    public void setChecksum(String checksum) {
-        this.checksum = checksum;
     }
 
     public ZonedDateTime getCreatedAt() {

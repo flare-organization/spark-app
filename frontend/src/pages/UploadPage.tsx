@@ -1,24 +1,25 @@
 import {type SubmitEvent, useState} from 'react'
 import {Button} from '@/components/ui/button'
 
-const ENDPOINT = 'http://localhost:8080/api/upload'
+const ENDPOINT = (id: string) => `http://localhost:8080/api/v1/bundles/${id}/upload`
 
 export default function UploadPage() {
     const [file, setFile] = useState<File | null>(null)
+    const [bundleId, setBundleId] = useState<string>('')
     const [status, setStatus] = useState<string>('')
     const [response, setResponse] = useState<string>('')
     const [busy, setBusy] = useState(false)
 
     async function handleSubmit(e: SubmitEvent<HTMLFormElement>) {
         e.preventDefault()
-        if (!file) return
+        if (!file || !bundleId) return
         setBusy(true)
         setStatus('Uploading…')
         setResponse('')
         try {
             const form = new FormData()
             form.append('file', file)
-            const res = await fetch(ENDPOINT, {method: 'POST', body: form})
+            const res = await fetch(ENDPOINT(bundleId), {method: 'POST', body: form})
             const text = await res.text()
             setStatus(`${res.status} ${res.statusText}`)
             setResponse(text)
@@ -35,11 +36,18 @@ export default function UploadPage() {
             <h1 className="text-2xl font-bold">Upload file</h1>
             <form onSubmit={handleSubmit} className="flex flex-col items-center gap-4 w-full max-w-md border-solid border-4">
                 <input
+                    type="text"
+                    value={bundleId}
+                    onChange={(e) => setBundleId(e.target.value)}
+                    placeholder="Bundle ID"
+                    className="w-full text-sm"
+                />
+                <input
                     type="file"
                     onChange={(e) => setFile(e.target.files?.[0] ?? null)}
                     className="w-full text-sm"
                 />
-                <Button type="submit" disabled={!file || busy}>
+                <Button type="submit" disabled={!file || !bundleId || busy}>
                     {busy ? 'Uploading…' : 'Upload'}
                 </Button>
             </form>
