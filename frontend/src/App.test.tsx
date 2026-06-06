@@ -3,7 +3,7 @@ import { test, expect } from 'vitest'
 import App from '@/App'
 
 test('it renders the app with hello world text', () => {
-    render(<App />);
+    render(<App />)
 
-    expect(screen.getByText('Hello world!')).toBeInTheDocument();
+    expect(screen.getByText('Hello world!')).toBeInTheDocument()
 })
