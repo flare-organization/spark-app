@@ -1,8 +1,8 @@
-@import "tailwindcss";
-@import "tw-animate-css";
-@import "shadcn/tailwind.css";
-@import "@fontsource-variable/geist";
-@import "@fontsource/jetbrains-mono";
+@import 'tailwindcss';
+@import 'tw-animate-css';
+@import 'shadcn/tailwind.css';
+@import '@fontsource-variable/geist';
+@import '@fontsource/jetbrains-mono';
 
 @custom-variant dark (&:is(.mocha *));
 
@@ -131,51 +131,73 @@
 }
 
 @layer base {
-  * {
-    @apply border-border outline-ring/50;
-  }
-  body {
-    @apply bg-background text-foreground;
-    -webkit-font-smoothing: antialiased;
-    text-rendering: optimizeLegibility;
-  }
-  html {
-    @apply font-sans;
-  }
+    * {
+        @apply border-border outline-ring/50;
+    }
+    body {
+        @apply bg-background text-foreground;
+        -webkit-font-smoothing: antialiased;
+        text-rendering: optimizeLegibility;
+    }
+    html {
+        @apply font-sans;
+    }
 }
 
 /* Density tokens */
 :root {
-  --density-pad-y: 16px;
-  --density-pad-x: 20px;
-  --density-gap: 16px;
-  --density-row-h: 40px;
+    --density-pad-y: 16px;
+    --density-pad-x: 20px;
+    --density-gap: 16px;
+    --density-row-h: 40px;
 }
-[data-density="compact"] {
-  --density-pad-y: 12px;
-  --density-pad-x: 16px;
-  --density-gap: 12px;
-  --density-row-h: 36px;
+[data-density='compact'] {
+    --density-pad-y: 12px;
+    --density-pad-x: 16px;
+    --density-gap: 12px;
+    --density-row-h: 36px;
 }
-[data-density="spacious"] {
-  --density-pad-y: 28px;
-  --density-pad-x: 24px;
-  --density-gap: 24px;
-  --density-row-h: 52px;
+[data-density='spacious'] {
+    --density-pad-y: 28px;
+    --density-pad-x: 24px;
+    --density-gap: 24px;
+    --density-row-h: 52px;
 }
 
 @keyframes pulse-ring {
-  0%   { box-shadow: 0 0 0 0 color-mix(in oklab, var(--pulse-color, var(--color-success)) 60%, transparent); }
-  70%  { box-shadow: 0 0 0 6px transparent; }
-  100% { box-shadow: 0 0 0 0 transparent; }
+    0% {
+        box-shadow: 0 0 0 0
+            color-mix(in oklab, var(--pulse-color, var(--color-success)) 60%, transparent);
+    }
+    70% {
+        box-shadow: 0 0 0 6px transparent;
+    }
+    100% {
+        box-shadow: 0 0 0 0 transparent;
+    }
 }
 
 @layer utilities {
-  .hl-kw      { color: var(--color-primary); }
-  .hl-str     { color: var(--color-success); }
-  .hl-num     { color: oklch(0.799 0.1526 52); }
-  .mocha .hl-num { color: oklch(0.9139 0.099 87); }
-  .hl-fn      { color: var(--color-info); }
-  .hl-comment { color: var(--color-muted-foreground); font-style: italic; }
-  .hl-punct   { color: var(--color-muted-foreground); }
+    .hl-kw {
+        color: var(--color-primary);
+    }
+    .hl-str {
+        color: var(--color-success);
+    }
+    .hl-num {
+        color: oklch(0.799 0.1526 52);
+    }
+    .mocha .hl-num {
+        color: oklch(0.9139 0.099 87);
+    }
+    .hl-fn {
+        color: var(--color-info);
+    }
+    .hl-comment {
+        color: var(--color-muted-foreground);
+        font-style: italic;
+    }
+    .hl-punct {
+        color: var(--color-muted-foreground);
+    }
 }
