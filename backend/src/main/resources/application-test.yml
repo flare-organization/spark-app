@@ -1,5 +1,6 @@
-cors:
-  allowed-origin: http://localhost:5173
+spark-variables:
+  cors:
+    allowed-origin: http://localhost:5173
 
 spring:
   datasource:

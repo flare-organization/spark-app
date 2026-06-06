@@ -23,7 +23,7 @@ class CorsIntegrationTest extends IntegrationTest {
 
     private MockMvc mvc;
 
-    @Value("${cors.allowed-origin}")
+    @Value("${spark-variables.cors.allowed-origin}")
     private String allowedOrigin;
 
     private final String notAllowedOrigin = "http://localhost:1234";
