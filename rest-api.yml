@@ -1,24 +1,77 @@
-openapi: '3.0.0'
+openapi: 3.0.3
 info:
-  title: Package Manager
+  title: Spark Bundle API
   version: 0.0.1
+
+servers:
+  - url: http://localhost:8080
+
 paths:
-  /api/v1/ping:
+  /api/v1/bundles:
     get:
-      summary: Will return 200 if the server is online
+      tags:
+        - Bundles
+      summary: Get a list of bundles
+      operationId: getBundles
       responses:
-        '200':
-          description: Server online
+        200:
+          description: List of bundles
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/PingResult'
+                type: array
+                items:
+                  $ref: '#/components/schemas/Bundle'
+    post:
+      tags:
+        - Bundles
+      summary: Create a new bundle
+      operationId: createBundle
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateBundle'
+      responses:
+        200:
+          description: Returns the generated Bundle
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Bundle'
+
 components:
   schemas:
-    PingResult:
+    Bundle:
       type: object
       required:
-        - result
+        - id
+        - name
+        - slug
+        - description
       properties:
-        result:
-          type: boolean
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+        slug:
+          type: string
+        description:
+          type: string
+
+    CreateBundle:
+      type: object
+      required:
+        - name
+        - description
+        - status
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        status:
+          type: string
+          enum: [PUBLIC, PRIVATE]
