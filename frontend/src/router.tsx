@@ -6,24 +6,24 @@ import BundlesPage from './pages/BundlesPage'
 import BundlesCreatePage from './pages/BundlesCreatePage'
 
 export const router = createBrowserRouter([
-  {
-    path: '/',
-    element: <HomePage />,
-  },
-  {
-    path: '/about',
-    element: <AboutPage />,
-  },
-  {
-    path: '/components',
-    element: <ComponentsPage />,
-  },
-  {
-    path: '/bundles',
-    element: <BundlesPage />,
-  },
-  {
-    path: '/bundles/create',
-    element: <BundlesCreatePage />,
-  },
+    {
+        path: '/',
+        element: <HomePage />,
+    },
+    {
+        path: '/about',
+        element: <AboutPage />,
+    },
+    {
+        path: '/components',
+        element: <ComponentsPage />,
+    },
+    {
+        path: '/bundles',
+        element: <BundlesPage />,
+    },
+    {
+        path: '/bundles/create',
+        element: <BundlesCreatePage />,
+    },
 ])
