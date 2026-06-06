@@ -1,8 +1,10 @@
 package com.flare.spark.backend.bundles;
 
 import com.flare.spark.backend.shared.text.Sluggifier;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Slice;
 import org.springframework.stereotype.Service;
-import java.util.List;
 
 @Service
 public class BundleService {
@@ -13,8 +15,10 @@ public class BundleService {
         this.repository = repository;
     }
 
-    public List<Bundle> getAllBundles() {
-        return repository.findAll();
+    public Slice<Bundle> getAllBundles(int page) {
+        Pageable firstPageWithFiveElements = PageRequest.of(page, 5);
+
+        return repository.findAllBy(firstPageWithFiveElements);
     }
 
     public Bundle createBundle(Bundle bundle) {

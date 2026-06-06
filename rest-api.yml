@@ -13,6 +13,13 @@ paths:
         - Bundles
       summary: Get a list of bundles
       operationId: getBundles
+      parameters:
+        - in: path
+          name: page
+          required: false
+          schema:
+            type: integer
+            description: current page number
       responses:
         200:
           description: List of bundles
@@ -60,6 +67,38 @@ components:
           type: string
         description:
           type: string
+
+    SlicedPagination:
+      type: object
+      required:
+        - pageNumber
+        - pageSize
+        - isFirst
+        - isLast
+        - isEmpty
+      properties:
+        pageNumber:
+          type: integer
+        pageSize:
+          type: integer
+        isFirst:
+          type: boolean
+        isLast:
+          type: boolean
+        isEmpty:
+          type: boolean
+
+    PaginatedBundles:
+      type: object
+      required:
+        - content
+      properties:
+        content:
+          type: array
+          items:
+            $ref: '#/components/schemas/Bundle'
+      allOf:
+      - $ref: '#/components/schemas/SlicedPagination'
 
     CreateBundle:
       type: object
