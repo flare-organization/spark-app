@@ -19,7 +19,7 @@ class CreateBundleIntegrationTest extends IntegrationTest {
 
     @Autowired
     private BundleRepository bundleRepository;
-
+//
 //    @Test
 //    public void testCreateBundleInsertsNewBundleInTheDatabase() throws Exception {
 //        CreateBundleDto createBundleDto = new CreateBundleDto();
@@ -31,11 +31,7 @@ class CreateBundleIntegrationTest extends IntegrationTest {
 //        HttpHeaders header = new HttpHeaders();
 //        header.setContentType(MediaType.APPLICATION_JSON);
 //
-////        restTemplate.postForEntity("http://localhost:" + port)
-//
-////        mvc.perform(
-////            post("/api/v1/bundles", createBundleDto).with(csrf())
-////        ).andExpect(status().isOk());
+//        restTemplate.postForEntity("http://localhost:" + port)
 //
 //        bundleRepository.findById(bundle.getId());
 //    }

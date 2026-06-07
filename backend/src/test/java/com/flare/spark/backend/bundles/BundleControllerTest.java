@@ -44,12 +44,12 @@ class BundleControllerTest {
     public void testGetAllBundlesReturnsPaginatedBundlesDto() throws Exception {
         List<Bundle> bundleList = List.of(BundleBuilder.create().build());
         int pageNumber = 0;
-        int pageSize = 1;
+        int itemsPerPage = 1;
         boolean hasNext = false;
 
         Slice<Bundle> paginatedBundles = new SliceImpl<>(
                 bundleList,
-                PageRequest.of(pageNumber, pageSize),
+                PageRequest.of(pageNumber, itemsPerPage),
                 hasNext
         );
 
@@ -57,7 +57,7 @@ class BundleControllerTest {
             PaginatedBundlesDtoBuilder.create()
                 .withContent(bundleList.stream().map(bundleMapper::bundleToDto).toList())
                 .withPageNumber(pageNumber)
-                .withPageSize(pageSize)
+                .withPageSize(itemsPerPage)
                 .build();
 
         Mockito.when(bundleService.getAllBundles(pageNumber))
@@ -76,12 +76,12 @@ class BundleControllerTest {
     public void testGetAllBundlesAcceptsPageParameterAndReturnsPaginatedBundleDto() throws Exception {
         List<Bundle> bundleList = List.of(BundleBuilder.create().build());
         int pageNumber = 4;
-        int pageSize = 1;
+        int itemsPerPage = 1;
         boolean hasNext = false;
 
         Slice<Bundle> paginatedBundles = new SliceImpl<>(
             bundleList,
-            PageRequest.of(pageNumber, pageSize),
+            PageRequest.of(pageNumber, itemsPerPage),
             hasNext
         );
 
@@ -89,7 +89,7 @@ class BundleControllerTest {
             PaginatedBundlesDtoBuilder.create()
                 .withContent(bundleList.stream().map(bundleMapper::bundleToDto).toList())
                 .withPageNumber(pageNumber)
-                .withPageSize(pageSize)
+                .withPageSize(itemsPerPage)
                 .withIsFirst(false)
                 .build();
 

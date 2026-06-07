@@ -8,8 +8,6 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import java.time.OffsetDateTime;
 
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -44,7 +42,6 @@ public class Bundle {
 
     @Setter
     @Column(unique = true)
-    @NotBlank
     private String name;
 
     @Setter
@@ -55,7 +52,6 @@ public class Bundle {
     private String description;
 
     @Setter
-    @NotNull
     @Column(name = "status", columnDefinition = "BundleStatus")
     @JdbcType(PostgreSQLEnumJdbcType.class)
     private BundleStatus status;
