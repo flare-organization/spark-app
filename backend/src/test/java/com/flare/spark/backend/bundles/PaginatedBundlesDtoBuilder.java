@@ -7,12 +7,12 @@ import java.util.List;
 import java.util.UUID;
 
 public class PaginatedBundlesDtoBuilder {
-    private List<BundleDto> content;
-    private int pageNumber;
-    private int pageSize;
-    private boolean isFirst;
-    private boolean isLast;
-    private boolean isEmpty;
+    private List<BundleDto> content = List.of(BundleDtoBuilder.create().build());
+    private int pageNumber = 0;
+    private int pageSize = 1;
+    private boolean isFirst = true;
+    private boolean isLast = true;
+    private boolean isEmpty = false;
 
     public PaginatedBundlesDtoBuilder withContent(List<BundleDto> content) {
         this.content = content;
@@ -24,13 +24,23 @@ public class PaginatedBundlesDtoBuilder {
         return this;
     }
 
-    public PaginatedBundlesDtoBuilder pageSize(int pageSize) {
-        this.slug = slug;
+    public PaginatedBundlesDtoBuilder withPageSize(int pageSize) {
+        this.pageSize = pageSize;
         return this;
     }
 
-    public PaginatedBundlesDtoBuilder withDescription(String description) {
-        this.description = description;
+    public PaginatedBundlesDtoBuilder withIsFirst(boolean isFirst) {
+        this.isFirst = isFirst;
+        return this;
+    }
+
+    public PaginatedBundlesDtoBuilder withIsLast(boolean isLast) {
+        this.isLast = isLast;
+        return this;
+    }
+
+    public PaginatedBundlesDtoBuilder withIsEmpty(boolean isEmpty) {
+        this.isEmpty = isEmpty;
         return this;
     }
 
@@ -39,14 +49,13 @@ public class PaginatedBundlesDtoBuilder {
     }
 
     public PaginatedBundlesDto build() {
-        new PaginatedBundlesDto(
-
-            List.of(BundleDtoBuilder.create().build()),
-            0,
-            5,
-            true,
-            true,
-            false
+        return new PaginatedBundlesDto(
+            this.content,
+            this.pageNumber,
+            this.pageSize,
+            this.isFirst,
+            this.isLast,
+            this.isEmpty
         );
     }
 }

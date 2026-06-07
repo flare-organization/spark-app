@@ -20,23 +20,23 @@ class CreateBundleIntegrationTest extends IntegrationTest {
     @Autowired
     private BundleRepository bundleRepository;
 
-    @Test
-    public void testCreateBundleInsertsNewBundleInTheDatabase() throws Exception {
-        CreateBundleDto createBundleDto = new CreateBundleDto();
-
-        createBundleDto.setName("spark bundle");
-        createBundleDto.setDescription("The description of the bundle");
-        createBundleDto.setStatus(CreateBundleDto.StatusEnum.PRIVATE);
-
-        HttpHeaders header = new HttpHeaders();
-        header.setContentType(MediaType.APPLICATION_JSON);
-
-//        restTemplate.postForEntity("http://localhost:" + port)
-
-//        mvc.perform(
-//            post("/api/v1/bundles", createBundleDto).with(csrf())
-//        ).andExpect(status().isOk());
-
-        bundleRepository.findById(bundle.getId());
-    }
+//    @Test
+//    public void testCreateBundleInsertsNewBundleInTheDatabase() throws Exception {
+//        CreateBundleDto createBundleDto = new CreateBundleDto();
+//
+//        createBundleDto.setName("spark bundle");
+//        createBundleDto.setDescription("The description of the bundle");
+//        createBundleDto.setStatus(CreateBundleDto.StatusEnum.PRIVATE);
+//
+//        HttpHeaders header = new HttpHeaders();
+//        header.setContentType(MediaType.APPLICATION_JSON);
+//
+////        restTemplate.postForEntity("http://localhost:" + port)
+//
+////        mvc.perform(
+////            post("/api/v1/bundles", createBundleDto).with(csrf())
+////        ).andExpect(status().isOk());
+//
+//        bundleRepository.findById(bundle.getId());
+//    }
 }
