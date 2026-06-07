@@ -46,8 +46,8 @@ public class BundleController {
         @Valid @RequestBody CreateBundleDto createBundleDto
     ) {
         Bundle bundle = mapper.bundleDtoToBundle(createBundleDto);
-        Bundle createdBundle = bundleService.createBundle(bundle);
+        Bundle savedBundle = bundleService.createBundle(bundle);
 
-        return mapper.bundleToDto(createdBundle);
+        return mapper.bundleToDto(savedBundle);
     }
 }

@@ -8,7 +8,7 @@ import java.util.UUID;
 
 public class BundleDtoBuilder {
 
-    private UUID uuid = UUID.fromString("00000000-0000-0000-0000-000000000000");
+    private UUID uuid = null;
     private String name = "bundle name";
     private String slug = "bundle-name";
     private String description = "bundle description";
