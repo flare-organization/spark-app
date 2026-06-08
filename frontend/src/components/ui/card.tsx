@@ -1,57 +1,31 @@
 import * as React from "react"
-import { cva, type VariantProps } from "class-variance-authority"
 
 import { cn } from "@/lib/utils"
-
-const cardVariants = cva(
-  "group/card flex flex-col gap-4 overflow-hidden rounded-xl py-4 text-sm text-card-foreground transition-all has-data-[slot=card-footer]:pb-0 has-[>img:first-child]:pt-0 data-[size=sm]:gap-3 data-[size=sm]:py-3 data-[size=sm]:has-data-[slot=card-footer]:pb-0 *:[img:first-child]:rounded-t-xl *:[img:last-child]:rounded-b-xl",
-  {
-    variants: {
-      variant: {
-        default: "bg-card ring-1 ring-border",
-        elevated: "bg-muted ring-1 ring-border",
-        flat: "bg-transparent ring-1 ring-border",
-      },
-      interactive: {
-        true: "cursor-pointer",
-        false: "",
-      },
-    },
-    compoundVariants: [
-      { variant: "default", interactive: true, class: "hover:ring-primary" },
-      {
-        variant: "elevated",
-        interactive: true,
-        class:
-          "hover:-translate-y-0.5 hover:shadow-lg hover:ring-foreground/20",
-      },
-      {
-        variant: "flat",
-        interactive: true,
-        class: "hover:bg-card hover:ring-foreground/15",
-      },
-    ],
-    defaultVariants: {
-      variant: "default",
-      interactive: false,
-    },
-  },
-)
 
 function Card({
   className,
   size = "default",
   variant = "default",
-  interactive = false,
   ...props
-}: React.ComponentProps<"div"> &
-  VariantProps<typeof cardVariants> & { size?: "default" | "sm" }) {
+}: React.ComponentProps<"div"> & {
+  size?: "default" | "sm"
+  variant?: "default" | "elevated" | "flat"
+}) {
   return (
     <div
       data-slot="card"
       data-size={size}
       data-variant={variant}
-      className={cn(cardVariants({ variant, interactive }), className)}
+      className={cn(
+        "group/card flex flex-col gap-4 overflow-hidden rounded-xl py-4 text-sm text-card-foreground transition-all has-data-[slot=card-footer]:pb-0 has-[>img:first-child]:pt-0 data-[size=sm]:gap-3 data-[size=sm]:py-3 data-[size=sm]:has-data-[slot=card-footer]:pb-0 *:[img:first-child]:rounded-t-xl *:[img:last-child]:rounded-b-xl",
+        variant === "default" &&
+          "bg-card border border-border hover:border-primary/60",
+        variant === "elevated" &&
+          "bg-muted border border-border hover:-translate-y-0.5 hover:shadow-[0_8px_24px_rgba(0,0,0,0.18)] dark:hover:shadow-[0_8px_24px_rgba(0,0,0,0.45)] hover:border-border",
+        variant === "flat" &&
+          "bg-transparent border border-transparent hover:bg-card hover:border-border",
+        className
+      )}
       {...props}
     />
   )
@@ -63,7 +37,7 @@ function CardHeader({ className, ...props }: React.ComponentProps<"div">) {
       data-slot="card-header"
       className={cn(
         "group/card-header @container/card-header grid auto-rows-min items-start gap-1 rounded-t-xl px-4 group-data-[size=sm]/card:px-3 has-data-[slot=card-action]:grid-cols-[1fr_auto] has-data-[slot=card-description]:grid-rows-[auto_auto] [.border-b]:pb-4 group-data-[size=sm]/card:[.border-b]:pb-3",
-        className,
+        className
       )}
       {...props}
     />
@@ -76,7 +50,7 @@ function CardTitle({ className, ...props }: React.ComponentProps<"div">) {
       data-slot="card-title"
       className={cn(
         "font-heading text-base leading-snug font-medium group-data-[size=sm]/card:text-sm",
-        className,
+        className
       )}
       {...props}
     />
@@ -99,7 +73,7 @@ function CardAction({ className, ...props }: React.ComponentProps<"div">) {
       data-slot="card-action"
       className={cn(
         "col-start-2 row-span-2 row-start-1 self-start justify-self-end",
-        className,
+        className
       )}
       {...props}
     />
@@ -122,7 +96,7 @@ function CardFooter({ className, ...props }: React.ComponentProps<"div">) {
       data-slot="card-footer"
       className={cn(
         "flex items-center rounded-b-xl border-t bg-muted/50 p-4 group-data-[size=sm]/card:p-3",
-        className,
+        className
       )}
       {...props}
     />
@@ -131,7 +105,6 @@ function CardFooter({ className, ...props }: React.ComponentProps<"div">) {
 
 export {
   Card,
-  cardVariants,
   CardHeader,
   CardFooter,
   CardTitle,

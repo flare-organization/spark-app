@@ -1,6 +1,8 @@
 package com.flare.spark.backend.bundles;
 
 import com.flare.spark.generated.api.model.BundleDto;
+import com.flare.spark.generated.api.model.CreateBundleDto;
+import java.util.stream.Collectors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -14,20 +16,29 @@ import java.util.List;
 public class BundleController {
 
     private final BundleService bundleService;
+    private final BundleMapper mapper;
 
-    public BundleController(BundleService bundleService) {
+    public BundleController(BundleService bundleService, BundleMapper mapper) {
         this.bundleService = bundleService;
+        this.mapper = mapper;
     }
 
     @GetMapping
     public List<BundleDto> getAllBundles() {
-        return bundleService.getAllBundles();
+        List<Bundle> bundles = bundleService.getAllBundles();
+
+        return bundles.stream()
+            .map(mapper::bundleToDto)
+            .collect(Collectors.toList());
     }
 
-    @PostMapping("/create")
+    @PostMapping
     public BundleDto createBundle(
-        @RequestBody Bundle bundle
+        @RequestBody CreateBundleDto createBundleDto
     ) {
-        return bundleService.createBundle(bundle);
+        Bundle createBundle = mapper.createBundleDtoToBundle(createBundleDto);
+        Bundle bundle = bundleService.createBundle(createBundle);
+
+        return mapper.bundleToDto(bundle);
     }
 }

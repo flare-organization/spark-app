@@ -22,8 +22,6 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Bundle'
-
-  /api/v1/bundles/create:
     post:
       tags:
         - Bundles
@@ -34,7 +32,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/CreateBundleRequest'
+              $ref: '#/components/schemas/CreateBundle'
       responses:
         200:
           description: Returns the generated Bundle
@@ -84,7 +82,7 @@ components:
         - id
         - name
         - slug
-        - readme
+        - description
       properties:
         id:
           type: string
@@ -93,22 +91,23 @@ components:
           type: string
         slug:
           type: string
-        readme:
+        description:
           type: string
 
-    CreateBundleRequest:
+    CreateBundle:
       type: object
       required:
         - name
-        - slug
-        - readme
+        - description
+        - status
       properties:
         name:
           type: string
-        slug:
+        description:
           type: string
-        readme:
+        status:
           type: string
+          enum: [PUBLIC, PRIVATE]
 
     UploadResult:
       type: object

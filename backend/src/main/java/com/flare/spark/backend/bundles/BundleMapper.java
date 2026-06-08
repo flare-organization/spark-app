@@ -1,16 +1,11 @@
 package com.flare.spark.backend.bundles;
 
 import com.flare.spark.generated.api.model.BundleDto;
-import org.springframework.stereotype.Component;
+import com.flare.spark.generated.api.model.CreateBundleDto;
+import org.mapstruct.Mapper;
 
-@Component
-public class BundleMapper {
-    public BundleDto toDto(Bundle bundle) {
-        return new BundleDto(
-            bundle.getId(),
-            bundle.getName(),
-            bundle.getSlug(),
-            bundle.getReadme()
-        );
-    }
+@Mapper(componentModel = "spring")
+public interface BundleMapper {
+    BundleDto bundleToDto(Bundle bundle);
+    Bundle createBundleDtoToBundle(CreateBundleDto bundleDto);
 }

@@ -1,16 +1,19 @@
-import { useEffect, useState } from "react"
-import { Link } from "react-router-dom"
-import { Button } from "@/components/ui/button"
-import { getBundles, type Bundle } from "@/services/bundleService"
+import { useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
+import { Button } from '@/components/ui/button'
+import { getBundles } from '@/services/bundleService'
+import type {Bundle} from "@openapi/model/bundle.ts";
 
 export default function BundlesPage() {
   const [bundles, setBundles] = useState<Bundle[]>([])
   const [error, setError] = useState<string | null>(null)
 
+    console.log("hello")
+
   useEffect(() => {
     getBundles()
       .then(setBundles)
-      .catch(() => setError("Could not load bundles"))
+      .catch(() => setError('Could not load bundles'))
   }, [])
 
   return (
@@ -30,7 +33,10 @@ export default function BundlesPage() {
 
       <ul className="flex flex-col gap-2">
         {bundles.map((bundle) => (
-          <li key={bundle.id} className="border rounded-md px-4 py-3 text-sm">
+          <li
+            key={bundle.id}
+            className="border rounded-md px-4 py-3 text-sm"
+          >
             {bundle.name}
           </li>
         ))}
