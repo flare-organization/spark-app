@@ -1,15 +1,13 @@
 {
-  "files": [],
-  "references": [
-    { "path": "./tsconfig.app.json" },
-    { "path": "./tsconfig.node.json" }
-  ],
-  "compilerOptions": {
-    "strict": true,
-    "baseUrl": ".",
-    "paths": {
-      "@/*": ["./src/*"],
-      "@openapi/*": ["./target/generated-sources/openapi/*"]
+    "files": [],
+    "references": [{ "path": "./tsconfig.app.json" }, { "path": "./tsconfig.node.json" }],
+    "compilerOptions": {
+        "strict": true,
+        "baseUrl": ".",
+        "verbatimModuleSyntax": false,
+        "paths": {
+            "@/*": ["./src/*"],
+            "@openapi/*": ["./target/generated-sources/openapi/*"]
+        }
     }
-  }
 }

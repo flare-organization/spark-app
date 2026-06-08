@@ -7,5 +7,5 @@ import org.mapstruct.Mapper;
 @Mapper(componentModel = "spring")
 public interface BundleMapper {
     BundleDto bundleToDto(Bundle bundle);
-    Bundle createBundleDtoToBundle(CreateBundleDto bundleDto);
+    Bundle bundleDtoToBundle(CreateBundleDto bundleDto);
 }

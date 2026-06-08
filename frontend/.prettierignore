@@ -1,12 +1,12 @@
-node_modules
 dist
+node_modules
 build
 coverage
+*.lock
+pom.xml
 
-# stray local node runtime (deleted; ignored defensively)
 node
 
-# generated OpenAPI client + build output
 target
 src/shared/models/api
 

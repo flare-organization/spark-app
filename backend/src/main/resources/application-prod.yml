@@ -1,3 +1,7 @@
+spark-variables:
+  cors:
+    allowed-origin: http://localhost:5173
+
 spring:
   docker:
     compose:
