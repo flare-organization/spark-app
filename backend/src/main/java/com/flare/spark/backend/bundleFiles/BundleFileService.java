@@ -7,6 +7,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.util.UUID;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -18,13 +19,21 @@ public class BundleFileService {
     private final BundleFileRepository repository;
     private final BundleFileMapper mapper;
 
-    public BundleFileService(BundleFileRepository repository, BundleFileMapper mapper) {
+    public BundleFileService(
+            BundleFileRepository repository,
+            BundleFileMapper mapper
+    ) {
         this.repository = repository;
         this.mapper = mapper;
     }
 
-    public UploadResultDto store(MultipartFile file, String fileName) throws IOException {
+    public UploadResultDto store(
+            UUID id,
+            MultipartFile file
+    ) throws IOException {
         Files.createDirectories(UPLOAD_DIR);
+
+        String fileName = extractFilename(file);
 
         Path destination = UPLOAD_DIR.resolve(fileName);
         try (InputStream inputStream = file.getInputStream()) {
@@ -35,5 +44,17 @@ public class BundleFileService {
         BundleFile saved = repository.save(bundleFile);
 
         return mapper.toUploadResult(saved);
+    }
+
+    private String extractFilename(MultipartFile file) {
+        String contentDisposition = file.getOriginalFilename();
+        assert contentDisposition != null;
+        for (String token : contentDisposition.split(";")) {
+            if (token.trim().startsWith("filename")) {
+                String newName = token.substring(token.indexOf('=') + 1).trim().replace("\"", "");
+                return UUID.randomUUID() + newName;
+            }
+        }
+        throw new RuntimeException("No filename found, please try again");
     }
 }

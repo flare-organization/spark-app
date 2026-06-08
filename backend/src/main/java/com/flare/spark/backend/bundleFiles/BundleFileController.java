@@ -22,24 +22,10 @@ public class BundleFileController {
 
     @PostMapping("/{id}/upload")
     public UploadResultDto upload(
-            @PathVariable int id,
+            @PathVariable UUID id,
             @RequestParam("file") MultipartFile file
     ) throws IOException {
 //        unable to bind this yet as we would first need the bundles to then link this id to the bundles
-        int number = id;
-        String fileName = extractFilename(file);
-        return bundleFileService.store(file, fileName);
-    }
-
-    private String extractFilename(MultipartFile file) {
-        String contentDisposition = file.getOriginalFilename();
-        assert contentDisposition != null;
-        for (String token : contentDisposition.split(";")) {
-            if (token.trim().startsWith("filename")) {
-                String newName = token.substring(token.indexOf('=') + 1).trim().replace("\"", "");
-                return UUID.randomUUID() + newName;
-            }
-        }
-        throw new RuntimeException("No filename found, please try again");
+        return bundleFileService.store(id, file);
     }
 }
