@@ -17,7 +17,7 @@
             "eslint --fix",
             "prettier --write"
         ],
-        "*.{js,jsx,json,css,html,md}": "prettier --write"
+        "*.{json,css,html,md}": "prettier --write"
     },
     "dependencies": {
         "@base-ui/react": "^1.4.1",
