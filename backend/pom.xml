@@ -158,6 +158,9 @@
                             <generateSupportingFiles>false</generateSupportingFiles>
                             <modelNameSuffix>Dto</modelNameSuffix>
                             <openapiNormalizer>REF_AS_PARENT_IN_ALLOF=true</openapiNormalizer>
+                            <globalProperties>
+                                <skipFormModel>false</skipFormModel>
+                            </globalProperties>
                             <configOptions>
                                 <library>spring-boot</library>
                                 <sourceFolder>src/gen/java/</sourceFolder>

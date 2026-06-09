@@ -66,6 +66,7 @@ paths:
         content:
           multipart/form-data:
             schema:
+              title: UploadBundleFileRequest
               type: object
               required:
                 - file

@@ -36,6 +36,9 @@
                                 <typeMapping>DateTime=Date</typeMapping>
                                 <typeMapping>object=any</typeMapping>
                             </typeMappings>
+                            <globalProperties>
+                                <skipFormModel>false</skipFormModel>
+                            </globalProperties>
                             <configOptions>
                                 <ngVersion>11.0</ngVersion>
                                 <supportsES6>true</supportsES6>
