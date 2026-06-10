@@ -1,15 +1,10 @@
 package com.flare.spark.backend.bundleFiles;
 
 import com.flare.spark.generated.api.model.UploadResultDto;
-import org.springframework.stereotype.Component;
+import org.mapstruct.Mapper;
 
-@Component
-public class BundleFileMapper {
+@Mapper(componentModel = "spring")
+public interface BundleFileMapper {
 
-    public UploadResultDto toUploadResult(BundleFile bundleFile) {
-//        TODO will have to see what we do with this in the future
-        return new UploadResultDto(
-                bundleFile.getId()
-        );
-    }
+    UploadResultDto toUploadResult(BundleFile bundleFile);
 }

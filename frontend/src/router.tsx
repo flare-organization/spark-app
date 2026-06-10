@@ -27,8 +27,8 @@ export const router = createBrowserRouter([
         path: '/bundles/create',
         element: <BundlesCreatePage />,
     },
-      {
+    {
         path: "/upload",
         element: <UploadPage />,
-      },
+    },
 ])
