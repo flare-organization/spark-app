@@ -81,7 +81,7 @@ jobs:
         run: npm run build
 
   backend-unit-tests:
-    name: Backend Tests
+    name: Backend Unit Tests
     runs-on: ubuntu-latest
 
     steps:
@@ -98,7 +98,7 @@ jobs:
 
   backend-integration-tests:
     needs: backend-unit-tests
-    name: Backend Tests
+    name: Backend Integration Tests with verify
     runs-on: ubuntu-latest
 
     steps:
