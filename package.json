@@ -5,9 +5,12 @@
   "scripts": {
     "dev": "concurrently --names \"backend,frontend\" --prefix-colors \"blue,green\" \"mvn spring-boot:run -pl backend\" \"npm run dev --prefix frontend\"",
     "frontend": "npm run dev --prefix frontend",
-    "backend": "mvn spring-boot:run -pl backend"
+    "backend": "mvn spring-boot:run -pl backend",
+    "prepare": "husky"
   },
   "devDependencies": {
-    "concurrently": "^9.1.2"
+    "concurrently": "^9.1.2",
+    "husky": "^9.1.7",
+    "lint-staged": "^17.0.7"
   }
 }
