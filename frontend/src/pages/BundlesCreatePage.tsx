@@ -3,12 +3,14 @@ import { Link, useNavigate } from 'react-router-dom'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
+import { Textarea } from '@/components/ui/textarea'
 import { createBundle } from '@/services/bundleService'
 import { type CreateBundle, CreateBundleStatusEnum } from '@openapi/model/createBundle.ts'
 
 export default function BundlesCreatePage() {
     const navigate = useNavigate()
     const [name, setName] = useState('')
+    const [description, setDescription] = useState('')
     const [error, setError] = useState<string | null>(null)
     const [loading, setLoading] = useState(false)
 
@@ -20,7 +22,7 @@ export default function BundlesCreatePage() {
 
         const request: CreateBundle = {
             name: name.trim(),
-            description: '',
+            description: description.trim(),
             status: CreateBundleStatusEnum.PUBLIC,
         }
 
@@ -52,6 +54,20 @@ export default function BundlesCreatePage() {
                         onChange={(e) => setName(e.target.value)}
                         placeholder="My bundle"
                         autoFocus
+                    />
+                </div>
+
+                <div className="flex flex-col gap-1.5">
+                    <Label htmlFor="description">
+                        Description{' '}
+                        <span className="text-muted-foreground font-normal">(optional)</span>
+                    </Label>
+                    <Textarea
+                        id="description"
+                        value={description}
+                        onChange={(e) => setDescription(e.target.value)}
+                        placeholder="What's in this bundle?"
+                        rows={3}
                     />
                 </div>
 
