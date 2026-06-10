@@ -1,7 +1,6 @@
 import {type SubmitEvent, useState} from 'react'
 import {Button} from '@/components/ui/button'
-
-const ENDPOINT = (id: string) => `http://localhost:8080/api/v1/bundles/${id}/upload`
+import {uploadBundleFile} from '@/services/bundleService.ts'
 
 export default function UploadPage() {
     const [file, setFile] = useState<File | null>(null)
@@ -17,12 +16,9 @@ export default function UploadPage() {
         setStatus('Uploading…')
         setResponse('')
         try {
-            const form = new FormData()
-            form.append('file', file)
-            const res = await fetch(ENDPOINT(bundleId), {method: 'POST', body: form})
-            const text = await res.text()
-            setStatus(`${res.status} ${res.statusText}`)
-            setResponse(text)
+            const result = await uploadBundleFile(bundleId, file)
+            setStatus('Upload successful')
+            setResponse(JSON.stringify(result, null, 2))
         } catch (err) {
             setStatus('Request failed')
             setResponse(err instanceof Error ? err.message : String(err))
@@ -34,7 +30,8 @@ export default function UploadPage() {
     return (
         <div className="flex flex-col items-center justify-center min-h-screen gap-6 p-6">
             <h1 className="text-2xl font-bold">Upload file</h1>
-            <form onSubmit={handleSubmit} className="flex flex-col items-center gap-4 w-full max-w-md border-solid border-4">
+            <form onSubmit={handleSubmit}
+                  className="flex flex-col items-center gap-4 w-full max-w-md border-solid border-4">
                 <input
                     type="text"
                     value={bundleId}

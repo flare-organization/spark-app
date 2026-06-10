@@ -20,12 +20,11 @@ public class BundleFileController {
         this.bundleFileService = bundleFileService;
     }
 
-    @PostMapping("/{id}/upload")
+    @PostMapping("/{bundleId}/upload")
     public UploadResultDto upload(
-            @PathVariable UUID id,
+            @PathVariable UUID bundleId,
             @RequestParam("file") MultipartFile file
     ) throws IOException {
-//        unable to bind this yet as we would first need the bundles to then link this id to the bundles
-        return bundleFileService.store(id, file);
+        return bundleFileService.store(bundleId, file);
     }
 }

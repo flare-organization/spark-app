@@ -28,7 +28,7 @@ public class BundleFileService {
     }
 
     public UploadResultDto store(
-            UUID id,
+            UUID bundleId,
             MultipartFile file
     ) throws IOException {
         Files.createDirectories(UPLOAD_DIR);
@@ -40,7 +40,7 @@ public class BundleFileService {
             Files.copy(inputStream, destination, StandardCopyOption.REPLACE_EXISTING);
         }
 
-        BundleFile bundleFile = new BundleFile(fileName, destination.toString(), file.getSize());
+        BundleFile bundleFile = new BundleFile(bundleId, fileName, destination.toString(), file.getSize());
         BundleFile saved = repository.save(bundleFile);
 
         return mapper.toUploadResult(saved);

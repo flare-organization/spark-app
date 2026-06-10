@@ -48,14 +48,14 @@ paths:
               schema:
                 $ref: '#/components/schemas/Bundle'
 
-  /api/v1/bundles/{id}/upload:
+  /api/v1/bundles/{bundleId}/upload:
     post:
       tags:
         - Bundles
       summary: Will be to upload files to the backend
       operationId: uploadBundleFile
       parameters:
-        - name: id
+        - name: bundleId
           in: path
           required: true
           schema:
@@ -152,8 +152,8 @@ components:
     UploadResult:
       type: object
       required:
-        - id
+        - bundleId
       properties:
-        id:
+        bundleId:
           type: string
           format: uuid
