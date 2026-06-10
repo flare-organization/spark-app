@@ -54,7 +54,7 @@ class CrudBundleIntegrationTest extends IntegrationTest {
         assertSame(5, paginatedBundlesDto.getPageSize());
         assertFalse(paginatedBundlesDto.getIsEmpty());
     }
-
+    // delete this comment
     @Test
     @Order(2)
     public void testBundleGetsSavedInTheDatabase() throws Exception {
