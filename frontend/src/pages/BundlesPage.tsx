@@ -47,7 +47,7 @@ export default function BundlesPage() {
             .then((res: PaginatedBundles) => {
                 const { content, ...paginationDetails } = res
 
-                setBundles(res.content)
+                setBundles(content)
                 setPaginationDetails(paginationDetails)
             })
             .catch(() => setError('Could not load bundles'))
