@@ -1,0 +1,24 @@
+openapi: '3.0.0'
+info:
+  title: Package Manager
+  version: 0.0.1
+paths:
+  /api/v1/ping:
+    get:
+      summary: Will return 200 if the server is online
+      responses:
+        '200':
+          description: Server online
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PingResult'
+components:
+  schemas:
+    PingResult:
+      type: object
+      required:
+        - result
+      properties:
+        result:
+          type: boolean
