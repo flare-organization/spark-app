@@ -30,4 +30,12 @@ public class BundleService {
 
         return repository.save(bundle);
     }
+
+    public Slice<Bundle> searchBundlesByName(
+            String query,
+            int page
+    ) {
+        Pageable pageWithFiveElements = PageRequest.of(page, 5);
+        return repository.findPublicByNameContainingIgnoreCase(query, pageWithFiveElements);
+    }
 }
