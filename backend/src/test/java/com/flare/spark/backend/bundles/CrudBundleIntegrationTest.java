@@ -84,6 +84,7 @@ class CrudBundleIntegrationTest extends IntegrationTest {
         );
     }
 
+    @Order(3)
     private void saveBundlesInTheDatabase(int amount) {
         List<Bundle> bundleList = new ArrayList<>();
 
@@ -91,7 +92,6 @@ class CrudBundleIntegrationTest extends IntegrationTest {
             bundleList.add(
                 BundleBuilder.create()
                     .withName("bundle " + i)
-                    .withSlug("bundle-" + i)
                     .build()
             );
         }

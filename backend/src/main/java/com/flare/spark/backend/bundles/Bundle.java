@@ -26,12 +26,10 @@ public class Bundle {
 
     public Bundle(
         String name,
-        String slug,
         String description,
         BundleStatus status
     ) {
         this.name = name;
-        this.slug = slug;
         this.description = description;
         this.status = status;
     }
@@ -43,10 +41,6 @@ public class Bundle {
     @Setter
     @Column(unique = true)
     private String name;
-
-    @Setter
-    @Column(unique = true)
-    private String slug;
 
     @Setter
     private String description;

@@ -1,6 +1,5 @@
 package com.flare.spark.backend.bundles;
 
-import com.flare.spark.backend.shared.text.Sluggifier;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Value;
@@ -41,26 +40,19 @@ class BundleSeeder implements CommandLineRunner {
             Bundle bundle = new Bundle();
             Faker faker = new Faker();
 
-            String bundleName = faker.name().name();
+            String bundleName = String.format(
+                "%s-%s",
+                faker.company().buzzword().toLowerCase(),
+                faker.hacker().noun().toLowerCase()
+            ).replaceAll("[^a-z0-9-]", "-");
 
             bundle.setName(bundleName);
-            bundle.setSlug(Sluggifier.toSlug(bundleName));
             bundle.setDescription(
-                faker.options().option(
-                    faker.chuckNorris().fact(),
-                    faker.lorem().paragraph(),
-                    faker.hitchhikersGuideToTheGalaxy().quote(),
-                    faker.yoda().quote(),
-                    faker.shakespeare().hamletQuote(),
-                    faker.movie().quote(),
-                    faker.friends().quote(),
-                    faker.gameOfThrones().quote()
-                )
+                faker.lorem().paragraph()
             );
 
             bundle.setStatus(faker.options().option(
                 BundleStatus.PRIVATE,
-                BundleStatus.PUBLIC,
                 BundleStatus.PUBLIC
             ));
 
