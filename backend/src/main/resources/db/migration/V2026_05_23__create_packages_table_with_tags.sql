@@ -1,7 +1,3 @@
-CREATE DOMAIN slug AS TEXT CHECK (
-    VALUE ~ '^[a-z0-9]+(-[a-z0-9]+)*$'
-);
-
 CREATE TYPE BundleStatus AS ENUM ('PUBLIC', 'PRIVATE');
 
 CREATE TABLE bundles (
@@ -9,7 +5,6 @@ CREATE TABLE bundles (
     name TEXT UNIQUE NOT NULL,
     description TEXT NOT NULL,
     status BundleStatus NOT NULL,
-    slug SLUG UNIQUE NOT NULL,
     created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
     updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
     deleted_at TIMESTAMPTZ

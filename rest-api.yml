@@ -138,8 +138,11 @@ components:
       properties:
         name:
           type: string
+          minLength: 1
+          maxLength: 128
         description:
           type: string
+          maxLength: 512
         status:
           type: string
           enum: [PUBLIC, PRIVATE]

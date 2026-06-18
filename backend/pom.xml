@@ -160,7 +160,7 @@
                             <openapiNormalizer>REF_AS_PARENT_IN_ALLOF=true</openapiNormalizer>
                             <configOptions>
                                 <library>spring-boot</library>
-                                <useBeanValidation>false</useBeanValidation>
+                                <useBeanValidation>true</useBeanValidation>
                                 <openApiNullable>false</openApiNullable>
                             </configOptions>
                         </configuration>
