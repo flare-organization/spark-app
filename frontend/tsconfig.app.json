@@ -24,7 +24,7 @@
         "ignoreDeprecations": "6.0",
         "paths": {
             "@/*": ["./src/*"],
-            "@openapi/*": ["./target/generated-sources/openapi/*"]
+            "@openapi/*": ["./src/shared/models/api/*"]
         }
     },
     "include": ["src"]
