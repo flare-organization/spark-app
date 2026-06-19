@@ -3,7 +3,6 @@ import { ArrowRight, CircleAlert, Globe, Lock, Upload } from 'lucide-react'
 import { useState } from 'react'
 import { useForm, useWatch } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
-import { z } from 'zod'
 
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
@@ -22,23 +21,13 @@ import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group'
 import { createBundle } from '@/services/bundleService'
 import { type CreateBundle, CreateBundleStatusEnum } from '@openapi/model/createBundle.ts'
 
-const NAME_MAX = 128
-const DESCRIPTION_MAX = 512
-
-const bundleFormSchema = z.object({
-    name: z
-        .string()
-        .trim()
-        .min(1, 'Package name is required.')
-        .max(NAME_MAX, `Package name must be ${NAME_MAX} characters or fewer.`),
-    description: z
-        .string()
-        .trim()
-        .max(DESCRIPTION_MAX, `Description must be ${DESCRIPTION_MAX} characters or fewer.`),
-    status: z.enum(CreateBundleStatusEnum),
-})
-
-type BundleFormValues = z.infer<typeof bundleFormSchema>
+import {
+    type BundleFormValues,
+    DESCRIPTION_MAX,
+    NAME_MAX,
+    bundleFormDefaults,
+    bundleFormSchema,
+} from '@/features/bundles/bundleForm.ts'
 
 export default function BundlesCreatePage() {
     const navigate = useNavigate()
@@ -47,11 +36,7 @@ export default function BundlesCreatePage() {
     const form = useForm<BundleFormValues>({
         resolver: zodResolver(bundleFormSchema),
         mode: 'onSubmit',
-        defaultValues: {
-            name: '',
-            description: '',
-            status: CreateBundleStatusEnum.PUBLIC,
-        },
+        defaultValues: bundleFormDefaults,
     })
 
     const name = useWatch({ control: form.control, name: 'name' })
