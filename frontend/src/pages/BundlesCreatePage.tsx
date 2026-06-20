@@ -163,9 +163,7 @@ export default function BundlesCreatePage() {
 
                             <div className="flex justify-end gap-2 border-t pt-5">
                                 <Button type="submit" disabled={form.formState.isSubmitting}>
-                                    {form.formState.isSubmitting
-                                        ? 'Publishing…'
-                                        : 'Publish bundle'}
+                                    {form.formState.isSubmitting ? 'Publishing…' : 'Publish bundle'}
                                     <ArrowRight className="size-4" aria-hidden="true" />
                                 </Button>
                             </div>
