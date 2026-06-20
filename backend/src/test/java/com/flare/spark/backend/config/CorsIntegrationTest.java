@@ -2,15 +2,11 @@ package com.flare.spark.backend.config;
 
 import com.flare.spark.backend.IntegrationTest;
 import jakarta.servlet.http.Cookie;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
-import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.header;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -21,24 +17,14 @@ class CorsIntegrationTest extends IntegrationTest {
     @Autowired
     private WebApplicationContext context;
 
-    private MockMvc mvc;
-
-    @Value("${cors.allowed-origin}")
+    @Value("${spark-variables.cors.allowed-origin}")
     private String allowedOrigin;
 
     private final String notAllowedOrigin = "http://localhost:1234";
 
-    @BeforeEach
-    public void setUp() {
-        mvc = MockMvcBuilders
-                .webAppContextSetup(context)
-                .apply(springSecurity())
-                .build();
-    }
-
     @Test
     void shouldRejectNotAllowedOrigin() throws Exception {
-        mvc.perform(
+        mockMvc.perform(
             get("/api/v1/ping")
                 .header("Origin", notAllowedOrigin))
                 .andExpect(status().isForbidden())
@@ -47,7 +33,7 @@ class CorsIntegrationTest extends IntegrationTest {
 
     @Test
     void shouldAcceptAllowedOrigin() throws Exception {
-        mvc.perform(
+        mockMvc.perform(
             get("/api/v1/ping")
                 .header("Origin", allowedOrigin))
                 .andExpect(status().isNoContent())
@@ -56,7 +42,7 @@ class CorsIntegrationTest extends IntegrationTest {
 
     @Test
     void allowedRequestMethods() throws Exception {
-        mvc.perform(
+        mockMvc.perform(
             options("/api/v1/ping")
                 .header("Origin", allowedOrigin)
                 .header("Access-Control-Request-Method", "GET")
@@ -67,7 +53,7 @@ class CorsIntegrationTest extends IntegrationTest {
 
     @Test
     void allHeadersAreAllowed() throws Exception {
-        mvc.perform(
+        mockMvc.perform(
             options("/api/v1/ping")
                 .header("Origin", allowedOrigin)
                 .header("Access-Control-Request-Method", "GET")
@@ -81,7 +67,7 @@ class CorsIntegrationTest extends IntegrationTest {
 
     @Test
     void exposedHeaderIsNotIncludedForNotAllowedOrigin() throws Exception {
-        mvc.perform(
+        mockMvc.perform(
             get("/api/v1/ping")
                 .header("Origin", notAllowedOrigin)
                 .header("Access-Control-Request-Headers", "X-Spark-Header")

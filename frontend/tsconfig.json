@@ -2,9 +2,12 @@
     "files": [],
     "references": [{ "path": "./tsconfig.app.json" }, { "path": "./tsconfig.node.json" }],
     "compilerOptions": {
+        "strict": true,
         "baseUrl": ".",
+        "verbatimModuleSyntax": false,
         "paths": {
-            "@/*": ["./src/*"]
+            "@/*": ["./src/*"],
+            "@openapi/*": ["./src/generated/openapi/*"]
         }
     }
 }

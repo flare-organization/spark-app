@@ -7,13 +7,19 @@ export default defineConfig({
     plugins: [react(), tailwindcss()],
     resolve: {
         alias: {
-            '@': path.resolve(__dirname, './src'),
+            '@': path.resolve(__dirname, 'src'),
+            '@openapi': path.resolve(__dirname, './src/generated/openapi'),
+        },
+    },
+    server: {
+        proxy: {
+            '/api': 'http://localhost:8080',
         },
     },
     test: {
         environment: 'jsdom',
         globals: true,
-        setupFiles: 'src/test/setup.ts',
-        include: ['src/**/*.test.{ts,tsx}'],
+        setupFiles: './src/test/setup.ts',
+        include: ['./src/**/*.test.{ts,tsx}'],
     },
 })

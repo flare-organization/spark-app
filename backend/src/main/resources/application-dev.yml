@@ -1,9 +1,12 @@
-cors:
-  allowed-origin: http://localhost:5173
+spark-variables:
+  cors:
+    allowed-origin: http://localhost:5173
+  seed-database: true
 
 spring:
   docker:
     compose:
+      file: docker-compose.yaml
       lifecycle-management: start_only
 
   datasource:
