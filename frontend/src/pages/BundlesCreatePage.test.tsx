@@ -55,7 +55,7 @@ export default function BundlesCreatePage() {
             await createBundle(request)
             navigate('/bundles')
         } catch {
-            setSubmitError('Failed to create bundle. Please try again.')
+            setSubmitError('Failed to create package. Please try again.')
         }
     }
 
@@ -64,10 +64,10 @@ export default function BundlesCreatePage() {
             <header className="flex flex-col gap-1.5">
                 <h1 className="flex items-center gap-2.5 font-mono text-2xl font-semibold tracking-tight">
                     <Upload className="text-primary size-6" aria-hidden="true" />
-                    Publish a bundle
+                    Publish a package
                 </h1>
                 <p className="text-muted-foreground text-sm">
-                    Give your bundle a name and description.
+                    Give your package a name and description.
                 </p>
             </header>
 
@@ -83,9 +83,9 @@ export default function BundlesCreatePage() {
                                 name="name"
                                 render={({ field }) => (
                                     <FormItem>
-                                        <FormLabel>Bundle name</FormLabel>
+                                        <FormLabel>Package name</FormLabel>
                                         <FormControl>
-                                            <Input placeholder="my-bundle" autoFocus {...field} />
+                                            <Input placeholder="my-package" autoFocus {...field} />
                                         </FormControl>
                                         <div className="flex items-start gap-2">
                                             <FormMessage />
@@ -103,7 +103,7 @@ export default function BundlesCreatePage() {
                                         <FormLabel optional>Description</FormLabel>
                                         <FormControl>
                                             <Textarea
-                                                placeholder="What's in this bundle?"
+                                                placeholder="What's in this package?"
                                                 rows={3}
                                                 {...field}
                                             />
@@ -165,7 +165,7 @@ export default function BundlesCreatePage() {
                                 <Button type="submit" disabled={form.formState.isSubmitting}>
                                     {form.formState.isSubmitting
                                         ? 'Publishing…'
-                                        : 'Publish bundle'}
+                                        : 'Publish package'}
                                     <ArrowRight className="size-4" aria-hidden="true" />
                                 </Button>
                             </div>
