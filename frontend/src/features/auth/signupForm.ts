@@ -9,7 +9,7 @@ export const PASSWORD_MAX = 128
 export const signUpFormSchema = z.object({
     username: z
         .string('Username is required')
-        .min(USERNAME_MIN, `Username name must be at least ${USERNAME_MIN} characters.`)
+        .min(USERNAME_MIN, `Username must be at least ${USERNAME_MIN} characters.`)
         .max(USERNAME_MAX, `Username must be ${USERNAME_MAX} characters or fewer.`)
         .regex(
             /^[a-zA-Z0-9]+(?:-[a-zA-Z0-9]+)*$/,
@@ -19,7 +19,7 @@ export const signUpFormSchema = z.object({
     password: z
         .string('Password is required')
         .regex(/^\S+$/, 'Password cannot contain spaces')
-        .min(PASSWORD_MIN, `Password name must be at least ${PASSWORD_MIN} characters.`)
+        .min(PASSWORD_MIN, `Password must be at least ${PASSWORD_MIN} characters.`)
         .max(PASSWORD_MAX, `Password must be ${PASSWORD_MAX} characters or fewer.`),
 })
 
