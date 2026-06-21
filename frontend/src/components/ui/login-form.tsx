@@ -98,9 +98,7 @@ export function LoginForm() {
                 )}
 
                 <Field>
-                    <Button type="submit" disabled={!form.formState.errors}>
-                        Create Account
-                    </Button>
+                    <Button type="submit">Create Account</Button>
                 </Field>
 
                 <Field>
