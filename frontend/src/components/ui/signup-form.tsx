@@ -1,50 +1,140 @@
-import { cn } from '@/lib/utils'
 import { Button } from '@/components/ui/button'
-import { Field, FieldDescription, FieldGroup, FieldLabel } from '@/components/ui/field'
+import { Field, FieldDescription, FieldGroup } from '@/components/ui/field'
 import { Input } from '@/components/ui/input'
 import { Link } from 'react-router-dom'
+import { SignUpFormValues, PASSWORD_MIN, signUpFormSchema } from '@/features/auth/signupForm.ts'
+import { useState } from 'react'
+import { useForm } from 'react-hook-form'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { SignUpCredentials } from '@openapi/model/signUpCredentials.ts'
+import { signup } from '@/services/authService.ts'
 
-export function SignupForm({ className, ...props }: React.ComponentProps<'form'>) {
+import {
+    Form,
+    FormControl,
+    FormField,
+    FormItem,
+    FormLabel,
+    FormMessage,
+} from '@/components/ui/form'
+import { CircleAlert } from 'lucide-react'
+
+export function SignupForm() {
+    const [submitError, setSubmitError] = useState<string | null>(null)
+
+    const form = useForm<SignUpFormValues>({
+        resolver: zodResolver(signUpFormSchema),
+        mode: 'onBlur',
+        reValidateMode: 'onSubmit',
+    })
+
+    async function onSubmit(values: SignUpFormValues) {
+        setSubmitError(null)
+
+        const request: SignUpCredentials = {
+            username: values.username,
+            email: values.email,
+            password: values.password,
+        }
+
+        try {
+            await signup(request)
+        } catch {
+            setSubmitError('Failed to signup. Please try again.')
+        }
+    }
+
     return (
-        <form className={cn('flex flex-col gap-6', className)} {...props}>
-            <FieldGroup>
-                <div className="flex flex-col items-center gap-1 text-center">
-                    <h1 className="text-2xl font-bold">Create your account</h1>
-                    <p className="text-muted-foreground text-sm text-balance">
-                        Fill in the form below to create your account
-                    </p>
-                </div>
-                <Field>
-                    <FieldLabel htmlFor="name">Full Name</FieldLabel>
-                    <Input id="name" type="text" placeholder="John Doe" required />
-                </Field>
-                <Field>
-                    <FieldLabel htmlFor="email">Email</FieldLabel>
-                    <Input id="email" type="email" placeholder="m@example.com" required />
-                    <FieldDescription>
-                        We&apos;ll use this to contact you. We will not share your email with anyone
-                        else.
-                    </FieldDescription>
-                </Field>
-                <Field>
-                    <FieldLabel htmlFor="password">Password</FieldLabel>
-                    <Input id="password" type="password" required />
-                    <FieldDescription>Must be at least 8 characters long.</FieldDescription>
-                </Field>
-                <Field>
-                    <FieldLabel htmlFor="confirm-password">Confirm Password</FieldLabel>
-                    <Input id="confirm-password" type="password" required />
-                    <FieldDescription>Please confirm your password.</FieldDescription>
-                </Field>
-                <Field>
-                    <Button type="submit">Create Account</Button>
-                </Field>
-                <Field>
-                    <FieldDescription className="text-center">
-                        Already have an account? <Link to="/login">Sign in</Link>
-                    </FieldDescription>
-                </Field>
-            </FieldGroup>
-        </form>
+        <Form {...form}>
+            <form className="flex flex-col gap-6" onSubmit={form.handleSubmit(onSubmit)}>
+                <FieldGroup>
+                    <div className="flex flex-col items-center gap-1 text-center">
+                        <h1 className="text-2xl font-bold">Create your account</h1>
+                        <p className="text-muted-foreground text-sm text-balance">
+                            Fill in the form below to create your account
+                        </p>
+                    </div>
+
+                    <FormField
+                        control={form.control}
+                        name="username"
+                        render={({ field }) => (
+                            <FormItem>
+                                <FormLabel>Username</FormLabel>
+                                <FormControl>
+                                    <Input
+                                        id="username"
+                                        type="text"
+                                        placeholder="Spark-user"
+                                        {...field}
+                                    />
+                                </FormControl>
+                                <div className="flex items-start gap-2">
+                                    <FormMessage />
+                                </div>
+                            </FormItem>
+                        )}
+                    />
+
+                    <FormField
+                        control={form.control}
+                        name="email"
+                        render={({ field }) => (
+                            <FormItem>
+                                <FormLabel>Email</FormLabel>
+                                <FormControl>
+                                    <Input
+                                        id="email"
+                                        type="email"
+                                        placeholder="m@example.com"
+                                        {...field}
+                                    />
+                                </FormControl>
+                                <div className="flex items-start gap-2">
+                                    <FormMessage />
+                                </div>
+                            </FormItem>
+                        )}
+                    />
+
+                    <FormField
+                        control={form.control}
+                        name="password"
+                        render={({ field }) => (
+                            <FormItem>
+                                <FormLabel>Password</FormLabel>
+                                <FormControl>
+                                    <Input id="password" type="password" {...field} />
+                                </FormControl>
+                                <div className="flex flex-col items-start gap-2">
+                                    <FieldDescription>
+                                        Must be at least {PASSWORD_MIN} characters long.
+                                    </FieldDescription>
+                                    <FormMessage />
+                                </div>
+                            </FormItem>
+                        )}
+                    />
+
+                    {submitError && (
+                        <p className="text-destructive flex items-center gap-1.5 text-sm">
+                            <CircleAlert className="size-4 shrink-0" aria-hidden="true" />
+                            {submitError}
+                        </p>
+                    )}
+
+                    <Field>
+                        <Button type="submit" disabled={!form.formState.errors}>
+                            Create Account
+                        </Button>
+                    </Field>
+                    <Field>
+                        <FieldDescription className="text-center">
+                            Already have an account? <Link to="/login">Sign in</Link>
+                        </FieldDescription>
+                    </Field>
+                </FieldGroup>
+            </form>
+        </Form>
     )
 }
