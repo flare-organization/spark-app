@@ -39,7 +39,7 @@ export function LoginForm() {
         try {
             await login(request)
         } catch {
-            setSubmitError('Failed to signup. Please try again.')
+            setSubmitError('Failed to login. Please try again.')
         }
     }
 
