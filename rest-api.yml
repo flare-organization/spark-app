@@ -59,7 +59,7 @@ components:
       properties:
         username:
           type: string
-          pattern: '^[a-z0-9]+(?:-[a-z0-9]+)*$'
+          pattern: '^[a-zA-Z0-9]+(?:-[a-zA-Z0-9]+)*$'
           minLength: 2
           maxLength: 64
         email:
@@ -78,7 +78,7 @@ components:
       properties:
         username:
           type: string
-          pattern: '^[a-z0-9]+(?:-[a-z0-9]+)*$'
+          pattern: '^[a-zA-Z0-9]+(?:-[a-zA-Z0-9]+)*$'
           minLength: 2
           maxLength: 64
         password:

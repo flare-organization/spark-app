@@ -12,8 +12,8 @@ export const signUpFormSchema = z.object({
         .min(USERNAME_MIN, `Username name must be at least ${USERNAME_MIN} characters.`)
         .max(USERNAME_MAX, `Username must be ${USERNAME_MAX} characters or fewer.`)
         .regex(
-            /^[a-z0-9]+(?:-[a-z0-9]+)*$/,
-            'Username can only contain lower case letters, numbers and dashes (e.g. example-username-123).',
+            /^[a-zA-Z0-9]+(?:-[a-zA-Z0-9]+)*$/,
+            'Username can only contain letters, numbers and dashes (e.g. example-username-123).',
         ),
     email: z.email('Input must be a valid email address'),
     password: z

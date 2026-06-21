@@ -4,7 +4,7 @@ export const loginFormSchema = z.object({
     username: z
         .string('Username is required')
         .toLowerCase()
-        .regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/, 'Invalid username'),
+        .regex(/^[a-zA-Z0-9]+(?:-[a-zA-Z0-9]+)*$/, 'Invalid username'),
     password: z.string('Password is required'),
 })
 
