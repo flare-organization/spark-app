@@ -13,4 +13,6 @@ public interface BundleRepository extends JpaRepository<Bundle, UUID> {
     Slice<Bundle> findAllBy(Pageable pageable);
 
     List<Bundle> findByName(String name);
+
+    boolean existsByName(String bundleName);
 }

@@ -6,10 +6,6 @@ spring:
   docker:
     compose:
       lifecycle-management: none  # this is external on prod
-  datasource:
-    url: ${DB_URL}
-    username: ${DB_USER}
-    password: ${DB_PASSWORD}
 
 logging:
   level:
