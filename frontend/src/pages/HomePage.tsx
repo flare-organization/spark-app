@@ -18,9 +18,7 @@ import { SearchIcon } from 'lucide-react'
 import { useEffect, useState } from 'react'
 
 function bundleInitials(name: string): string {
-    const parts = name.split(/[\s-_]+/).filter(Boolean)
-    const letters = parts.length >= 2 ? parts[0][0] + parts[1][0] : name.slice(0, 2)
-    return letters.toUpperCase()
+    return name.slice(0, 2).toUpperCase()
 }
 
 function BundleCard({ bundle }: { bundle: Bundle }) {
