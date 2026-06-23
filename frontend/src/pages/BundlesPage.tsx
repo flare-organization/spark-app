@@ -47,7 +47,7 @@ export default function BundlesPage() {
             .then((res: PaginatedBundles) => {
                 const { content, ...paginationDetails } = res
 
-                setBundles(res.content)
+                setBundles(content)
                 setPaginationDetails(paginationDetails)
             })
             .catch(() => setError('Could not load bundles'))
@@ -70,8 +70,16 @@ export default function BundlesPage() {
 
             <ul className="flex flex-col gap-2">
                 {bundles.map((bundle) => (
-                    <li key={bundle.id} className="rounded-md border px-4 py-3 text-sm">
-                        {bundle.name}
+                    <li
+                        key={bundle.id}
+                        className="border-border bg-card hover:border-ring/40 flex flex-col gap-0.5 rounded-xl border px-4 py-3 transition-colors"
+                    >
+                        <span className="text-sm font-medium">{bundle.name}</span>
+                        {bundle.description && (
+                            <span className="text-muted-foreground line-clamp-2 text-xs">
+                                {bundle.description}
+                            </span>
+                        )}
                     </li>
                 ))}
             </ul>

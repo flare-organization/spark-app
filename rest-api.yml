@@ -84,6 +84,42 @@ paths:
 
 components:
   schemas:
+    SignUpCredentials:
+      type: object
+      required:
+        - username
+        - email
+        - password
+      properties:
+        username:
+          type: string
+          pattern: '^[a-zA-Z0-9]+(?:-[a-zA-Z0-9]+)*$'
+          minLength: 2
+          maxLength: 64
+        email:
+          type: string
+          format: email
+        password:
+          type: string
+          minLength: 8
+          maxLength: 128
+
+    LoginCredentials:
+      type: object
+      required:
+        - username
+        - password
+      properties:
+        username:
+          type: string
+          pattern: '^[a-zA-Z0-9]+(?:-[a-zA-Z0-9]+)*$'
+          minLength: 2
+          maxLength: 64
+        password:
+          type: string
+          minLength: 8
+          maxLength: 128
+
     Bundle:
       type: object
       required:
@@ -143,8 +179,11 @@ components:
       properties:
         name:
           type: string
+          minLength: 1
+          maxLength: 128
         description:
           type: string
+          maxLength: 512
         status:
           type: string
           enum: [PUBLIC, PRIVATE]

@@ -22,6 +22,7 @@
                         </goals>
                         <configuration>
                             <inputSpec>${basedir}/../rest-api.yml</inputSpec>
+                            <output>${basedir}/src/generated/openapi</output>
                             <generatorName>typescript-angular</generatorName>
                             <generateModels>true</generateModels>
                             <generateApis>false</generateApis>

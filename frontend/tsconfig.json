@@ -7,7 +7,7 @@
         "verbatimModuleSyntax": false,
         "paths": {
             "@/*": ["./src/*"],
-            "@openapi/*": ["./src/shared/models/api/*"]
+            "@openapi/*": ["./src/generated/openapi/*"]
         }
     }
 }

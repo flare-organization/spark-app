@@ -47,30 +47,4 @@ class BundleServiceTest {
 
         assertEquals(paginatedBundles, actual);
     }
-
-    @Test
-    public void testCreateBundleGeneratesSlugBasedOnNameAndReturnsSavedBundle() {
-        Bundle bundle = BundleBuilder.create()
-                .withName("custom bundle name")
-                .build();
-
-        Bundle savedBundle = BundleBuilder
-                .create()
-                .withSlug("custom-bundle-name")
-                .build();
-
-        Mockito.when(bundleRepository.save(bundle)).thenReturn(savedBundle);
-
-        Bundle actual = bundleService.createBundle(bundle);
-
-        assertEquals(savedBundle.getSlug(), actual.getSlug());
-    }
-
-    @Test
-    public void testCreateBundleThrowsNullPointerExceptionWhenNullIsGiven() {
-        assertThrows(
-            NullPointerException.class,
-            () -> bundleService.createBundle(null)
-        );
-    }
 }

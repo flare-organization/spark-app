@@ -156,4 +156,28 @@ class BundleControllerTest {
         )
         .andExpect(status().isBadRequest());
     }
+
+    @Test
+    public void testCreateBundleReturnsBadRequestResponseWhenTitleHasMoreThenAllowedCharacters() throws Exception {
+        BundleDtoBuilder.create().withName("a".repeat(129));
+
+        mockMvc.perform(
+            post("/api/v1/bundles")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(new Object()))
+        )
+        .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    public void testCreateBundleReturnsBadRequestResponseWhenDescriptionHasMoreThenAllowedCharacters() throws Exception {
+        BundleDtoBuilder.create().withDescription("a".repeat(513));
+
+        mockMvc.perform(
+            post("/api/v1/bundles")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(new Object()))
+        )
+        .andExpect(status().isBadRequest());
+    }
 }

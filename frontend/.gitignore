@@ -26,7 +26,4 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
-/src/shared/
-
-# stray local node runtime (do not commit)
-node/
+/src/generated
