@@ -1,7 +1,10 @@
+import LoginPage from '@/pages/LoginPage.tsx'
+import SignupPage from '@/pages/SignupPage.tsx'
 import { createBrowserRouter } from 'react-router-dom'
 import RootLayout from './layouts/root-layout'
-import HomePage from './pages/HomePage'
 import ComponentsPage from './pages/ComponentsPage'
+import HomePage from './pages/HomePage'
+
 import BundlesCreatePage from './pages/BundlesCreatePage'
 
 export const router = createBrowserRouter([
@@ -20,6 +23,14 @@ export const router = createBrowserRouter([
             {
                 path: 'bundles/create',
                 element: <BundlesCreatePage />,
+            },
+            {
+                path: '/login',
+                element: <LoginPage />,
+            },
+            {
+                path: '/signup',
+                element: <SignupPage />,
             },
         ],
     },
