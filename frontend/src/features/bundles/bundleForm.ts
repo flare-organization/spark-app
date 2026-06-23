@@ -8,7 +8,6 @@ export const DESCRIPTION_MAX = 512
 export const bundleFormSchema = z.object({
     name: z
         .string()
-        .trim()
         .min(1, 'Bundle name is required.')
         .max(NAME_MAX, `Bundle name must be ${NAME_MAX} characters or fewer.`),
     description: z
