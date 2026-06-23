@@ -28,11 +28,11 @@ function BundleCard({ bundle }: { bundle: Bundle }) {
                 <AvatarFallback>{bundleInitials(bundle.name)}</AvatarFallback>
             </Avatar>
             <div className="flex min-w-0 flex-1 flex-col gap-1">
-                <span className="text-primary font-mono text-[15px] leading-none font-semibold tracking-tight">
+                <span className="text-primary font-mono text-sm leading-none font-semibold tracking-tight">
                     {bundle.name}
                 </span>
                 {bundle.description && (
-                    <CardDescription className="line-clamp-2 text-[13px] leading-relaxed">
+                    <CardDescription className="line-clamp-2 text-sm leading-relaxed">
                         {bundle.description}
                     </CardDescription>
                 )}
@@ -82,25 +82,25 @@ export default function HomePage() {
     }, [paginationDetails.pageNumber])
 
     return (
-        <div className="mx-auto max-w-[1200px] px-6 pt-10 pb-20">
+        <div className="mx-auto max-w-6xl px-6 pt-10 pb-20">
             {/* Hero */}
             <section className="mb-9">
                 <div className="mb-3.5 flex items-center gap-3">
                     <Logo size={28} withText={false} />
-                    <h1 className="font-mono text-[32px] font-semibold tracking-tight">spark</h1>
+                    <h1 className="font-mono text-3xl font-semibold tracking-tight">spark</h1>
                 </div>
-                <p className="text-muted-foreground mb-[22px] max-w-[560px] text-[17px] leading-normal">
+                <p className="text-muted-foreground mb-5 max-w-xl text-lg leading-normal">
                     The fast, bundle manager.
                     <br />
                     No pm this is a bm.
                 </p>
 
-                <div className="relative max-w-[620px]">
-                    <SearchIcon className="text-muted-foreground pointer-events-none absolute top-1/2 left-4 size-[17px] -translate-y-1/2" />
+                <div className="relative max-w-xl">
+                    <SearchIcon className="text-muted-foreground pointer-events-none absolute top-1/2 left-4 size-4 -translate-y-1/2" />
                     <Input
                         type="search"
                         placeholder="Search bundles..."
-                        className="h-12 rounded-lg pr-14 pl-11 text-[15px]"
+                        className="h-12 rounded-lg pr-14 pl-11 text-sm"
                     />
                     <Kbd className="absolute top-1/2 right-3.5 -translate-y-1/2">⌘K</Kbd>
                 </div>
@@ -112,7 +112,7 @@ export default function HomePage() {
                     <h2 className="font-mono text-lg font-semibold tracking-tight">
                         Discover bundles
                     </h2>
-                    <p className="text-muted-foreground mt-1 text-[12.5px]">
+                    <p className="text-muted-foreground mt-1 text-xs">
                         {bundles.length} bundle{bundles.length === 1 ? '' : 's'} · updated
                         continuously
                     </p>
@@ -124,7 +124,7 @@ export default function HomePage() {
                     <p className="text-muted-foreground text-sm">No bundles yet.</p>
                 )}
 
-                <div className="grid [grid-template-columns:repeat(auto-fill,minmax(340px,1fr))] gap-[18px]">
+                <div className="grid [grid-template-columns:repeat(auto-fill,minmax(340px,1fr))] gap-4">
                     {bundles.map((bundle) => (
                         <BundleCard key={bundle.id} bundle={bundle} />
                     ))}

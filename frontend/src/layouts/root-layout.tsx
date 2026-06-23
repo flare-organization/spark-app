@@ -23,7 +23,7 @@ export default function RootLayout() {
                         <Logo />
                         <span className="text-muted-foreground text-xs">by Team Flare</span>
                     </div>
-                    <div className="text-muted-foreground flex gap-[18px] text-[12.5px]">
+                    <div className="text-muted-foreground flex gap-4 text-xs">
                         <span className="inline-flex items-center gap-1.5">
                             <PulseDot size="sm" /> Status
                         </span>

@@ -18,7 +18,7 @@ export function Logo({ size = 20, withText = true, className }: LogoProps) {
                 />
             </svg>
             {withText && (
-                <span className="font-mono text-[15px] font-semibold tracking-tight">spark</span>
+                <span className="font-mono text-sm font-semibold tracking-tight">spark</span>
             )}
         </span>
     )

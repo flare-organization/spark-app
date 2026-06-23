@@ -29,13 +29,13 @@ export function SiteNavbar() {
                 <Logo />
             </Link>
 
-            <div className="mx-auto flex w-full max-w-[420px] flex-1 justify-center">
+            <div className="mx-auto flex w-full max-w-md flex-1 justify-center">
                 <div className="relative w-full">
-                    <SearchIcon className="text-muted-foreground pointer-events-none absolute top-1/2 left-3 size-[15px] -translate-y-1/2" />
+                    <SearchIcon className="text-muted-foreground pointer-events-none absolute top-1/2 left-3 size-4 -translate-y-1/2" />
                     <Input
                         type="search"
                         placeholder="Search bundles"
-                        className="h-[34px] pr-12 pl-9 text-[13px]"
+                        className="h-9 pr-12 pl-9 text-sm"
                     />
                     <Kbd className="absolute top-1/2 right-2.5 -translate-y-1/2">⌘K</Kbd>
                 </div>
