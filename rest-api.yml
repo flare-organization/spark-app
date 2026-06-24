@@ -79,7 +79,7 @@ paths:
 
 components:
   schemas:
-    SignUpCredentials:
+    SignUpRequest:
       type: object
       required:
         - username
@@ -99,7 +99,7 @@ components:
           minLength: 8
           maxLength: 128
 
-    LoginCredentials:
+    LoginRequest:
       type: object
       required:
         - username

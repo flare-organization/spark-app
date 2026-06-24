@@ -6,7 +6,6 @@ import { SignUpFormValues, PASSWORD_MIN, signUpFormSchema } from '@/features/aut
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { SignUpCredentials } from '@openapi/model/signUpCredentials.ts'
 import { signup } from '@/services/authService.ts'
 
 import {
@@ -18,6 +17,7 @@ import {
     FormMessage,
 } from '@/components/ui/form'
 import { CircleAlert } from 'lucide-react'
+import {SignUpRequest} from "@openapi/model/signUpRequest.ts";
 
 export function SignupForm() {
     const [submitError, setSubmitError] = useState<string | null>(null)
@@ -31,7 +31,7 @@ export function SignupForm() {
     async function onSubmit(values: SignUpFormValues) {
         setSubmitError(null)
 
-        const request: SignUpCredentials = {
+        const request: SignUpRequest = {
             username: values.username,
             email: values.email,
             password: values.password,

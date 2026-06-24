@@ -16,8 +16,8 @@ import {
     FormMessage,
 } from '@/components/ui/form'
 import { CircleAlert } from 'lucide-react'
-import { LoginCredentials } from '@openapi/model/loginCredentials.ts'
 import { loginFormSchema, LoginFormValues } from '@/features/auth/loginForm.ts'
+import {LoginRequest} from "@openapi/model/loginRequest.ts";
 
 export function LoginForm() {
     const [submitError, setSubmitError] = useState<string | null>(null)
@@ -28,10 +28,10 @@ export function LoginForm() {
         reValidateMode: 'onSubmit',
     })
 
-    async function onSubmit(values: LoginCredentials) {
+    async function onSubmit(values: LoginRequest) {
         setSubmitError(null)
 
-        const request: LoginCredentials = {
+        const request: LoginRequest = {
             username: values.username,
             password: values.password,
         }
