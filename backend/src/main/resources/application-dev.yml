@@ -4,6 +4,11 @@ spark-variables:
   seed-database: true
 
 spring:
+  docker:
+    compose:
+      file: docker-compose.yaml
+      lifecycle-management: start_only
+
   datasource:
     url: jdbc:postgresql://localhost:5432/spark-db
     username: spark-user
