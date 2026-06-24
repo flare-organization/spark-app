@@ -43,10 +43,12 @@ export function SiteNavbar() {
 
             <div className="flex items-center gap-2">
                 <ThemeSwitcher />
-                <Button variant="ghost" size="sm">
-                    Sign in
+                <Button variant="ghost" size="sm" asChild>
+                    <Link to="/login">Sign in</Link>
                 </Button>
-                <Button size="sm">Register</Button>
+                <Button size="sm" asChild>
+                    <Link to="/signup">Register</Link>
+                </Button>
             </div>
         </header>
     )
