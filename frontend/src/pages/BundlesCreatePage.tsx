@@ -1,82 +1,176 @@
+import { zodResolver } from '@hookform/resolvers/zod'
+import { ArrowRight, CircleAlert, Globe, Lock, Upload } from 'lucide-react'
 import { useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { useForm, useWatch } from 'react-hook-form'
+import { useNavigate } from 'react-router-dom'
+
 import { Button } from '@/components/ui/button'
+import { Card, CardContent } from '@/components/ui/card'
+import {
+    Form,
+    FormCharCount,
+    FormControl,
+    FormField,
+    FormItem,
+    FormLabel,
+    FormMessage,
+} from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
 import { Textarea } from '@/components/ui/textarea'
+import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group'
 import { createBundle } from '@/services/bundleService'
 import { type CreateBundle, CreateBundleStatusEnum } from '@openapi/model/createBundle.ts'
 
+import {
+    type BundleFormValues,
+    DESCRIPTION_MAX,
+    NAME_MAX,
+    bundleFormDefaults,
+    bundleFormSchema,
+} from '@/features/bundles/bundleForm.ts'
+
 export default function BundlesCreatePage() {
     const navigate = useNavigate()
-    const [name, setName] = useState('')
-    const [description, setDescription] = useState('')
-    const [error, setError] = useState<string | null>(null)
-    const [loading, setLoading] = useState(false)
+    const [submitError, setSubmitError] = useState<string | null>(null)
 
-    async function handleSubmit(e: { preventDefault: () => void }) {
-        e.preventDefault()
-        if (!name.trim()) return
-        setLoading(true)
-        setError(null)
+    const form = useForm<BundleFormValues>({
+        resolver: zodResolver(bundleFormSchema),
+        mode: 'onSubmit',
+        defaultValues: bundleFormDefaults,
+    })
+
+    const name = useWatch({ control: form.control, name: 'name' })
+    const description = useWatch({ control: form.control, name: 'description' })
+
+    async function onSubmit(values: BundleFormValues) {
+        setSubmitError(null)
 
         const request: CreateBundle = {
-            name: name.trim(),
-            description: description.trim(),
-            status: CreateBundleStatusEnum.PUBLIC,
+            name: values.name,
+            description: values.description,
+            status: values.status,
         }
 
         try {
             await createBundle(request)
             navigate('/bundles')
         } catch {
-            setError('Failed to create bundle')
-        } finally {
-            setLoading(false)
+            setSubmitError('Failed to create bundle. Please try again.')
         }
     }
 
     return (
-        <div className="mx-auto flex max-w-md flex-col gap-6 p-8">
-            <div className="flex items-center gap-4">
-                <Link to="/bundles" className="text-muted-foreground text-sm hover:underline">
-                    ← Back
-                </Link>
-                <h1 className="text-2xl font-bold">Create bundle</h1>
-            </div>
+        <div className="mx-auto flex max-w-2xl flex-col gap-7 px-6 py-8">
+            <header className="flex flex-col gap-1.5">
+                <h1 className="flex items-center gap-2.5 font-mono text-2xl font-semibold tracking-tight">
+                    <Upload className="text-primary size-6" aria-hidden="true" />
+                    Publish a bundle
+                </h1>
+                <p className="text-muted-foreground text-sm">
+                    Give your bundle a name and description.
+                </p>
+            </header>
 
-            <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-                <div className="flex flex-col gap-1.5">
-                    <Label htmlFor="name">Name</Label>
-                    <Input
-                        id="name"
-                        value={name}
-                        onChange={(e) => setName(e.target.value)}
-                        placeholder="My bundle"
-                        autoFocus
-                    />
-                </div>
+            <Card>
+                <CardContent>
+                    <Form {...form}>
+                        <form
+                            onSubmit={form.handleSubmit(onSubmit)}
+                            className="flex flex-col gap-6"
+                        >
+                            <FormField
+                                control={form.control}
+                                name="name"
+                                render={({ field }) => (
+                                    <FormItem>
+                                        <FormLabel>Bundle name</FormLabel>
+                                        <FormControl>
+                                            <Input placeholder="my-bundle" autoFocus {...field} />
+                                        </FormControl>
+                                        <div className="flex items-start gap-2">
+                                            <FormMessage />
+                                            <FormCharCount value={name} max={NAME_MAX} />
+                                        </div>
+                                    </FormItem>
+                                )}
+                            />
 
-                <div className="flex flex-col gap-1.5">
-                    <Label htmlFor="description">
-                        Description{' '}
-                        <span className="text-muted-foreground font-normal">(optional)</span>
-                    </Label>
-                    <Textarea
-                        id="description"
-                        value={description}
-                        onChange={(e) => setDescription(e.target.value)}
-                        placeholder="What's in this bundle?"
-                        rows={3}
-                    />
-                </div>
+                            <FormField
+                                control={form.control}
+                                name="description"
+                                render={({ field }) => (
+                                    <FormItem>
+                                        <FormLabel optional>Description</FormLabel>
+                                        <FormControl>
+                                            <Textarea
+                                                placeholder="What's in this bundle?"
+                                                rows={3}
+                                                {...field}
+                                            />
+                                        </FormControl>
+                                        <div className="flex items-start gap-2">
+                                            <FormMessage />
+                                            <FormCharCount
+                                                value={description}
+                                                max={DESCRIPTION_MAX}
+                                            />
+                                        </div>
+                                    </FormItem>
+                                )}
+                            />
 
-                {error && <p className="text-sm text-red-500">{error}</p>}
+                            <FormField
+                                control={form.control}
+                                name="status"
+                                render={({ field }) => (
+                                    <FormItem>
+                                        <FormLabel>Visibility</FormLabel>
+                                        <FormControl>
+                                            <ToggleGroup
+                                                type="single"
+                                                variant="outline"
+                                                spacing={0}
+                                                value={field.value}
+                                                onValueChange={(value) =>
+                                                    value && field.onChange(value)
+                                                }
+                                                className="w-full *:flex-1"
+                                            >
+                                                <ToggleGroupItem
+                                                    value={CreateBundleStatusEnum.PUBLIC}
+                                                >
+                                                    <Globe className="size-4" aria-hidden="true" />
+                                                    Public
+                                                </ToggleGroupItem>
+                                                <ToggleGroupItem
+                                                    value={CreateBundleStatusEnum.PRIVATE}
+                                                >
+                                                    <Lock className="size-4" aria-hidden="true" />
+                                                    Private
+                                                </ToggleGroupItem>
+                                            </ToggleGroup>
+                                        </FormControl>
+                                    </FormItem>
+                                )}
+                            />
 
-                <Button type="submit" disabled={loading || !name.trim()}>
-                    {loading ? 'Creating...' : 'Create'}
-                </Button>
-            </form>
+                            {submitError && (
+                                <p className="text-destructive flex items-center gap-1.5 text-sm">
+                                    <CircleAlert className="size-4 shrink-0" aria-hidden="true" />
+                                    {submitError}
+                                </p>
+                            )}
+
+                            <div className="flex justify-end gap-2 border-t pt-5">
+                                <Button type="submit" disabled={form.formState.isSubmitting}>
+                                    {form.formState.isSubmitting ? 'Publishing…' : 'Publish bundle'}
+                                    <ArrowRight className="size-4" aria-hidden="true" />
+                                </Button>
+                            </div>
+                        </form>
+                    </Form>
+                </CardContent>
+            </Card>
         </div>
     )
 }
