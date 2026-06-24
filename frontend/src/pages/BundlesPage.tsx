@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useSearchParams } from 'react-router-dom'
 import { Button } from '@/components/ui/button'
-import { getBundles } from '@/services/bundleService'
+import { Search } from '@/components/ui/search'
+import { getBundles, getSearchBundles } from '@/services/bundleService'
 import type { Bundle } from '@openapi/model/bundle.ts'
-import type { PaginatedBundles } from '@openapi/model/paginatedBundles.ts'
+import type { SearchBundle } from '@openapi/model/searchBundle.ts'
 import {
     Pagination,
     PaginationContent,
@@ -14,8 +15,12 @@ import {
 import type { SlicedPagination } from '@openapi/model/slicedPagination.ts'
 
 export default function BundlesPage() {
+    const [searchParams] = useSearchParams()
+    const query = searchParams.get('q') ?? ''
+    const [page, setPage] = useState(0)
     const [error, setError] = useState<string | null>(null)
-    const [bundles, setBundles] = useState<Bundle[]>([])
+
+    const [bundles, setBundles] = useState<(Bundle | SearchBundle)[]>([])
     const [paginationDetails, setPaginationDetails] = useState<SlicedPagination>({
         isEmpty: true,
         isFirst: true,
@@ -24,34 +29,39 @@ export default function BundlesPage() {
         pageSize: 0,
     })
 
+    const [searchInput, setSearchInput] = useState(query)
+    const [prevQuery, setPrevQuery] = useState(query)
+
+    if (query !== prevQuery) {
+        setPrevQuery(query)
+        setSearchInput(query)
+        setPage(0)
+    }
+
     function previousPage(): void {
-        if (!paginationDetails.isFirst && paginationDetails.pageNumber > 0) {
-            setPaginationDetails((prevState) => ({
-                ...prevState,
-                pageNumber: paginationDetails.pageNumber - 1,
-            }))
+        if (!paginationDetails.isFirst && page > 0) {
+            setPage(page - 1)
         }
     }
 
     function nextPage(): void {
         if (!paginationDetails.isLast) {
-            setPaginationDetails((prevState) => ({
-                ...prevState,
-                pageNumber: paginationDetails.pageNumber + 1,
-            }))
+            setPage(page + 1)
         }
     }
 
     useEffect(() => {
-        getBundles(paginationDetails.pageNumber)
-            .then((res: PaginatedBundles) => {
+        const request = query ? getSearchBundles(query, page) : getBundles(page)
+
+        request
+            .then((res) => {
                 const { content, ...paginationDetails } = res
 
                 setBundles(content)
                 setPaginationDetails(paginationDetails)
             })
             .catch(() => setError('Could not load bundles'))
-    }, [paginationDetails.pageNumber])
+    }, [page, query])
 
     return (
         <div className="mx-auto flex max-w-2xl flex-col gap-6 p-8">
@@ -62,6 +72,8 @@ export default function BundlesPage() {
                 </Link>
             </div>
 
+            <Search value={searchInput} onValueChange={setSearchInput} className={'w-full'} />
+
             {error && <p className="text-red-500">{error}</p>}
 
             {bundles.length === 0 && !error && (
@@ -71,7 +83,7 @@ export default function BundlesPage() {
             <ul className="flex flex-col gap-2">
                 {bundles.map((bundle) => (
                     <li
-                        key={bundle.id}
+                        key={'id' in bundle ? bundle.id : bundle.name}
                         className="border-border bg-card hover:border-ring/40 flex flex-col gap-0.5 rounded-xl border px-4 py-3 transition-colors"
                     >
                         <span className="text-sm font-medium">{bundle.name}</span>

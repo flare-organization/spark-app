@@ -4,6 +4,7 @@ import com.flare.spark.generated.api.model.BundleDto;
 import com.flare.spark.generated.api.model.CreateBundleDto;
 
 import com.flare.spark.generated.api.model.PaginatedBundlesDto;
+import com.flare.spark.generated.api.model.PaginatedSearchBundlesDto;
 import jakarta.validation.Valid;
 import org.springframework.data.domain.Slice;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -33,6 +34,23 @@ public class BundleController {
 
         return new PaginatedBundlesDto(
             bundles.getContent().stream().map(mapper::bundleToDto).toList(),
+            bundles.getPageable().getPageNumber(),
+            bundles.getPageable().getPageSize(),
+            bundles.isFirst(),
+            bundles.isLast(),
+            bundles.isEmpty()
+        );
+    }
+
+    @GetMapping("/search")
+    public PaginatedSearchBundlesDto searchBundles(
+            @RequestParam("q") String query,
+            @RequestParam(required = false, defaultValue = "0", name = "page") int page
+    ) {
+        Slice<Bundle> bundles = bundleService.searchBundlesByName(query, page);
+
+        return new PaginatedSearchBundlesDto(
+            bundles.getContent().stream().map(mapper::bundleToSearchBundleDto).toList(),
             bundles.getPageable().getPageNumber(),
             bundles.getPageable().getPageSize(),
             bundles.isFirst(),
