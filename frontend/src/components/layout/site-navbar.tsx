@@ -5,8 +5,8 @@ import { Kbd } from '@/components/ui/kbd'
 import { useSearchHotkey } from '@/hooks/use-search-hotkey'
 import { useTheme } from '@/hooks/use-theme'
 import { MoonIcon, SearchIcon, SunIcon } from 'lucide-react'
-import { useRef } from 'react'
-import { Link, useLocation } from 'react-router-dom'
+import { useRef, useState } from 'react'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 
 function ThemeSwitcher() {
     const { theme, setTheme } = useTheme()
@@ -28,6 +28,9 @@ export function SiteNavbar() {
     const searchRef = useRef<HTMLInputElement>(null)
     useSearchHotkey(searchRef)
 
+    const navigate = useNavigate()
+    const [search, setSearch] = useState('')
+
     const isHome = useLocation().pathname === '/'
 
     return (
@@ -38,16 +41,26 @@ export function SiteNavbar() {
 
             <div className="mx-auto flex w-full max-w-md flex-1 justify-center">
                 {!isHome && (
-                    <div className="relative w-full">
+                    <form
+                        onSubmit={(event) => {
+                            event.preventDefault()
+                            const query = search.trim()
+                            navigate(query ? `/?q=${encodeURIComponent(query)}` : '/')
+                        }}
+                        role="search"
+                        className="relative w-full"
+                    >
                         <SearchIcon className="text-muted-foreground pointer-events-none absolute top-1/2 left-3 size-4 -translate-y-1/2" />
                         <Input
                             ref={searchRef}
                             type="search"
                             placeholder="Search bundles"
+                            value={search}
+                            onChange={(event) => setSearch(event.target.value)}
                             className="h-9 pr-12 pl-9 text-sm"
                         />
                         <Kbd className="absolute top-1/2 right-2.5 -translate-y-1/2">⌘K</Kbd>
-                    </div>
+                    </form>
                 )}
             </div>
 

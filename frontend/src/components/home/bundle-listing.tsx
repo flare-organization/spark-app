@@ -8,13 +8,14 @@ import {
     PaginationPrevious,
 } from '@/components/ui/pagination.tsx'
 import type { Bundle } from '@openapi/model/bundle.ts'
+import type { SearchBundle } from '@openapi/model/searchBundle.ts'
 import type { SlicedPagination } from '@openapi/model/slicedPagination.ts'
 
 function bundleInitials(name: string): string {
     return name.slice(0, 2).toUpperCase()
 }
 
-function BundleCard({ bundle }: { bundle: Bundle }) {
+function BundleCard({ bundle }: { bundle: Bundle | SearchBundle }) {
     return (
         <Card className="flex-row items-start gap-3.5 p-5">
             <Avatar size="lg">
@@ -35,7 +36,7 @@ function BundleCard({ bundle }: { bundle: Bundle }) {
 }
 
 interface BundleListingProps {
-    bundles: Bundle[]
+    bundles: (Bundle | SearchBundle)[]
     error: string | null
     paginationDetails: SlicedPagination
     onPreviousPage: () => void
@@ -66,7 +67,7 @@ export function BundleListing({
 
             <div className="grid [grid-template-columns:repeat(auto-fill,minmax(340px,1fr))] gap-4">
                 {bundles.map((bundle) => (
-                    <BundleCard key={bundle.id} bundle={bundle} />
+                    <BundleCard key={'id' in bundle ? bundle.id : bundle.name} bundle={bundle} />
                 ))}
             </div>
 
