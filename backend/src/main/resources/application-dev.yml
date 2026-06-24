@@ -18,3 +18,8 @@ spring:
     enabled: true
     validate-on-migrate: true
     validate-migration-naming: true
+
+logging:
+  level:
+    root: INFO
+    com.flare.spark: DEBUG
