@@ -24,4 +24,12 @@ public class BundleService {
     public Bundle createBundle(@NotNull Bundle bundle) {
         return repository.save(bundle);
     }
+
+    public Slice<Bundle> searchBundlesByName(
+            String query,
+            int page
+    ) {
+        Pageable pageWithFiveElements = PageRequest.of(page, 5);
+        return repository.findPublicByNameContainingIgnoreCase(query, pageWithFiveElements);
+    }
 }
