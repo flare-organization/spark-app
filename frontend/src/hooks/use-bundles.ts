@@ -4,6 +4,8 @@ import type { PaginatedBundles } from '@openapi/model/paginatedBundles.ts'
 import type { SlicedPagination } from '@openapi/model/slicedPagination.ts'
 import { useEffect, useState } from 'react'
 
+const PAGE_SIZE = 6
+
 interface UseBundlesResult {
     bundles: Bundle[]
     error: string | null
@@ -42,7 +44,7 @@ export function useBundles(): UseBundlesResult {
     }
 
     useEffect(() => {
-        getBundles(paginationDetails.pageNumber)
+        getBundles(paginationDetails.pageNumber, PAGE_SIZE)
             .then((res: PaginatedBundles) => {
                 const { content, ...paginationDetails } = res
 

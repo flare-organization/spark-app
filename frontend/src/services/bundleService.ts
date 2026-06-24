@@ -3,10 +3,11 @@ import type { Bundle } from '@openapi/model/bundle.ts'
 import type { CreateBundle } from '@openapi/model/createBundle.ts'
 import type { PaginatedBundles } from '@openapi/model/paginatedBundles.ts'
 
-export async function getBundles(page: number): Promise<PaginatedBundles> {
+export async function getBundles(page: number, size?: number): Promise<PaginatedBundles> {
     const res = await http.get<PaginatedBundles>('/api/v1/bundles', {
         params: {
             page: page,
+            size: size,
         },
     })
 
