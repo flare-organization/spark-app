@@ -6,6 +6,9 @@ spring:
   docker:
     compose:
       lifecycle-management: none  # this is external on prod
+  mail:
+    host: ${MAIL_HOST:localhost}
+    port: ${MAIL_PORT:1025}
 
 logging:
   level:

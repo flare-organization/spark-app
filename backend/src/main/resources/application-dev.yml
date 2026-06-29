@@ -9,6 +9,10 @@ spring:
       file: docker-compose.yaml
       lifecycle-management: start_only
 
+  mail:
+    host: localhost
+    port: 1025
+
   datasource:
     url: jdbc:postgresql://localhost:5432/spark-db
     username: spark-user

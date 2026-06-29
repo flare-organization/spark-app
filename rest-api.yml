@@ -209,3 +209,20 @@ components:
             $ref: '#/components/schemas/SearchBundle'
       allOf:
         - $ref: '#/components/schemas/SlicedPagination'
+
+    SendEmail:
+      type: object
+      required:
+        - from
+        - to
+        - subject
+        - body
+      properties:
+        from:
+          type: string
+        to:
+          type: string
+        subject:
+          type: string
+        body:
+          type: string
