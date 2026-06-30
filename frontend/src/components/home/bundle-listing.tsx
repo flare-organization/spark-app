@@ -8,14 +8,13 @@ import {
     PaginationPrevious,
 } from '@/components/ui/pagination.tsx'
 import type { Bundle } from '@openapi/model/bundle.ts'
-import type { SearchBundle } from '@openapi/model/searchBundle.ts'
 import type { SlicedPagination } from '@openapi/model/slicedPagination.ts'
 
 function bundleInitials(name: string): string {
     return name.slice(0, 2).toUpperCase()
 }
 
-function BundleCard({ bundle }: { bundle: Bundle | SearchBundle }) {
+function BundleCard({ bundle }: { bundle: Bundle }) {
     return (
         <Card className="flex-row items-start gap-3.5 p-5">
             <Avatar size="lg">
@@ -36,7 +35,7 @@ function BundleCard({ bundle }: { bundle: Bundle | SearchBundle }) {
 }
 
 interface BundleListingProps {
-    bundles: (Bundle | SearchBundle)[]
+    bundles: Bundle[]
     error: string | null
     paginationDetails: SlicedPagination
     onPreviousPage: () => void
@@ -66,18 +65,15 @@ export function BundleListing({
             )}
 
             <div className="grid [grid-template-columns:repeat(auto-fill,minmax(340px,1fr))] gap-4">
-                {bundles.map((bundle) => (
-                    <BundleCard key={'id' in bundle ? bundle.id : bundle.name} bundle={bundle} />
+                {bundles.map((bundle: Bundle) => (
+                    <BundleCard key={bundle.id} bundle={bundle} />
                 ))}
             </div>
 
             <Pagination className="mt-7">
                 <PaginationContent>
                     <PaginationItem>
-                        <PaginationPrevious
-                            onClick={onPreviousPage}
-                            isActive={!paginationDetails.isFirst}
-                        />
+                        <PaginationPrevious onClick={onPreviousPage} isActive={!paginationDetails.isFirst} />
                     </PaginationItem>
                     <PaginationItem>
                         <PaginationNext onClick={onNextPage} isActive={!paginationDetails.isLast} />

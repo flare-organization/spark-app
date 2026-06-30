@@ -15,12 +15,6 @@ export function Hero({ query, onSearch }: HeroProps) {
     useSearchHotkey(searchRef)
 
     const [input, setInput] = useState(query)
-    const [prevQuery, setPrevQuery] = useState(query)
-
-    if (query !== prevQuery) {
-        setPrevQuery(query)
-        setInput(query)
-    }
 
     return (
         <section className="mb-9">

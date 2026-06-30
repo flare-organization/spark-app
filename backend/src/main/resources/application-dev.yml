@@ -19,16 +19,9 @@ spring:
     validate-on-migrate: true
     validate-migration-naming: true
 
-  jpa:
-    show-sql: on
-
 logging:
   level:
     root: INFO
     com.flare.spark: DEBUG
-    org:
-      hibernate:
-        sql: DEBUG
-        binder: TRACE
 
 

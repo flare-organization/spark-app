@@ -1,27 +1,16 @@
 package com.flare.spark.backend.bundles;
 
-import java.util.List;
 import java.util.UUID;
+
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface BundleRepository extends JpaRepository<Bundle, UUID> {
-    Slice<Bundle> findAllBy(Pageable pageable);
+public interface BundleRepository extends JpaRepository<Bundle, UUID>, JpaSpecificationExecutor<Bundle> {
 
-    List<Bundle> findByName(String name);
-
-    @Query("""
-            SELECT b FROM Bundle b
-            WHERE b.status = com.flare.spark.backend.bundles.BundleStatus.PUBLIC
-              AND lower(b.name) LIKE lower(concat('%', :name, '%'))
-            """)
-    Slice<Bundle> findPublicByNameContainingIgnoreCase(
-            @Param("name") String name,
-            Pageable pageable
-    );
+    Slice<Bundle> findAllBy(Specification<Bundle> and, Pageable pageRequest);
 }

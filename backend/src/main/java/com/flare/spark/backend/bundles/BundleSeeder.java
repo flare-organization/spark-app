@@ -29,13 +29,13 @@ class BundleSeeder implements CommandLineRunner {
         List<Bundle> bundleList = new ArrayList<>();
 
         for (int i = 0; i < 100; i++) {
-            bundleList.add(BundleBuilder.build());
+            bundleList.add(FakeBundleBuilder.build());
         }
 
         bundleRepository.saveAll(bundleList);
     }
 
-    class BundleBuilder {
+    class FakeBundleBuilder {
         public static Bundle build() {
             Bundle bundle = new Bundle();
             Faker faker = new Faker();
