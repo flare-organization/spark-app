@@ -1,11 +1,10 @@
 package com.flare.spark.backend.emailing;
 
 
-import com.flare.spark.generated.api.model.SendEmailDto;
-import jakarta.mail.MessagingException;
-import org.jspecify.annotations.NonNull;
+import jakarta.mail.internet.MimeMessage;
+import jakarta.validation.constraints.NotNull;
 import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.mail.javamail.MimeMailMessage;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -18,14 +17,15 @@ public class SendEmailService {
         this.mailSender = mailSender;
     }
 
-    public String sendMail(@NonNull SendEmailDto sendEmailDto) throws MessagingException {
-        var mimeMessage = mailSender.createMimeMessage();
-        var message = new MimeMessageHelper(mimeMessage);
-        message.setFrom(sendEmailDto.getFrom());
-        message.setTo(sendEmailDto.getTo());
-        message.setSubject(sendEmailDto.getSubject());
-        message.setText(sendEmailDto.getBody(), false);
-        mailSender.send(message.getMimeMessage());
-        return "Email successfully sent";
+    public void sendMail(@NotNull Email email) {
+        MimeMessage mimeMessage = mailSender.createMimeMessage();
+        MimeMailMessage helper = new MimeMailMessage(mimeMessage);
+
+        helper.setFrom(email.from());
+        helper.setTo(email.to());
+        helper.setSubject(email.subject());
+        helper.setText(email.body());
+
+        mailSender.send(mimeMessage);
     }
 }

@@ -4,8 +4,8 @@ import static ch.martinelli.oss.testcontainers.mailpit.assertions.MailpitAsserti
 
 import ch.martinelli.oss.testcontainers.mailpit.MailpitContainer;
 import com.flare.spark.backend.IntegrationTest;
+import com.flare.spark.backend.emailing.Email;
 import com.flare.spark.backend.emailing.SendEmailService;
-import com.flare.spark.generated.api.model.SendEmailDto;
 import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -22,37 +22,37 @@ class SendMailIntegrationTest extends IntegrationTest {
     @Autowired
     private SendEmailService emailService;
 
-    private List<SendEmailDto> testDtos;
+    private List<Email> testEmails;
 
     @BeforeEach
-    void setUp() {
+    public void setUp() {
         mailpit.getClient().deleteAllMessages();
-        testDtos = List.of(
-                new SendEmailDto(
-                        "test@example.com",
-                        "alice@example.com",
-                        "Hello!",
-                        "This is a test email."
-                ),
-                new SendEmailDto(
-                        "noreply@flare.com",
-                        "bob@example.com",
-                        "Welcome to Flare",
-                        "Thanks for signing up. We hope you enjoy using Flare!"
-                ),
-                new SendEmailDto(
-                        "support@flare.com",
-                        "charlie@example.com",
-                        "Password Reset",
-                        "Click the following link to reset your password:\nhttps://example.com/reset?token=abc123"
-                )
+        testEmails = List.of(
+                Email.builder()
+                        .from("test@example.com")
+                        .to("alice@example.com")
+                        .subject("Hello!")
+                        .body("This is a test email.")
+                        .build(),
+                Email.builder()
+                        .from("noreply@flare.com")
+                        .to("bob@example.com")
+                        .subject("Welcome to Flare")
+                        .body("Thanks for signing up. We hope you enjoy using Flare!")
+                        .build(),
+                Email.builder()
+                        .from("support@flare.com")
+                        .to("charlie@example.com")
+                        .subject("Password Reset")
+                        .body("Click the following link to reset your password:\nhttps://example.com/reset?token=abc123")
+                        .build()
         );
     }
 
     @Test
-    void sendsAllGenericMails() throws Exception {
-        for (SendEmailDto dto : testDtos) {
-            emailService.sendMail(dto);
+    public void sendsAllGenericMails() {
+        for (Email email : testEmails) {
+            emailService.sendMail(email);
         }
 
         assertThat(mailpit)

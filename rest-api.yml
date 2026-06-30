@@ -220,9 +220,15 @@ components:
       properties:
         from:
           type: string
+          minLength: 1
+          maxLength: 128
         to:
           type: string
+          minLength: 1
+          maxLength: 128
         subject:
           type: string
+          minLength: 1
+          maxLength: 128
         body:
           type: string
