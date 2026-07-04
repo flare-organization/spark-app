@@ -1,26 +1,21 @@
-import { Button } from '@/components/ui/button'
-import { Field, FieldDescription } from '@/components/ui/field'
-import { Input } from '@/components/ui/input'
-import { Link } from 'react-router-dom'
-import { useState } from 'react'
-import { useForm } from 'react-hook-form'
-import { zodResolver } from '@hookform/resolvers/zod'
-import { login } from '@/services/authService.ts'
+import {Button} from '@/components/ui/button'
+import {Field, FieldDescription} from '@/components/ui/field'
+import {Input} from '@/components/ui/input'
+import {Link, useNavigate} from 'react-router-dom'
+import {useState} from 'react'
+import {useForm} from 'react-hook-form'
+import {zodResolver} from '@hookform/resolvers/zod'
+import {useAuth} from "@/hooks/use-auth.ts";
 
-import {
-    Form,
-    FormControl,
-    FormField,
-    FormItem,
-    FormLabel,
-    FormMessage,
-} from '@/components/ui/form'
-import { CircleAlert } from 'lucide-react'
-import { loginFormSchema, LoginFormValues } from '@/features/auth/loginForm.ts'
+import {Form, FormControl, FormField, FormItem, FormLabel, FormMessage,} from '@/components/ui/form'
+import {CircleAlert} from 'lucide-react'
+import {loginFormSchema, LoginFormValues} from '@/features/auth/loginForm.ts'
 import {LoginRequest} from "@openapi/model/loginRequest.ts";
 
 export function LoginForm() {
     const [submitError, setSubmitError] = useState<string | null>(null)
+    const { login } = useAuth();
+    const navigate = useNavigate()
 
     const form = useForm<LoginFormValues>({
         resolver: zodResolver(loginFormSchema),
@@ -38,6 +33,7 @@ export function LoginForm() {
 
         try {
             await login(request)
+            navigate('/')
         } catch {
             setSubmitError('Failed to login. Please try again.')
         }
@@ -98,7 +94,7 @@ export function LoginForm() {
                 )}
 
                 <Field>
-                    <Button type="submit">Create Account</Button>
+                    <Button type="submit">Login</Button>
                 </Field>
 
                 <Field>

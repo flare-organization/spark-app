@@ -7,6 +7,70 @@ servers:
   - url: http://localhost:8080
 
 paths:
+  /api/v1/login:
+    post:
+      tags:
+        - Auth
+      summary: Login with your credentials
+      operationId: login
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LoginRequest'
+      responses:
+        200:
+          description: Current user
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/user'
+
+  /api/v1/logout:
+    post:
+      tags:
+        - Auth
+      summary: Logout and destroy the current session
+      operationId: logout
+      responses:
+        200:
+          description: logout
+
+  /api/v1/signup:
+    post:
+      tags:
+        - Auth
+      summary: Login with your credentials
+      operationId: signup
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SignUpRequest'
+      responses:
+        200:
+          description: CurrentUser
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/user'
+
+  /api/v1/me:
+    post:
+      tags:
+        - Auth
+      summary: Get the current user
+      operationId: me
+      responses:
+        200:
+          description: Something
+
   /api/v1/bundles:
     get:
       tags:
@@ -48,7 +112,6 @@ paths:
               schema:
                 $ref: '#/components/schemas/Bundle'
 
-
   /api/v1/bundles/search:
     get:
       tags:
@@ -75,7 +138,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/PaginatedSearchBundles'
-
 
 components:
   schemas:
@@ -133,6 +195,14 @@ components:
         description:
           type: string
 
+    user:
+      type: object
+      required:
+        - username
+      properties:
+        username:
+          type: string
+
     SlicedPagination:
       type: object
       required:
@@ -170,7 +240,7 @@ components:
       required:
         - name
         - description
-        - status
+        - visibility
       properties:
         name:
           type: string
@@ -179,23 +249,22 @@ components:
         description:
           type: string
           maxLength: 512
-        status:
+        visibility:
           type: string
           enum: [PUBLIC, PRIVATE]
-
 
     SearchBundle:
       type: object
       required:
         - name
         - description
-        - status
+        - visibility
       properties:
         name:
           type: string
         description:
           type: string
-        status:
+        visibility:
           type: string
 
     PaginatedSearchBundles:

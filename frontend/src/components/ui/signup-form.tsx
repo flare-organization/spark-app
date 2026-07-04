@@ -6,7 +6,8 @@ import { SignUpFormValues, PASSWORD_MIN, signUpFormSchema } from '@/features/aut
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { signup } from '@/services/authService.ts'
+import {  useAuth } from "@/hooks/use-auth.ts";
+import { useNavigate } from "react-router-dom";
 
 import {
     Form,
@@ -21,6 +22,8 @@ import {SignUpRequest} from "@openapi/model/signUpRequest.ts";
 
 export function SignupForm() {
     const [submitError, setSubmitError] = useState<string | null>(null)
+    const { register } = useAuth();
+    const navigate = useNavigate()
 
     const form = useForm<SignUpFormValues>({
         resolver: zodResolver(signUpFormSchema),
@@ -38,7 +41,8 @@ export function SignupForm() {
         }
 
         try {
-            await signup(request)
+            await register(request)
+            navigate('/')
         } catch {
             setSubmitError('Failed to signup. Please try again.')
         }

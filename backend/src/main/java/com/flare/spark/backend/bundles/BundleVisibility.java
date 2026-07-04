@@ -1,6 +1,6 @@
 package com.flare.spark.backend.bundles;
 
-public enum BundleStatus {
+public enum BundleVisibility {
     PUBLIC,
     PRIVATE
 }

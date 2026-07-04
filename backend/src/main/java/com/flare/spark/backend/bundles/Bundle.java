@@ -20,18 +20,18 @@ import org.hibernate.dialect.type.PostgreSQLEnumJdbcType;
 import java.util.UUID;
 
 @Entity
-@Table(name = "bundles")
+@Table(name = "bundle_bundles")
 @Getter @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Bundle {
 
     public Bundle(
         String name,
         String description,
-        BundleStatus status
+        BundleVisibility visibility
     ) {
         this.name = name;
         this.description = description;
-        this.status = status;
+        this.visibility = visibility;
     }
 
     @Id
@@ -46,9 +46,9 @@ public class Bundle {
     private String description;
 
     @Setter
-    @Column(name = "status", columnDefinition = "BundleStatus")
+    @Column(name = "visibility")
     @JdbcType(PostgreSQLEnumJdbcType.class)
-    private BundleStatus status;
+    private BundleVisibility visibility;
 
     @CreationTimestamp
     @Column(name = "created_at")

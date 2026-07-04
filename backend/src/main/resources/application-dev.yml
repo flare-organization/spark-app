@@ -26,3 +26,6 @@ logging:
   level:
     root: INFO
     com.flare.spark: DEBUG
+#    org:
+#      springframework:
+#        security: DEBUG

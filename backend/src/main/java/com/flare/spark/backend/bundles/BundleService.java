@@ -1,6 +1,5 @@
 package com.flare.spark.backend.bundles;
 
-import jakarta.validation.constraints.NotNull;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
@@ -21,7 +20,7 @@ public class BundleService {
         return repository.findAllBy(pageWithFiveElements);
     }
 
-    public Bundle createBundle(@NotNull Bundle bundle) {
+    public Bundle createBundle(Bundle bundle) {
         return repository.save(bundle);
     }
 
