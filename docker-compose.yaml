@@ -19,12 +19,12 @@ services:
       - spark-network
 
   mailpit:
-  image: axllent/mailpit:v1.29
-  ports:
-    - "1025:1025"
-    - "8025:8025"
-  networks:
-    - spark-network
+    image: axllent/mailpit:v1.29
+    ports:
+      - "1025:1025"
+      - "8025:8025"
+    networks:
+      - spark-network
 
 volumes:
   postgres_data:

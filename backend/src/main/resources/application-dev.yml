@@ -5,6 +5,12 @@ spark-variables:
     enabled: false
   seed-database: true
 
+springdoc:
+  swagger-ui:
+    with-credentials: true
+    csrf:
+      enabled: true
+
 spring:
   docker:
     compose:
