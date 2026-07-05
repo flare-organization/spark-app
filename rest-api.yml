@@ -3,10 +3,6 @@ info:
   title: Spark Bundle API
   version: 0.0.1
 
-springdoc:
-  swagger-ui:
-    with-credentials: true
-
 servers:
   - url: http://localhost:8080
 
