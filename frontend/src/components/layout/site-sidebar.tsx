@@ -1,6 +1,7 @@
 import { cn } from '@/lib/utils'
 import { SparklesIcon, UploadIcon, type LucideIcon } from 'lucide-react'
 import { NavLink } from 'react-router-dom'
+import { useAuth } from "@/hooks/use-auth.ts";
 
 interface NavItem {
     to: string
@@ -9,12 +10,17 @@ interface NavItem {
     end?: boolean
 }
 
-const NAV_ITEMS: NavItem[] = [
-    { to: '/', label: 'Discover', icon: SparklesIcon, end: true },
-    { to: '/bundles/create', label: 'Publish', icon: UploadIcon },
-]
-
 export function SiteSidebar() {
+    const {user} = useAuth();
+
+    const NAV_ITEMS: NavItem[] = [
+        { to: '/', label: 'Discover', icon: SparklesIcon, end: true },
+
+        ...(user
+            ? [{ to: '/bundles/create', label: 'Publish', icon: UploadIcon }]
+            : []),
+    ];
+
     return (
         <nav className="bg-sidebar border-border sticky top-14 flex h-[calc(100vh-3.5rem)] w-56 shrink-0 flex-col gap-4 border-r px-3.5 py-5">
             <div className="text-muted-foreground px-2 font-mono text-xs tracking-widest uppercase">

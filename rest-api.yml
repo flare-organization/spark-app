@@ -43,7 +43,7 @@ paths:
     post:
       tags:
         - Auth
-      summary: Login with your credentials
+      summary: Create a new account
       operationId: signup
       requestBody:
         required: true

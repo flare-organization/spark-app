@@ -40,7 +40,7 @@ public class SecurityConfig {
                 .requestMatchers(HttpMethod.POST, "/api/v1/signup").permitAll()
                 .requestMatchers(HttpMethod.GET, "/api/v1/ping").permitAll()
                 .requestMatchers(HttpMethod.GET, "/api/v1/bundles").permitAll()
-                .requestMatchers(HttpMethod.POST, "/api/v1/bundles").permitAll()
+                .requestMatchers(HttpMethod.GET, "/api/v1/bundles/search").permitAll()
                 .anyRequest().authenticated()
             )
             .formLogin(AbstractHttpConfigurer::disable)
@@ -49,6 +49,7 @@ public class SecurityConfig {
                 .authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED)))
             .logout(logout -> logout
                 .logoutUrl("/api/v1/logout")
+                .deleteCookies("JSESSIONID")
                 .logoutSuccessHandler((req, res, authn) -> res.setStatus(HttpStatus.OK.value())));
 
         http.addFilterAfter(new CsrfCookieFilter(), BasicAuthenticationFilter.class);

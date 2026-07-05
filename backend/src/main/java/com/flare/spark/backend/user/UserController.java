@@ -2,6 +2,8 @@ package com.flare.spark.backend.user;
 
 import com.flare.spark.generated.api.model.SignUpRequestDto;
 import com.flare.spark.generated.api.model.UserDto;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -21,10 +23,12 @@ public class UserController {
 
     @PostMapping("/api/v1/signup")
     public UserDto register(
-        @Valid @RequestBody SignUpRequestDto signUpRequestDto
+            @Valid @RequestBody SignUpRequestDto signUpRequestDto,
+            HttpServletRequest request,
+            HttpServletResponse response
     ) {
         User user = userMapper.signUpRequestDtoToUser(signUpRequestDto);
-        User savedUser = userService.create(user);
+        User savedUser = userService.register(user, request, response);
 
         return userMapper.userToUserDto(savedUser);
     }

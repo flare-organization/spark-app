@@ -1,6 +1,5 @@
 package com.flare.spark.backend.security;
 
-import com.flare.spark.backend.user.UserService;
 import com.flare.spark.generated.api.model.LoginRequestDto;
 import com.flare.spark.generated.api.model.UserDto;
 import jakarta.servlet.http.HttpServletRequest;
