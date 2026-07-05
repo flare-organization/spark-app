@@ -1,6 +1,9 @@
 spark-variables:
   cors:
     allowed-origin: http://localhost:5173
+  csrf:
+    enabled: true
+  seed-database: false
 
 spring:
   docker:
