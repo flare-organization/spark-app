@@ -19,7 +19,7 @@ import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
 import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group'
 import { createBundle } from '@/services/bundleService'
-import { type CreateBundle, CreateBundleStatusEnum } from '@openapi/model/createBundle.ts'
+import { type CreateBundle, CreateBundleVisibilityEnum } from '@openapi/model/createBundle.ts'
 
 import {
     type BundleFormValues,
@@ -48,12 +48,12 @@ export default function BundlesCreatePage() {
         const request: CreateBundle = {
             name: values.name,
             description: values.description,
-            status: values.status,
+            visibility: values.visibility,
         }
 
         try {
             await createBundle(request)
-            navigate('/bundles')
+            navigate('/')
         } catch {
             setSubmitError('Failed to create bundle. Please try again.')
         }
@@ -121,7 +121,7 @@ export default function BundlesCreatePage() {
 
                             <FormField
                                 control={form.control}
-                                name="status"
+                                name="visibility"
                                 render={({ field }) => (
                                     <FormItem>
                                         <FormLabel>Visibility</FormLabel>
@@ -137,13 +137,13 @@ export default function BundlesCreatePage() {
                                                 className="w-full *:flex-1"
                                             >
                                                 <ToggleGroupItem
-                                                    value={CreateBundleStatusEnum.PUBLIC}
+                                                    value={CreateBundleVisibilityEnum.PUBLIC}
                                                 >
                                                     <Globe className="size-4" aria-hidden="true" />
                                                     Public
                                                 </ToggleGroupItem>
                                                 <ToggleGroupItem
-                                                    value={CreateBundleStatusEnum.PRIVATE}
+                                                    value={CreateBundleVisibilityEnum.PRIVATE}
                                                 >
                                                     <Lock className="size-4" aria-hidden="true" />
                                                     Private

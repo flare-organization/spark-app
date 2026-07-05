@@ -1,4 +1,4 @@
-package com.flare.spark.backend.tags;
+package com.flare.spark.backend.bundle_tags;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -17,10 +17,10 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 @Entity
 @Getter @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@Table(name = "tags")
-public class Tag {
+@Table(name = "bundle_tags")
+public class BundleTag {
 
-    public Tag(String name) {
+    public BundleTag(String name) {
         this.name = name;
     }
 

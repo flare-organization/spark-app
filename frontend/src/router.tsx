@@ -6,6 +6,7 @@ import ComponentsPage from './pages/ComponentsPage'
 import HomePage from './pages/HomePage'
 
 import BundlesCreatePage from './pages/BundlesCreatePage'
+import {ProtectedRoute} from "@/components/ProtectedRoute.tsx";
 
 export const router = createBrowserRouter([
     {
@@ -21,8 +22,13 @@ export const router = createBrowserRouter([
                 element: <ComponentsPage />,
             },
             {
-                path: 'bundles/create',
-                element: <BundlesCreatePage />,
+                element: <ProtectedRoute />,
+                children: [
+                    {
+                        path: 'bundles/create',
+                        element: <BundlesCreatePage />,
+                    },
+                ]
             },
             {
                 path: '/login',

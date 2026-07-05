@@ -1,4 +1,4 @@
-package com.flare.spark.backend.config;
+package com.flare.spark.backend.security;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
