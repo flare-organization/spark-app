@@ -13,8 +13,6 @@ import org.springframework.stereotype.Service;
 public class SendEmailService {
     private final JavaMailSender mailSender;
 
-    // its giving a warning about not being able to auto wire, but its fully working, IDE issue/misfire?
-    @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
     public SendEmailService(JavaMailSender mailSender) {
         this.mailSender = mailSender;
     }
