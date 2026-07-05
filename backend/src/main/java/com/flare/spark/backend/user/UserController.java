@@ -23,9 +23,9 @@ public class UserController {
 
     @PostMapping("/api/v1/signup")
     public UserDto register(
-            @Valid @RequestBody SignUpRequestDto signUpRequestDto,
-            HttpServletRequest request,
-            HttpServletResponse response
+        @Valid @RequestBody SignUpRequestDto signUpRequestDto,
+        HttpServletRequest request,
+        HttpServletResponse response
     ) {
         User user = userMapper.signUpRequestDtoToUser(signUpRequestDto);
         User savedUser = userService.register(user, request, response);
