@@ -49,7 +49,6 @@ class BundleFileUploadIntegrationTest extends IntegrationTest {
     void testBundleFileLinksToExistingBundle() throws Exception {
         Bundle bundle = bundleRepository.save(new Bundle(
                 "file upload bundle",
-                "file-upload-bundle",
                 "a bundle file desc",
                 BundleStatus.PRIVATE
         ));

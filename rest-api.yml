@@ -46,8 +46,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/
-
+                $ref: '#/components/schemas/Bundle'
 
   /api/v1/bundles/{bundleId}/upload:
     post:
