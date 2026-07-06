@@ -1,5 +1,5 @@
+import { Logo } from '@/components/logo'
 import { LoginForm } from '@/components/ui/login-form'
-import placeholder from '@/assets/placeholder.svg'
 
 export default function LoginPage() {
     return (
@@ -11,12 +11,8 @@ export default function LoginPage() {
                     </div>
                 </div>
             </div>
-            <div className="bg-muted relative hidden lg:block">
-                <img
-                    src={placeholder}
-                    alt="Image"
-                    className="absolute inset-0 h-full w-full object-cover dark:brightness-[0.2] dark:grayscale"
-                />
+            <div className="bg-card relative hidden items-center justify-center lg:flex">
+                <Logo size={96} className="gap-4 [&>span]:text-4xl" />
             </div>
         </div>
     )

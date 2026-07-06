@@ -5,11 +5,11 @@ import type { PaginatedBundles } from '@openapi/model/paginatedBundles.ts'
 import type { UploadResult } from '@openapi/model/uploadResult.ts'
 import type { PaginatedSearchBundles } from '@openapi/model/paginatedSearchBundles.ts'
 
-
-export async function getBundles(page: number): Promise<PaginatedBundles> {
+export async function getBundles(page: number, size?: number): Promise<PaginatedBundles> {
     const res = await http.get<PaginatedBundles>('/api/v1/bundles', {
         params: {
             page: page,
+            size: size,
         },
     })
 

@@ -15,6 +15,8 @@ public interface BundleRepository extends JpaRepository<Bundle, UUID> {
 
     List<Bundle> findByName(String name);
 
+    boolean existsByName(String bundleName);
+
     @Query("""
             SELECT b FROM Bundle b
             WHERE b.status = com.flare.spark.backend.bundles.BundleStatus.PUBLIC
