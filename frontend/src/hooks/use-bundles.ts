@@ -1,24 +1,28 @@
-import { getBundles, getSearchBundles } from '@/services/bundleService'
+import { getBundles } from '@/services/bundleService'
 import type { Bundle } from '@openapi/model/bundle.ts'
-import type { SearchBundle } from '@openapi/model/searchBundle.ts'
 import type { SlicedPagination } from '@openapi/model/slicedPagination.ts'
 import { useEffect, useState } from 'react'
-
-const PAGE_SIZE = 6
+import {GetBundleParams} from "@openapi/model/getBundleParams.ts";
+import {PaginatedBundles} from "@openapi/model/paginatedBundles.ts";
 
 interface UseBundlesResult {
-    bundles: (Bundle | SearchBundle)[]
+    bundles: Bundle[]
+    getBundleParams: Required<GetBundleParams>
     error: string | null
     paginationDetails: SlicedPagination
     previousPage: () => void
     nextPage: () => void
+    search: (input: string) => void
 }
 
-export function useBundles(query = ''): UseBundlesResult {
+export function useBundles(): UseBundlesResult {
     const [error, setError] = useState<string | null>(null)
-    const [bundles, setBundles] = useState<(Bundle | SearchBundle)[]>([])
-    const [page, setPage] = useState(0)
-    const [prevQuery, setPrevQuery] = useState(query)
+    const [bundles, setBundles] = useState<Bundle[]>([])
+    const [params, setParams] = useState<Required<GetBundleParams>>({
+        page: 0,
+        search: "",
+    })
+
     const [paginationDetails, setPaginationDetails] = useState<SlicedPagination>({
         isEmpty: true,
         isFirst: true,
@@ -27,36 +31,45 @@ export function useBundles(query = ''): UseBundlesResult {
         pageSize: 0,
     })
 
-    if (query !== prevQuery) {
-        setPrevQuery(query)
-        setPage(0)
-    }
-
     function previousPage(): void {
-        if (!paginationDetails.isFirst && page > 0) {
-            setPage(page - 1)
+        if (!paginationDetails.isFirst && params.page > 0) {
+            setParams((prevState) => ({
+                ...prevState,
+                page: prevState.page - 1
+            }))
         }
     }
 
     function nextPage(): void {
         if (!paginationDetails.isLast) {
-            setPage(page + 1)
+            setParams((prevState) => ({
+                ...prevState,
+                page: prevState.page + 1
+            }))
         }
     }
 
+    function search(input: string): void {
+        setParams((prevState) => ({
+            ...prevState,
+            search: input,
+            page: 0,
+        }))
+    }
+
     useEffect(() => {
-        const request = query ? getSearchBundles(query, page) : getBundles(page, PAGE_SIZE)
+        console.log("rerender")
+        const request = getBundles(params);
 
-        request
-            .then((res) => {
-                const { content, ...rest } = res
+        request.then((response: PaginatedBundles) => {
+            const { content, ...paginationDetails } = response;
 
-                setBundles(content)
-                setPaginationDetails(rest)
-                setError(null)
-            })
-            .catch(() => setError('Could not load bundles'))
-    }, [page, query])
+            setBundles(content)
+            setPaginationDetails(paginationDetails)
+            setError(null)
+        })
+        .catch(() => setError('Could not load bundles'))
+    }, [params])
 
-    return { bundles, error, paginationDetails, previousPage, nextPage }
+    return { bundles, getBundleParams: params, error, paginationDetails, previousPage, nextPage, search }
 }

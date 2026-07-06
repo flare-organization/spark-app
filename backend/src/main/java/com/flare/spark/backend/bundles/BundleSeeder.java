@@ -29,7 +29,7 @@ class BundleSeeder implements CommandLineRunner {
         List<Bundle> bundleList = new ArrayList<>();
 
         for (int i = 0; i < 100; i++) {
-            Bundle bundle = BundleBuilder.build();
+            Bundle bundle = FakeBundleBuilder.build();
             if (bundleRepository.existsByName(bundle.getName())) {
                 return;
             }
@@ -39,7 +39,7 @@ class BundleSeeder implements CommandLineRunner {
         bundleRepository.saveAll(bundleList);
     }
 
-    static class BundleBuilder {
+    class FakeBundleBuilder {
         public static Bundle build() {
             Bundle bundle = new Bundle();
             Faker faker = new Faker();
@@ -51,7 +51,6 @@ class BundleSeeder implements CommandLineRunner {
             ).replaceAll("[^a-z0-9-]", "-");
 
             bundle.setName(bundleName);
-
             bundle.setDescription(
                 faker.lorem().paragraph()
             );

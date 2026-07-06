@@ -39,7 +39,7 @@ class CrudBundleIntegrationTest extends IntegrationTest {
         saveBundlesInTheDatabase(20);
 
         MvcResult result = mockMvc.perform(
-            get("/api/v1/bundles?page=1")
+            get("/api/v1/bundles?page=1&search=bundle")
         )
         .andExpect(status().isOk())
         .andReturn();
@@ -54,12 +54,12 @@ class CrudBundleIntegrationTest extends IntegrationTest {
         assertSame(5, paginatedBundlesDto.getPageSize());
         assertFalse(paginatedBundlesDto.getIsEmpty());
     }
-    // delete this comment
+
     @Test
     @Order(2)
     public void testBundleGetsSavedInTheDatabase() throws Exception {
-        List<Bundle> emptyBundles = bundleRepository.findByName("spark bundle");
-        assertEquals(List.of(), emptyBundles);
+        long currentAmountOfBundlesInDatabase = bundleRepository.count();
+        assertEquals(0, currentAmountOfBundlesInDatabase);
 
         CreateBundleDto createBundleDto = CreateBundleDtoBuilder.create().withName("spark bundle").build();
 

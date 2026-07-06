@@ -3,15 +3,14 @@ package com.flare.spark.backend.bundles;
 import com.flare.spark.generated.api.model.BundleDto;
 import com.flare.spark.generated.api.model.CreateBundleDto;
 
+import com.flare.spark.generated.api.model.GetBundleParamsDto;
 import com.flare.spark.generated.api.model.PaginatedBundlesDto;
-import com.flare.spark.generated.api.model.PaginatedSearchBundlesDto;
 import jakarta.validation.Valid;
 import org.springframework.data.domain.Slice;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -27,30 +26,16 @@ public class BundleController {
     }
 
     @GetMapping
-    public PaginatedBundlesDto getAllBundles(
-        @RequestParam(required = false, defaultValue = "0", name = "page") int page
-    ) {
-        Slice<Bundle> bundles = bundleService.getAllBundles(page);
+    public PaginatedBundlesDto getAllBundles(GetBundleParamsDto paramsDto) {
+        GetBundleParams params = new GetBundleParams(
+            paramsDto.getPage(),
+            paramsDto.getSearch()
+        );
+
+        Slice<Bundle> bundles = bundleService.getAllBundles(params);
 
         return new PaginatedBundlesDto(
             bundles.getContent().stream().map(mapper::bundleToDto).toList(),
-            bundles.getPageable().getPageNumber(),
-            bundles.getPageable().getPageSize(),
-            bundles.isFirst(),
-            bundles.isLast(),
-            bundles.isEmpty()
-        );
-    }
-
-    @GetMapping("/search")
-    public PaginatedSearchBundlesDto searchBundles(
-            @RequestParam("q") String query,
-            @RequestParam(required = false, defaultValue = "0", name = "page") int page
-    ) {
-        Slice<Bundle> bundles = bundleService.searchBundlesByName(query, page);
-
-        return new PaginatedSearchBundlesDto(
-            bundles.getContent().stream().map(mapper::bundleToSearchBundleDto).toList(),
             bundles.getPageable().getPageNumber(),
             bundles.getPageable().getPageSize(),
             bundles.isFirst(),

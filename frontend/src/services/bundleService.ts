@@ -2,14 +2,11 @@ import { http } from '@/lib/http/http.ts'
 import type { Bundle } from '@openapi/model/bundle.ts'
 import type { CreateBundle } from '@openapi/model/createBundle.ts'
 import type { PaginatedBundles } from '@openapi/model/paginatedBundles.ts'
-import type { PaginatedSearchBundles } from '@openapi/model/paginatedSearchBundles.ts'
+import {GetBundleParams} from "@openapi/model/getBundleParams.ts";
 
-export async function getBundles(page: number, size?: number): Promise<PaginatedBundles> {
+export async function getBundles(params: GetBundleParams): Promise<PaginatedBundles> {
     const res = await http.get<PaginatedBundles>('/api/v1/bundles', {
-        params: {
-            page: page,
-            size: size,
-        },
+        params
     })
 
     return res.data
@@ -17,20 +14,6 @@ export async function getBundles(page: number, size?: number): Promise<Paginated
 
 export async function createBundle(bundleRequest: CreateBundle): Promise<Bundle> {
     const res = await http.post<Bundle>('/api/v1/bundles', bundleRequest)
-
-    return res.data
-}
-
-export async function getSearchBundles(
-    search: string,
-    page: number,
-): Promise<PaginatedSearchBundles> {
-    const res = await http.get<PaginatedSearchBundles>('/api/v1/bundles/search', {
-        params: {
-            q: search,
-            page: page,
-        },
-    })
 
     return res.data
 }

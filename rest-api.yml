@@ -14,12 +14,7 @@ paths:
       summary: Get a list of bundles
       operationId: getBundles
       parameters:
-        - in: path
-          name: page
-          required: false
-          schema:
-            type: integer
-            description: current page number
+        - $ref: "#/components/parameters/GetBundleParams"
       responses:
         200:
           description: List of bundles
@@ -48,33 +43,6 @@ paths:
               schema:
                 $ref: '#/components/schemas/Bundle'
 
-  /api/v1/bundles/search:
-    get:
-      tags:
-        - Bundles
-      summary: Get a filtered list of bundles
-      operationId: searchBundles
-      parameters:
-        - in: query
-          name: q
-          required: true
-          schema:
-            type: string
-          description: Search term matched against bundle name
-        - in: query
-          name: page
-          required: false
-          schema:
-            type: integer
-            description: current page number
-      responses:
-        200:
-          description: List of bundles
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/PaginatedSearchBundles'
-
   /api/v1/send-email:
     post:
       tags:
@@ -92,6 +60,15 @@ paths:
           description: Empty response
 
 components:
+  parameters:
+    GetBundleParams:
+      name: "params"
+      in: query
+      required: true
+      explode: true
+      schema:
+        $ref: "#/components/schemas/GetBundleParams"
+
   schemas:
     SignUpCredentials:
       type: object
@@ -147,6 +124,15 @@ components:
         description:
           type: string
 
+    GetBundleParams:
+      type: object
+      properties:
+        search:
+          type: string
+        page:
+          type: integer
+          default: 0
+
     SlicedPagination:
       type: object
       required:
@@ -177,7 +163,7 @@ components:
           items:
             $ref: '#/components/schemas/Bundle'
       allOf:
-      - $ref: '#/components/schemas/SlicedPagination'
+        - $ref: '#/components/schemas/SlicedPagination'
 
     CreateBundle:
       type: object
@@ -195,34 +181,7 @@ components:
           maxLength: 512
         status:
           type: string
-          enum: [PUBLIC, PRIVATE]
-
-
-    SearchBundle:
-      type: object
-      required:
-        - name
-        - description
-        - status
-      properties:
-        name:
-          type: string
-        description:
-          type: string
-        status:
-          type: string
-
-    PaginatedSearchBundles:
-      type: object
-      required:
-        - content
-      properties:
-        content:
-          type: array
-          items:
-            $ref: '#/components/schemas/SearchBundle'
-      allOf:
-        - $ref: '#/components/schemas/SlicedPagination'
+          enum: [ PUBLIC, PRIVATE ]
 
     SendEmail:
       type: object

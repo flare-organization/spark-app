@@ -7,8 +7,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import com.flare.spark.generated.api.model.BundleDto;
 import com.flare.spark.generated.api.model.CreateBundleDto;
+import com.flare.spark.generated.api.model.GetBundleParamsDto;
 import com.flare.spark.generated.api.model.PaginatedBundlesDto;
-import com.flare.spark.generated.api.model.PaginatedSearchBundlesDto;
 import java.util.List;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -43,7 +43,14 @@ class BundleControllerTest {
 
     @Test
     public void testGetAllBundlesReturnsPaginatedBundlesDto() throws Exception {
+        GetBundleParamsDto getBundleParamsDto = GetBundleParamsDtoBuilder.create().build();
+        GetBundleParams getBundleParams = new GetBundleParams(
+            getBundleParamsDto.getPage(),
+            getBundleParamsDto.getSearch()
+        );
+
         List<Bundle> bundleList = List.of(BundleBuilder.create().build());
+
         int pageNumber = 0;
         int itemsPerPage = 1;
         boolean hasNext = false;
@@ -61,7 +68,7 @@ class BundleControllerTest {
                 .withPageSize(itemsPerPage)
                 .build();
 
-        Mockito.when(bundleService.getAllBundles(pageNumber))
+        Mockito.when(bundleService.getAllBundles(getBundleParams))
                 .thenReturn(paginatedBundles);
 
         mockMvc.perform(
@@ -70,40 +77,6 @@ class BundleControllerTest {
         .andExpect(status().isOk())
         .andExpect(content().json(objectMapper.writeValueAsString(paginatedBundlesDto)));
 
-        Mockito.verify(bundleService, Mockito.times(1)).getAllBundles(pageNumber);
-    }
-
-    @Test
-    public void testGetAllBundlesAcceptsPageParameterAndReturnsPaginatedBundleDto() throws Exception {
-        List<Bundle> bundleList = List.of(BundleBuilder.create().build());
-        int pageNumber = 4;
-        int itemsPerPage = 1;
-        boolean hasNext = false;
-
-        Slice<Bundle> paginatedBundles = new SliceImpl<>(
-            bundleList,
-            PageRequest.of(pageNumber, itemsPerPage),
-            hasNext
-        );
-
-        PaginatedBundlesDto paginatedBundlesDto =
-            PaginatedBundlesDtoBuilder.create()
-                .withContent(bundleList.stream().map(bundleMapper::bundleToDto).toList())
-                .withPageNumber(pageNumber)
-                .withPageSize(itemsPerPage)
-                .withIsFirst(false)
-                .build();
-
-        Mockito.when(bundleService.getAllBundles(pageNumber))
-                .thenReturn(paginatedBundles);
-
-        mockMvc.perform(
-            get("/api/v1/bundles?page=4")
-        )
-        .andExpect(status().isOk())
-        .andExpect(content().json(objectMapper.writeValueAsString(paginatedBundlesDto)));
-
-        Mockito.verify(bundleService, Mockito.times(1)).getAllBundles(pageNumber);
     }
 
     @ParameterizedTest
@@ -159,61 +132,6 @@ class BundleControllerTest {
     }
 
     @Test
-    public void testSearchBundlesReturnsPaginatedSearchBundlesDto() throws Exception {
-        List<Bundle> bundleList = List.of(BundleBuilder.create().build());
-        int pageNumber = 0;
-        int itemsPerPage = 1;
-        boolean hasNext = false;
-        Slice<Bundle> paginatedBundles = new SliceImpl<>(
-                bundleList,
-                PageRequest.of(pageNumber, itemsPerPage),
-                hasNext
-        );
-        PaginatedSearchBundlesDto expected = new PaginatedSearchBundlesDto(
-                bundleList.stream().map(bundleMapper::bundleToSearchBundleDto).toList(),
-                pageNumber,
-                itemsPerPage,
-                true,
-                true,
-                false
-        );
-        Mockito.when(bundleService.searchBundlesByName("react", pageNumber))
-                .thenReturn(paginatedBundles);
-        mockMvc.perform(
-                        get("/api/v1/bundles/search")
-                                .param("q", "react")
-                )
-                .andExpect(status().isOk())
-                .andExpect(content().json(objectMapper.writeValueAsString(expected)));
-        Mockito.verify(bundleService, Mockito.times(1)).searchBundlesByName("react", pageNumber);
-    }
-
-    @Test
-    public void testSearchBundlesAcceptsPageParameterAndPassesItToService() throws Exception {
-        List<Bundle> bundleList = List.of(BundleBuilder.create().build());
-        int pageNumber = 4;
-        int itemsPerPage = 1;
-        boolean hasNext = false;
-
-        Slice<Bundle> paginatedBundles = new SliceImpl<>(
-                bundleList,
-                PageRequest.of(pageNumber, itemsPerPage),
-                hasNext
-        );
-
-
-        Mockito.when(bundleService.searchBundlesByName("react", pageNumber))
-                .thenReturn(paginatedBundles);
-
-        mockMvc.perform(
-                get("/api/v1/bundles/search")
-                .param("q", "react")
-                .param("page", "4")
-        );
-
-        Mockito.verify(bundleService, Mockito.times(1)).searchBundlesByName("react", pageNumber);
-    }
-
     public void testCreateBundleReturnsBadRequestResponseWhenTitleHasMoreThenAllowedCharacters() throws Exception {
         BundleDtoBuilder.create().withName("a".repeat(129));
 
