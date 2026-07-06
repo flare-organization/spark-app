@@ -22,7 +22,7 @@ public class BundleService {
     public Slice<Bundle> getAllBundles(GetBundleParams params) {
         Pageable pageRequest = PageRequest.of(params.page(), 12);
 
-        return repository.findAllBy(
+        return repository.findAll(
             Specification.where(statusPublic()).and(nameLike(params.search())),
             pageRequest
         );
