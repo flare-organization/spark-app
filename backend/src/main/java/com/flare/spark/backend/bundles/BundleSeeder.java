@@ -14,7 +14,7 @@ import org.springframework.context.annotation.Profile;
 import net.datafaker.Faker;
 import org.springframework.stereotype.Component;
 
-@Profile("dev")
+@Profile({"dev", "demo"})
 @Component
 class BundleSeeder implements CommandLineRunner {
     private final BundleRepository bundleRepository;
@@ -50,7 +50,8 @@ class BundleSeeder implements CommandLineRunner {
         while (bundleList.size() < 100 && attempts < 1000) {
             attempts++;
             Bundle bundle = BundleBuilder.build(faker, tags);
-            if (usedNames.add(bundle.getName())) {
+            if (usedNames.add(bundle.getName())
+                && !bundleRepository.existsByName(bundle.getName())) {
                 bundleList.add(bundle);
             }
         }

@@ -1,0 +1,19 @@
+spark-variables:
+  cors:
+    allowed-origin: http://localhost:5173
+  seed-database: true
+
+spring:
+  docker:
+    compose:
+      enabled: false
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/spark-db
+    username: spark-user
+    password: password
+
+  flyway:
+    enabled: true
+    validate-on-migrate: true
+    validate-migration-naming: true

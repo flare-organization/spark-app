@@ -1,15 +1,17 @@
 spark-variables:
   cors:
     allowed-origin: http://localhost:5173
+  csrf:
+    enabled: true
+  seed-database: false
 
 spring:
   docker:
     compose:
       lifecycle-management: none  # this is external on prod
-  datasource:
-    url: ${DB_URL}
-    username: ${DB_USER}
-    password: ${DB_PASSWORD}
+  mail:
+    host: ${MAIL_HOST:localhost}
+    port: ${MAIL_PORT:1025}
 
 logging:
   level:

@@ -4,11 +4,11 @@ services:
     ports:
       - "5432:5432"
     environment:
-      POSTGRES_DB: ${DB_NAME}
-      POSTGRES_USER: ${DB_USER}
-      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: spark-db
+      POSTGRES_USER: spark-user
+      POSTGRES_PASSWORD: password
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U ${DB_USER} -d ${DB_NAME}"]
+      test: ["CMD-SHELL", "pg_isready -U spark-user -d spark-db"]
       interval: 30s
       timeout: 5s
       retries: 5
@@ -17,8 +17,14 @@ services:
       - postgres_data:/var/lib/postgresql
     networks:
       - spark-network
-    env_file:
-      - .env
+
+  mailpit:
+    image: axllent/mailpit:v1.29
+    ports:
+      - "1025:1025"
+      - "8025:8025"
+    networks:
+      - spark-network
 
 volumes:
   postgres_data:
