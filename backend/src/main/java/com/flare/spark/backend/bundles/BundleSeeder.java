@@ -8,7 +8,7 @@ import org.springframework.context.annotation.Profile;
 import net.datafaker.Faker;
 import org.springframework.stereotype.Component;
 
-@Profile("dev")
+@Profile({"dev", "demo"})
 @Component
 class BundleSeeder implements CommandLineRunner {
     private final BundleRepository bundleRepository;
@@ -29,7 +29,11 @@ class BundleSeeder implements CommandLineRunner {
         List<Bundle> bundleList = new ArrayList<>();
 
         for (int i = 0; i < 100; i++) {
-            bundleList.add(FakeBundleBuilder.build());
+            Bundle bundle = FakeBundleBuilder.build();
+            if (bundleRepository.existsByName(bundle.getName())) {
+                return;
+            }
+            bundleList.add(bundle);
         }
 
         bundleRepository.saveAll(bundleList);

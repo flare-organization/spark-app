@@ -6,8 +6,7 @@ spark-variables:
 spring:
   docker:
     compose:
-      file: docker-compose.yaml
-      lifecycle-management: start_only
+      enabled: false
 
   datasource:
     url: jdbc:postgresql://localhost:5432/spark-db
@@ -18,10 +17,3 @@ spring:
     enabled: true
     validate-on-migrate: true
     validate-migration-naming: true
-
-logging:
-  level:
-    root: INFO
-    com.flare.spark: DEBUG
-
-

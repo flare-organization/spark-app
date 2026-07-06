@@ -13,4 +13,5 @@ import org.springframework.stereotype.Repository;
 public interface BundleRepository extends JpaRepository<Bundle, UUID>, JpaSpecificationExecutor<Bundle> {
 
     Slice<Bundle> findAllBy(Specification<Bundle> and, Pageable pageRequest);
+    boolean existsByName(String name);
 }
