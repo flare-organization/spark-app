@@ -18,13 +18,13 @@ public class SendMailController {
 
     @PostMapping("/send-email")
     public void send(
-            @Valid @RequestBody SendEmailDto sendEmailDto
+        @Valid @RequestBody SendEmailDto sendEmailDto
     ) {
         Email email = new Email(
-                sendEmailDto.getFrom(),
-                sendEmailDto.getTo(),
-                sendEmailDto.getSubject(),
-                sendEmailDto.getBody()
+            sendEmailDto.getFrom(),
+            sendEmailDto.getTo(),
+            sendEmailDto.getSubject(),
+            sendEmailDto.getBody()
         );
         sendEmailService.sendMail(email);
     }
