@@ -6,6 +6,7 @@ import ComponentsPage from './pages/ComponentsPage'
 import HomePage from './pages/HomePage'
 
 import BundlesCreatePage from './pages/BundlesCreatePage'
+import BundlesDetailPage from './pages/BundlesDetailPage'
 
 export const router = createBrowserRouter([
     {
@@ -23,6 +24,10 @@ export const router = createBrowserRouter([
             {
                 path: 'bundles/create',
                 element: <BundlesCreatePage />,
+            },
+            {
+                path: 'bundles/:name',
+                element: <BundlesDetailPage />,
             },
             {
                 path: '/login',
