@@ -1,6 +1,7 @@
 package com.flare.spark.backend.bundles;
 
 import com.flare.spark.backend.IntegrationTest;
+import com.flare.spark.generated.api.model.BundleDetailDto;
 import com.flare.spark.generated.api.model.BundleDto;
 import com.flare.spark.generated.api.model.CreateBundleDto;
 import com.flare.spark.generated.api.model.PaginatedBundlesDto;
@@ -83,7 +84,35 @@ class CrudBundleIntegrationTest extends IntegrationTest {
         );
     }
 
+    @Test
     @Order(3)
+    public void testGetBundleByNameReturnsBundleDetail() throws Exception {
+        bundleRepository.save(BundleBuilder.create().withName("detail-bundle").build());
+
+        MvcResult result = mockMvc.perform(
+            get("/api/v1/bundles/detail-bundle")
+        )
+        .andExpect(status().isOk())
+        .andReturn();
+
+        BundleDetailDto bundleDetail = objectMapper.readValue(
+            result.getResponse().getContentAsString(),
+            BundleDetailDto.class
+        );
+
+        assertEquals("detail-bundle", bundleDetail.getName());
+    }
+
+    @Test
+    @Order(4)
+    public void testGetBundleByNameReturnsNotFoundForUnknownName() throws Exception {
+        mockMvc.perform(
+            get("/api/v1/bundles/does-not-exist")
+        )
+        .andExpect(status().isNotFound());
+    }
+
+    @Order(5)
     private void saveBundlesInTheDatabase(int amount) {
         List<Bundle> bundleList = new ArrayList<>();
 

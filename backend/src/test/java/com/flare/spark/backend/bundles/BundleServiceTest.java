@@ -21,6 +21,9 @@ class BundleServiceTest {
     @Mock
     private BundleRepository bundleRepository;
 
+    @Mock
+    private BundleVersionRepository versionRepository;
+
     @InjectMocks
     private BundleService bundleService;
 

@@ -1,5 +1,6 @@
 package com.flare.spark.backend.bundles;
 
+import com.flare.spark.generated.api.model.BundleDetailDto;
 import com.flare.spark.generated.api.model.BundleDto;
 import com.flare.spark.generated.api.model.CreateBundleDto;
 
@@ -8,6 +9,7 @@ import com.flare.spark.generated.api.model.PaginatedSearchBundlesDto;
 import jakarta.validation.Valid;
 import org.springframework.data.domain.Slice;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -57,6 +59,12 @@ public class BundleController {
             bundles.isLast(),
             bundles.isEmpty()
         );
+    }
+
+    @GetMapping("/{name}")
+    public BundleDetailDto getBundleByName(@PathVariable("name") String name) {
+        Bundle bundle = bundleService.getBundleByName(name);
+        return mapper.bundleToDetailDto(bundle, bundleService.getVersions(bundle));
     }
 
     @PostMapping
