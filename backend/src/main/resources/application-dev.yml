@@ -1,13 +1,25 @@
 spark-variables:
   cors:
     allowed-origin: http://localhost:5173
+  csrf:
+    enabled: false
   seed-database: true
+
+springdoc:
+  swagger-ui:
+    with-credentials: true
+    csrf:
+      enabled: true
 
 spring:
   docker:
     compose:
       file: docker-compose.yaml
       lifecycle-management: start_only
+
+  mail:
+    host: localhost
+    port: 1025
 
   datasource:
     url: jdbc:postgresql://localhost:5432/spark-db

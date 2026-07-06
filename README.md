@@ -40,8 +40,13 @@ Open another terminal, navigate to the frontend folder, and run the following co
 npm run dev
 ```
 
-When you now visit http://localhost:5173/ in you browser, you should see the project running.
+**Frontend application:**
+http://localhost:5173/
+When you visit this URL in your browser, you should see the application running.
 
+**API documentation (Swagger UI):**
+http://localhost:8080/swagger-ui/index.html
+Here you can explore all available backend API endpoints, including request/response models and try them out directly from the browser.
 ### Making it ready for developing in IntelliJ 💻
 
 To let IntelliJ recognize all generated code, we need to mark the directories as **Generated Sources Root**.

@@ -43,6 +43,22 @@ paths:
               schema:
                 $ref: '#/components/schemas/Bundle'
 
+  /api/v1/send-email:
+    post:
+      tags:
+        - Email
+      summary: Send an email
+      operationId: send-email
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SendEmail'
+      responses:
+        200:
+          description: Empty response
+
 components:
   parameters:
     GetBundleParams:
@@ -164,5 +180,29 @@ components:
           type: string
           maxLength: 512
         status:
+          type: string
+          enum: [ PUBLIC, PRIVATE ]
+
+    SendEmail:
+      type: object
+      required:
+        - from
+        - to
+        - subject
+        - body
+      properties:
+        from:
+          type: string
+          minLength: 1
+          maxLength: 128
+        to:
+          type: string
+          minLength: 1
+          maxLength: 128
+        subject:
+          type: string
+          minLength: 1
+          maxLength: 128
+        body:
           type: string
           enum: [ PUBLIC, PRIVATE ]
