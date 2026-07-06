@@ -16,7 +16,7 @@ public class BundleService {
     }
 
     public Slice<Bundle> getAllBundles(int page) {
-        Pageable pageWithFiveElements = PageRequest.of(page, 5);
+        Pageable pageWithFiveElements = PageRequest.of(page, 6);
 
         return repository.findAllBy(pageWithFiveElements);
     }

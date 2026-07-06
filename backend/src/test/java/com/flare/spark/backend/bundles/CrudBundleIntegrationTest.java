@@ -47,11 +47,11 @@ class CrudBundleIntegrationTest extends IntegrationTest {
         String json = result.getResponse().getContentAsString();
         PaginatedBundlesDto paginatedBundlesDto = objectMapper.readValue(json, PaginatedBundlesDto.class);
 
-        assertEquals(5, paginatedBundlesDto.getContent().size());
+        assertEquals(6, paginatedBundlesDto.getContent().size());
         assertFalse(paginatedBundlesDto.getIsFirst());
         assertFalse(paginatedBundlesDto.getIsLast());
         assertSame(1, paginatedBundlesDto.getPageNumber());
-        assertSame(5, paginatedBundlesDto.getPageSize());
+        assertSame(6, paginatedBundlesDto.getPageSize());
         assertFalse(paginatedBundlesDto.getIsEmpty());
     }
     // delete this comment

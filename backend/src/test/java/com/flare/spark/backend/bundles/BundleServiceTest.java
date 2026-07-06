@@ -28,7 +28,7 @@ class BundleServiceTest {
     public void testGetAllBundles() {
         List<Bundle> bundles = List.of(BundleBuilder.create().build());
         int pageNumber = 1;
-        int itemsPerPage = 5;
+        int itemsPerPage = 6;
         boolean hasNext = false;
 
         Pageable firstPageWithFiveElements =
