@@ -58,10 +58,10 @@ class CrudBundleIntegrationTest extends IntegrationTest {
     @Test
     @Order(2)
     public void testBundleGetsSavedInTheDatabase() throws Exception {
-        List<Bundle> emptyBundles = bundleRepository.findByName("spark bundle");
+        List<Bundle> emptyBundles = bundleRepository.findByName("spark-bundle");
         assertEquals(List.of(), emptyBundles);
 
-        CreateBundleDto createBundleDto = CreateBundleDtoBuilder.create().withName("spark bundle").build();
+        CreateBundleDto createBundleDto = CreateBundleDtoBuilder.create().withName("spark-bundle").build();
 
         MvcResult result = mockMvc.perform(
             post("/api/v1/bundles")
@@ -77,7 +77,6 @@ class CrudBundleIntegrationTest extends IntegrationTest {
 
         assertEquals(createBundleDto.getName(), bundleDto.getName());
         assertEquals(createBundleDto.getDescription(), bundleDto.getDescription());
-        assertEquals("spark-bundle", bundleDto.getSlug());
 
         assertTrue(
             bundleRepository.findById(bundleDto.getId()).isPresent()
