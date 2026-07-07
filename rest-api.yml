@@ -75,6 +75,52 @@ paths:
               schema:
                 $ref: '#/components/schemas/PaginatedSearchBundles'
 
+  /api/v1/bundles/{id}:
+    patch:
+      tags:
+        - Bundles
+      summary: Update a bundle
+      operationId: updateBundle
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateBundle'
+      responses:
+        200:
+          description: Returns the updated Bundle
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Bundle'
+        404:
+          description: Bundle not found
+    delete:
+      tags:
+        - Bundles
+      summary: Delete a bundle
+      operationId: deleteBundle
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        204:
+          description: Bundle deleted
+        404:
+          description: Bundle not found
+
   /api/v1/send-email:
     post:
       tags:
@@ -197,6 +243,20 @@ components:
           type: string
           enum: [PUBLIC, PRIVATE]
 
+
+    UpdateBundle:
+      type: object
+      properties:
+        name:
+          type: string
+          minLength: 1
+          maxLength: 128
+        description:
+          type: string
+          maxLength: 512
+        status:
+          type: string
+          enum: [PUBLIC, PRIVATE]
 
     SearchBundle:
       type: object

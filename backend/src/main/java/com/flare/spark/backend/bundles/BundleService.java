@@ -1,10 +1,13 @@
 package com.flare.spark.backend.bundles;
 
 import jakarta.validation.constraints.NotNull;
+import java.util.UUID;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 @Service
 public class BundleService {
@@ -31,5 +34,28 @@ public class BundleService {
     ) {
         Pageable pageWithFiveElements = PageRequest.of(page, 5);
         return repository.findPublicByNameContainingIgnoreCase(query, pageWithFiveElements);
+    }
+
+    public Bundle updateBundle(
+            UUID id,
+            Bundle changes
+    ) {
+        Bundle bundle = repository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+
+        // if user not owner ResponseStatusException(HttpStatus.FORBIDDEN);
+
+        bundle.setName(changes.getName());
+        bundle.setDescription(changes.getDescription());
+        bundle.setStatus(changes.getStatus());
+        return repository.save(bundle);
+    }
+
+    public void deleteBundle(UUID id) {
+        if (!repository.existsById(id)) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        }
+        // if user not owner ResponseStatusException(HttpStatus.FORBIDDEN);
+
+        repository.deleteById(id);
     }
 }
