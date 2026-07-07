@@ -22,16 +22,14 @@ export async function createBundle(bundleRequest: CreateBundle): Promise<Bundle>
     return res.data
 }
 
-
 export async function uploadBundleFile(bundleId: string, file: File): Promise<UploadResult> {
     const form = new FormData()
     form.append('file', file)
 
     const res = await http.post<UploadResult>(`/api/v1/bundles/${bundleId}/upload`, form)
-    
+
     return res.data
 }
-
 
 export async function getSearchBundles(
     search: string,

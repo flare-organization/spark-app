@@ -1,6 +1,6 @@
-import {type SubmitEvent, useState} from 'react'
-import {Button} from '@/components/ui/button'
-import {uploadBundleFile} from '@/services/bundleService.ts'
+import { type SubmitEvent, useState } from 'react'
+import { Button } from '@/components/ui/button'
+import { uploadBundleFile } from '@/services/bundleService.ts'
 
 export default function UploadPage() {
     const [file, setFile] = useState<File | null>(null)
@@ -28,10 +28,12 @@ export default function UploadPage() {
     }
 
     return (
-        <div className="flex flex-col items-center justify-center min-h-screen gap-6 p-6">
+        <div className="flex min-h-screen flex-col items-center justify-center gap-6 p-6">
             <h1 className="text-2xl font-bold">Upload file</h1>
-            <form onSubmit={handleSubmit}
-                  className="flex flex-col items-center gap-4 w-full max-w-md border-solid border-4">
+            <form
+                onSubmit={handleSubmit}
+                className="flex w-full max-w-md flex-col items-center gap-4 border-4 border-solid"
+            >
                 <input
                     type="text"
                     value={bundleId}
@@ -49,11 +51,11 @@ export default function UploadPage() {
                 </Button>
             </form>
             {status && (
-                <div className="w-full max-w-md flex flex-col gap-2">
+                <div className="flex w-full max-w-md flex-col gap-2">
                     <div className="text-sm font-medium">Status: {status}</div>
                     {response && (
-                        <pre
-                            className="text-xs bg-muted p-3 rounded overflow-auto max-h-64 whitespace-pre-wrap break-all">{response}
+                        <pre className="bg-muted max-h-64 overflow-auto rounded p-3 text-xs break-all whitespace-pre-wrap">
+                            {response}
                         </pre>
                     )}
                 </div>
