@@ -30,9 +30,7 @@ export default function BundlesDetailPage() {
             <div className="mx-auto flex max-w-4xl flex-col items-center gap-3 px-6 py-20 text-center">
                 <Package className="text-muted-foreground size-10" aria-hidden="true" />
                 <h1 className="font-mono text-xl font-semibold">Bundle not found</h1>
-                <p className="text-muted-foreground text-sm">
-                    No bundle named “{name}” exists.
-                </p>
+                <p className="text-muted-foreground text-sm">No bundle named “{name}” exists.</p>
                 <Link to="/" className="text-primary mt-2 text-sm hover:underline">
                     Back to bundles
                 </Link>
@@ -125,9 +123,7 @@ export default function BundlesDetailPage() {
                     <h2 className="font-mono text-sm font-semibold tracking-tight">Versions</h2>
                     {latestVersion && (
                         <div className="text-muted-foreground flex flex-col gap-1 text-xs">
-                            <span>
-                                Latest published {formatDate(latestVersion.publishedAt)}
-                            </span>
+                            <span>Latest published {formatDate(latestVersion.publishedAt)}</span>
                             {latestVersion.fileSize != null && (
                                 <span>{formatSize(latestVersion.fileSize)}</span>
                             )}
