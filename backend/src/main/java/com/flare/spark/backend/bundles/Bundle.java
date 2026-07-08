@@ -1,6 +1,6 @@
 package com.flare.spark.backend.bundles;
 
-import com.flare.spark.backend.tags.Tag;
+import com.flare.spark.backend.user.User;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -10,9 +10,6 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinTable;
-import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 import java.time.OffsetDateTime;
 import java.util.UUID;
@@ -24,10 +21,6 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.JdbcType;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.hibernate.dialect.type.PostgreSQLEnumJdbcType;
-
-import java.util.LinkedHashSet;
-import java.util.Set;
-import java.util.UUID;
 
 @Entity
 @Table(name = "bundle_bundles")
@@ -67,14 +60,6 @@ public class Bundle {
     @JdbcType(PostgreSQLEnumJdbcType.class)
     @Column(columnDefinition = "bundle_visibility")
     private BundleVisibility visibility;
-
-    @ManyToMany
-    @JoinTable(
-        name = "bundle_tags",
-        joinColumns = @JoinColumn(name = "bundle_id"),
-        inverseJoinColumns = @JoinColumn(name = "tags_id")
-    )
-    private Set<Tag> tags = new LinkedHashSet<>();
 
     @CreationTimestamp
     @Column(name = "created_at")
