@@ -3,7 +3,7 @@ package com.flare.spark.backend.bundles;
 public class BundleBuilder {
     private String name = "bundle name";
     private String description = "bundle description";
-    private BundleStatus status = BundleStatus.PUBLIC;
+    private BundleVisibility visibility = BundleVisibility.PUBLIC;
 
     public BundleBuilder withName(String name) {
         this.name = name;
@@ -15,8 +15,8 @@ public class BundleBuilder {
         return this;
     }
 
-    public BundleBuilder withStatus(BundleStatus status) {
-        this.status = status;
+    public BundleBuilder withStatus(BundleVisibility visibility) {
+        this.visibility = visibility;
         return this;
     }
 
@@ -28,7 +28,7 @@ public class BundleBuilder {
         return new Bundle(
             this.name,
             this.description,
-            this.status
+            this.visibility
         );
     }
 }

@@ -1,6 +1,6 @@
 import { z } from 'zod'
 
-import { CreateBundleStatusEnum } from '@openapi/model/createBundle.ts'
+import { CreateBundleVisibilityEnum } from '@openapi/model/createBundle.ts'
 
 export const NAME_MAX = 128
 export const DESCRIPTION_MAX = 512
@@ -18,7 +18,7 @@ export const bundleFormSchema = z.object({
         .string()
         .trim()
         .max(DESCRIPTION_MAX, `Description must be ${DESCRIPTION_MAX} characters or fewer.`),
-    status: z.enum(CreateBundleStatusEnum),
+    visibility: z.enum(CreateBundleVisibilityEnum),
 })
 
 export type BundleFormValues = z.infer<typeof bundleFormSchema>
@@ -26,5 +26,5 @@ export type BundleFormValues = z.infer<typeof bundleFormSchema>
 export const bundleFormDefaults: BundleFormValues = {
     name: '',
     description: '',
-    status: CreateBundleStatusEnum.PUBLIC,
+    visibility: CreateBundleVisibilityEnum.PUBLIC,
 }

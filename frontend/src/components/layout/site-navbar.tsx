@@ -1,12 +1,14 @@
-import { Logo } from '@/components/logo'
-import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
-import { Kbd } from '@/components/ui/kbd'
-import { useSearchHotkey } from '@/hooks/use-search-hotkey'
-import { useTheme } from '@/hooks/use-theme'
-import { MoonIcon, SearchIcon, SunIcon } from 'lucide-react'
-import { useRef, useState } from 'react'
-import { Link, useLocation, useNavigate } from 'react-router-dom'
+import {Logo} from '@/components/logo'
+import {Button} from '@/components/ui/button'
+import {Input} from '@/components/ui/input'
+import {Kbd} from '@/components/ui/kbd'
+import {useSearchHotkey} from '@/hooks/use-search-hotkey'
+import {useTheme} from '@/hooks/use-theme'
+import {MoonIcon, SearchIcon, SunIcon} from 'lucide-react'
+import {useRef, useState} from 'react'
+import {Link, useLocation, useNavigate} from 'react-router-dom'
+import {useAuth} from "@/hooks/use-auth.ts";
+import {UserProfileDropdownMenu} from "@/components/ui/user-profile-dropdown-menu.tsx";
 
 function ThemeSwitcher() {
     const { theme, setTheme } = useTheme()
@@ -26,6 +28,7 @@ function ThemeSwitcher() {
 
 export function SiteNavbar() {
     const searchRef = useRef<HTMLInputElement>(null)
+    const { user } = useAuth()
     useSearchHotkey(searchRef)
 
     const navigate = useNavigate()
@@ -66,12 +69,18 @@ export function SiteNavbar() {
 
             <div className="flex items-center gap-2">
                 <ThemeSwitcher />
-                <Button variant="ghost" size="sm" asChild>
-                    <Link to="/login">Sign in</Link>
-                </Button>
-                <Button size="sm" asChild>
-                    <Link to="/signup">Register</Link>
-                </Button>
+
+                {user ? (
+                    <UserProfileDropdownMenu/>
+                ) : (
+                    <>
+                        <Button variant="ghost" size="sm" asChild>
+                        <Link to="/login">Sign in</Link>
+                        </Button><Button size="sm" asChild>
+                            <Link to="/signup">Register</Link>
+                        </Button>
+                    </>
+                )}
             </div>
         </header>
     )

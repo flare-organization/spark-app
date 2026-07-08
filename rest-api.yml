@@ -7,6 +7,70 @@ servers:
   - url: http://localhost:8080
 
 paths:
+  /api/v1/login:
+    post:
+      tags:
+        - Auth
+      summary: Login with your credentials
+      operationId: login
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LoginRequest'
+      responses:
+        200:
+          description: Current user
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/user'
+
+  /api/v1/logout:
+    post:
+      tags:
+        - Auth
+      summary: Logout and destroy the current session
+      operationId: logout
+      responses:
+        200:
+          description: logout
+
+  /api/v1/signup:
+    post:
+      tags:
+        - Auth
+      summary: Create a new account
+      operationId: signup
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SignUpRequest'
+      responses:
+        200:
+          description: CurrentUser
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/user'
+
+  /api/v1/me:
+    post:
+      tags:
+        - Auth
+      summary: Get the current user
+      operationId: me
+      responses:
+        200:
+          description: Something
+
   /api/v1/bundles:
     get:
       tags:
@@ -117,7 +181,7 @@ paths:
 
 components:
   schemas:
-    SignUpCredentials:
+    SignUpRequest:
       type: object
       required:
         - username
@@ -137,7 +201,7 @@ components:
           minLength: 8
           maxLength: 128
 
-    LoginCredentials:
+    LoginRequest:
       type: object
       required:
         - username
@@ -166,6 +230,14 @@ components:
         name:
           type: string
         description:
+          type: string
+
+    user:
+      type: object
+      required:
+        - username
+      properties:
+        username:
           type: string
 
     SlicedPagination:
@@ -205,7 +277,7 @@ components:
       required:
         - name
         - description
-        - status
+        - visibility
       properties:
         name:
           type: string
@@ -215,7 +287,7 @@ components:
         description:
           type: string
           maxLength: 512
-        status:
+        visibility:
           type: string
           enum: [PUBLIC, PRIVATE]
 
@@ -225,13 +297,13 @@ components:
       required:
         - name
         - description
-        - status
+        - visibility
       properties:
         name:
           type: string
         description:
           type: string
-        status:
+        visibility:
           type: string
 
     PaginatedSearchBundles:

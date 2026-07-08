@@ -1,5 +1,7 @@
 package com.flare.spark.backend.bundles;
 
+import com.flare.spark.backend.user.User;
+import com.flare.spark.backend.user.UserService;
 import jakarta.validation.constraints.NotNull;
 import java.util.List;
 import org.springframework.data.domain.PageRequest;
@@ -13,13 +15,16 @@ import org.springframework.web.server.ResponseStatusException;
 public class BundleService {
 
     private final BundleRepository repository;
+    private final UserService userService;
     private final BundleVersionRepository versionRepository;
 
     public BundleService(
         BundleRepository repository,
-        BundleVersionRepository versionRepository
+        BundleVersionRepository versionRepository,
+        UserService userService
     ) {
         this.repository = repository;
+        this.userService = userService;
         this.versionRepository = versionRepository;
     }
 
@@ -29,7 +34,10 @@ public class BundleService {
         return repository.findAllBy(pageWithFiveElements);
     }
 
-    public Bundle createBundle(@NotNull Bundle bundle) {
+    public Bundle createBundle(Bundle bundle) {
+        User authenticatedUser = userService.getCurrentAuthenticatedUser();
+        bundle.setUser(authenticatedUser);
+
         return repository.save(bundle);
     }
 
@@ -46,8 +54,8 @@ public class BundleService {
     }
 
     public Slice<Bundle> searchBundlesByName(
-            String query,
-            int page
+        String query,
+        int page
     ) {
         Pageable pageWithFiveElements = PageRequest.of(page, 5);
         return repository.findPublicByNameContainingIgnoreCase(query, pageWithFiveElements);

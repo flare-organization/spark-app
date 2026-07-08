@@ -3,15 +3,19 @@ package com.flare.spark.backend.bundles;
 import com.flare.spark.backend.tags.Tag;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 import java.time.OffsetDateTime;
-
+import java.util.UUID;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -26,23 +30,30 @@ import java.util.Set;
 import java.util.UUID;
 
 @Entity
-@Table(name = "bundles")
+@Table(name = "bundle_bundles")
 @Getter @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Bundle {
 
     public Bundle(
+        User user,
         String name,
         String description,
-        BundleStatus status
+        BundleVisibility visibility
     ) {
+        this.user = user;
         this.name = name;
         this.description = description;
-        this.status = status;
+        this.visibility = visibility;
     }
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
+
+    @Setter
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
 
     @Setter
     @Column(unique = true)
@@ -52,9 +63,10 @@ public class Bundle {
     private String description;
 
     @Setter
-    @Column(name = "status", columnDefinition = "BundleStatus")
+    @Enumerated(EnumType.STRING)
     @JdbcType(PostgreSQLEnumJdbcType.class)
-    private BundleStatus status;
+    @Column(columnDefinition = "bundle_visibility")
+    private BundleVisibility visibility;
 
     @ManyToMany
     @JoinTable(

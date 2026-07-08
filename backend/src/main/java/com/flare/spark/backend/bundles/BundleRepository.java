@@ -22,7 +22,7 @@ public interface BundleRepository extends JpaRepository<Bundle, UUID> {
 
     @Query("""
             SELECT b FROM Bundle b
-            WHERE b.status = com.flare.spark.backend.bundles.BundleStatus.PUBLIC
+            WHERE b.visibility = com.flare.spark.backend.bundles.BundleVisibility.PUBLIC
               AND lower(b.name) LIKE lower(concat('%', :name, '%'))
             """)
     Slice<Bundle> findPublicByNameContainingIgnoreCase(

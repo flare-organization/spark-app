@@ -1,17 +1,14 @@
 package com.flare.spark.backend.bundles;
 
 import com.flare.spark.generated.api.model.BundleDto;
-import lombok.Builder;
-
 import java.util.UUID;
-
 
 public class BundleDtoBuilder {
 
     private UUID uuid = null;
     private String name = "bundle name";
     private String description = "bundle description";
-    private BundleStatus status = BundleStatus.PUBLIC;
+    private BundleVisibility visibility = BundleVisibility.PUBLIC;
 
     public BundleDtoBuilder withUuid(UUID uuid) {
         this.uuid = uuid;
@@ -28,8 +25,8 @@ public class BundleDtoBuilder {
         return this;
     }
 
-    public BundleDtoBuilder withStatus(BundleStatus status) {
-        this.status = status;
+    public BundleDtoBuilder withVisibility(BundleVisibility visibility) {
+        this.visibility = visibility;
         return this;
     }
 

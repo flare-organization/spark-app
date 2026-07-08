@@ -1,4 +1,4 @@
-package com.flare.spark.backend.config;
+package com.flare.spark.backend.security;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
