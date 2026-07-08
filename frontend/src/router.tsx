@@ -6,6 +6,7 @@ import ComponentsPage from './pages/ComponentsPage'
 import HomePage from './pages/HomePage'
 
 import BundlesCreatePage from './pages/BundlesCreatePage'
+import UploadPage from '@/pages/UploadPage.tsx'
 
 export const router = createBrowserRouter([
     {
@@ -33,5 +34,9 @@ export const router = createBrowserRouter([
                 element: <SignupPage />,
             },
         ],
+    },
+    {
+        path: '/upload',
+        element: <UploadPage />,
     },
 ])

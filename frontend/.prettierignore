@@ -1,5 +1,14 @@
 dist
 node_modules
+build
 coverage
 *.lock
 pom.xml
+
+node
+
+target
+src/shared/models/api
+
+# lockfiles
+package-lock.json

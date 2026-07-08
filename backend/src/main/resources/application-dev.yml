@@ -16,7 +16,10 @@ spring:
     compose:
       file: docker-compose.yaml
       lifecycle-management: start_only
-
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 10MB
   mail:
     host: localhost
     port: 1025

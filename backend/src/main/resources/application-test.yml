@@ -7,3 +7,10 @@ spring:
     url: jdbc:postgresql://localhost:5432/spark-db-name
     username: spark-db-user-name
     password: spark-db-password
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 10MB
+  mail:
+    host: localhost
+    port: 1025
