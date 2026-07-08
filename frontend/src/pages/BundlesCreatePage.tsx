@@ -52,8 +52,8 @@ export default function BundlesCreatePage() {
         }
 
         try {
-            await createBundle(request)
-            navigate('/bundles')
+            const bundle = await createBundle(request)
+            navigate(`/bundles/${bundle.name}`)
         } catch {
             setSubmitError('Failed to create bundle. Please try again.')
         }
