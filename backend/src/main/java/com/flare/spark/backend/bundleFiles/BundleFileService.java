@@ -47,14 +47,11 @@ public class BundleFileService {
     }
 
     private String extractFilename(MultipartFile file) {
-        String contentDisposition = file.getOriginalFilename();
-        assert contentDisposition != null;
-        for (String token : contentDisposition.split(";")) {
-            if (token.trim().startsWith("filename")) {
-                String newName = token.substring(token.indexOf('=') + 1).trim().replace("\"", "");
-                return UUID.randomUUID() + newName;
-            }
+        String original = file.getOriginalFilename();
+        if (original == null || original.isBlank()) {
+            throw new RuntimeException("No filename found, please try again");
         }
-        throw new RuntimeException("No filename found, please try again");
+        String safeName = Paths.get(original).getFileName().toString();
+        return UUID.randomUUID() + "-" + safeName;
     }
 }
