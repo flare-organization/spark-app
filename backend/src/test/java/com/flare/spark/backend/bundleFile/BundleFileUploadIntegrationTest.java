@@ -56,7 +56,7 @@ class BundleFileUploadIntegrationTest extends IntegrationTest {
 
         MockMultipartFile file = new MockMultipartFile(
                 "file",
-                "filename=\"upload.txt\"",
+                "upload.txt",
                 "text/plain",
                 "uploaded file".getBytes()
         );

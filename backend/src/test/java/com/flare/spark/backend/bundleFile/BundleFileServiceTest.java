@@ -20,7 +20,6 @@ import java.util.UUID;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.junit.jupiter.api.function.Executable;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
@@ -51,7 +50,7 @@ class BundleFileServiceTest {
     void testStoreCopiesFileToDiskAndReturnsUploadResult() throws IOException {
         UUID bundleId = UUID.fromString("22222222-2222-2222-2222-222222222222");
         byte[] content = "the file contents".getBytes();
-        MockMultipartFile file = new MockMultipartFile("file", "filename=\"document.pdf\"", "application/pdf", content);
+        MockMultipartFile file = new MockMultipartFile("file", "document.pdf", "application/pdf", content);
 
         BundleFile savedBundleFile = BundleFileBuilder.create().withBundleId(bundleId).buildBundleFile();
         UploadResultDto expected = new UploadResultDto(bundleId);
@@ -86,8 +85,8 @@ class BundleFileServiceTest {
     void testSavingGeneratesUniqueFileNameForTheSameOriginalFilename() throws IOException {
         UUID bundleId = UUID.fromString("33333333-3333-3333-3333-333333333333");
 
-        MockMultipartFile firstFile = new MockMultipartFile("file", "filename=\"report.txt\"", "text/plain", "first".getBytes());
-        MockMultipartFile secondFile = new MockMultipartFile("file", "filename=\"report.txt\"", "text/plain", "second".getBytes());
+        MockMultipartFile firstFile = new MockMultipartFile("file", "report.txt", "text/plain", "first".getBytes());
+        MockMultipartFile secondFile = new MockMultipartFile("file", "report.txt", "text/plain", "second".getBytes());
 
         List<BundleFile> stored = new ArrayList<>();
         Mockito.when(repository.save(Mockito.any(BundleFile.class))).thenAnswer(invocation -> {
@@ -114,10 +113,10 @@ class BundleFileServiceTest {
     }
 
     @Test
-    void testStoreThrowsRuntimeExceptionWhenOriginalFilenameHasNoFilename() throws IOException {
+    void testStoreThrowsRuntimeExceptionWhenOriginalFilenameIsBlank() {
         UUID bundleId = UUID.fromString("44444444-4444-4444-4444-444444444444");
-        MockMultipartFile file = new MockMultipartFile("file", "filename", "text/plain", "data".getBytes());
+        MockMultipartFile file = new MockMultipartFile("file", "", "text/plain", "data".getBytes());
 
-        assertThrows(RuntimeException.class, (Executable) service.store(bundleId, file));
+        assertThrows(RuntimeException.class, () -> service.store(bundleId, file));
     }
 }
