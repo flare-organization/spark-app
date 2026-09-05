@@ -46,8 +46,8 @@ public class BundleController {
 
     @GetMapping("/search")
     public PaginatedSearchBundlesDto searchBundles(
-            @RequestParam("q") String query,
-            @RequestParam(required = false, defaultValue = "0", name = "page") int page
+        @RequestParam("q") String query,
+        @RequestParam(required = false, defaultValue = "0", name = "page") int page
     ) {
         Slice<Bundle> bundles = bundleService.searchBundlesByName(query, page);
 

@@ -28,6 +28,7 @@ import {
     bundleFormDefaults,
     bundleFormSchema,
 } from '@/features/bundles/bundleForm.ts'
+import {toast} from "@/components/ui/toast.tsx";
 
 export default function BundlesCreatePage() {
     const navigate = useNavigate()
@@ -56,6 +57,10 @@ export default function BundlesCreatePage() {
             navigate(`/bundles/${bundle.name}`)
         } catch {
             setSubmitError('Failed to create bundle. Please try again.')
+            toast.add({
+                type: "error",
+                title: "Bundle creation failed",
+            });
         }
     }
 
