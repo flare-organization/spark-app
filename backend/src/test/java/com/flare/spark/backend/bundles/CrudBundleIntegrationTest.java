@@ -1,6 +1,7 @@
 package com.flare.spark.backend.bundles;
 
 import com.flare.spark.backend.IntegrationTest;
+import com.flare.spark.generated.api.model.BundleDetailDto;
 import com.flare.spark.generated.api.model.BundleDto;
 import com.flare.spark.generated.api.model.CreateBundleDto;
 import com.flare.spark.generated.api.model.PaginatedBundlesDto;
@@ -47,21 +48,21 @@ class CrudBundleIntegrationTest extends IntegrationTest {
         String json = result.getResponse().getContentAsString();
         PaginatedBundlesDto paginatedBundlesDto = objectMapper.readValue(json, PaginatedBundlesDto.class);
 
-        assertEquals(5, paginatedBundlesDto.getContent().size());
+        assertEquals(6, paginatedBundlesDto.getContent().size());
         assertFalse(paginatedBundlesDto.getIsFirst());
         assertFalse(paginatedBundlesDto.getIsLast());
         assertSame(1, paginatedBundlesDto.getPageNumber());
-        assertSame(5, paginatedBundlesDto.getPageSize());
+        assertSame(6, paginatedBundlesDto.getPageSize());
         assertFalse(paginatedBundlesDto.getIsEmpty());
     }
     // delete this comment
     @Test
     @Order(2)
     public void testBundleGetsSavedInTheDatabase() throws Exception {
-        List<Bundle> emptyBundles = bundleRepository.findByName("spark bundle");
+        List<Bundle> emptyBundles = bundleRepository.findByName("spark-bundle");
         assertEquals(List.of(), emptyBundles);
 
-        CreateBundleDto createBundleDto = CreateBundleDtoBuilder.create().withName("spark bundle").build();
+        CreateBundleDto createBundleDto = CreateBundleDtoBuilder.create().withName("spark-bundle").build();
 
         MvcResult result = mockMvc.perform(
             post("/api/v1/bundles")
@@ -77,14 +78,41 @@ class CrudBundleIntegrationTest extends IntegrationTest {
 
         assertEquals(createBundleDto.getName(), bundleDto.getName());
         assertEquals(createBundleDto.getDescription(), bundleDto.getDescription());
-        assertEquals("spark-bundle", bundleDto.getSlug());
 
         assertTrue(
             bundleRepository.findById(bundleDto.getId()).isPresent()
         );
     }
 
+    @Test
     @Order(3)
+    public void testGetBundleByNameReturnsBundleDetail() throws Exception {
+        bundleRepository.save(BundleBuilder.create().withName("detail-bundle").build());
+
+        MvcResult result = mockMvc.perform(
+            get("/api/v1/bundles/detail-bundle")
+        )
+        .andExpect(status().isOk())
+        .andReturn();
+
+        BundleDetailDto bundleDetail = objectMapper.readValue(
+            result.getResponse().getContentAsString(),
+            BundleDetailDto.class
+        );
+
+        assertEquals("detail-bundle", bundleDetail.getName());
+    }
+
+    @Test
+    @Order(4)
+    public void testGetBundleByNameReturnsNotFoundForUnknownName() throws Exception {
+        mockMvc.perform(
+            get("/api/v1/bundles/does-not-exist")
+        )
+        .andExpect(status().isNotFound());
+    }
+
+    @Order(5)
     private void saveBundlesInTheDatabase(int amount) {
         List<Bundle> bundleList = new ArrayList<>();
 

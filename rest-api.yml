@@ -91,6 +91,30 @@ paths:
         200:
           description: Empty response
 
+  /api/v1/bundles/{name}:
+    get:
+      tags:
+        - Bundles
+      summary: Get a single bundle by name
+      operationId: getBundleByName
+      parameters:
+        - in: path
+          name: name
+          required: true
+          schema:
+            type: string
+          description: The unique name of the bundle
+      responses:
+        200:
+          description: The requested bundle
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BundleDetail'
+        404:
+          description: No bundle exists with that name
+
+
 components:
   schemas:
     SignUpCredentials:
@@ -134,15 +158,12 @@ components:
       required:
         - id
         - name
-        - slug
         - description
       properties:
         id:
           type: string
           format: uuid
         name:
-          type: string
-        slug:
           type: string
         description:
           type: string
@@ -188,6 +209,7 @@ components:
       properties:
         name:
           type: string
+          pattern: '^[a-z0-9]+(?:-[a-z0-9]+)*$'
           minLength: 1
           maxLength: 128
         description:
@@ -223,6 +245,68 @@ components:
             $ref: '#/components/schemas/SearchBundle'
       allOf:
         - $ref: '#/components/schemas/SlicedPagination'
+
+    BundleVersionSummary:
+      type: object
+      required:
+        - version
+        - publishedAt
+      properties:
+        version:
+          type: string
+        publishedAt:
+          type: string
+          format: date-time
+
+    BundleVersionDetail:
+      type: object
+      required:
+        - version
+        - publishedAt
+      properties:
+        version:
+          type: string
+        readme:
+          type: string
+          nullable: true
+        fileSize:
+          type: integer
+          format: int64
+          nullable: true
+        publishedAt:
+          type: string
+          format: date-time
+
+    BundleDetail:
+      type: object
+      required:
+        - id
+        - name
+        - description
+        - status
+        - tags
+        - versions
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+        description:
+          type: string
+        status:
+          type: string
+          enum: [PUBLIC, PRIVATE]
+        tags:
+          type: array
+          items:
+            type: string
+        latestVersion:
+          $ref: '#/components/schemas/BundleVersionDetail'
+        versions:
+          type: array
+          items:
+            $ref: '#/components/schemas/BundleVersionSummary'
 
     SendEmail:
       type: object

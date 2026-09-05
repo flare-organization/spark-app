@@ -10,7 +10,6 @@ public class BundleDtoBuilder {
 
     private UUID uuid = null;
     private String name = "bundle name";
-    private String slug = "bundle-name";
     private String description = "bundle description";
     private BundleStatus status = BundleStatus.PUBLIC;
 
@@ -21,11 +20,6 @@ public class BundleDtoBuilder {
 
     public BundleDtoBuilder withName(String name) {
         this.name = name;
-        return this;
-    }
-
-    public BundleDtoBuilder withSlug(String slug) {
-        this.slug = slug;
         return this;
     }
 
@@ -47,7 +41,6 @@ public class BundleDtoBuilder {
         return new BundleDto(
             this.uuid,
             this.name,
-            this.slug,
             this.description
         );
     }

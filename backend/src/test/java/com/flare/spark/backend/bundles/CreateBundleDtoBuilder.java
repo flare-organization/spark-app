@@ -3,7 +3,7 @@ package com.flare.spark.backend.bundles;
 import com.flare.spark.generated.api.model.CreateBundleDto;
 
 public class CreateBundleDtoBuilder {
-    private String name = "bundle name";
+    private String name = "bundle-name";
     private String description = "bundle description";
     private CreateBundleDto.StatusEnum status = CreateBundleDto.StatusEnum.PUBLIC;
 

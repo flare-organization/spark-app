@@ -18,6 +18,7 @@ import {
     FormMessage,
 } from '@/components/ui/form'
 import { CircleAlert } from 'lucide-react'
+import {toast} from "@/components/ui/toast.tsx";
 
 export function SignupForm() {
     const [submitError, setSubmitError] = useState<string | null>(null)
@@ -31,16 +32,20 @@ export function SignupForm() {
     async function onSubmit(values: SignUpFormValues) {
         setSubmitError(null)
 
-        const request: SignUpCredentials = {
+        const credentials: SignUpCredentials = {
             username: values.username,
             email: values.email,
             password: values.password,
         }
 
         try {
-            await signup(request)
+            await signup(credentials)
         } catch {
             setSubmitError('Failed to signup. Please try again.')
+            toast.add({
+                type: "error",
+                title: "Login failed",
+            });
         }
     }
 

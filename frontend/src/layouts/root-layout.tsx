@@ -3,6 +3,7 @@ import { SiteSidebar } from '@/components/layout/site-sidebar'
 import { Logo } from '@/components/logo'
 import { PulseDot } from '@/components/ui/pulse-dot'
 import { Outlet } from 'react-router-dom'
+import { Toaster } from "@/components/ui/toast"
 
 export default function RootLayout() {
     return (
@@ -16,6 +17,8 @@ export default function RootLayout() {
                     <Outlet />
                 </main>
             </div>
+
+            <Toaster/>
 
             <footer className="bg-card border-border mt-auto border-t py-6">
                 <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-3 px-6">

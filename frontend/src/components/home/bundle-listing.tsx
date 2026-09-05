@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom'
+
 import { Avatar, AvatarFallback } from '@/components/ui/avatar'
 import { Card, CardDescription } from '@/components/ui/card'
 import {
@@ -17,21 +19,23 @@ function bundleInitials(name: string): string {
 
 function BundleCard({ bundle }: { bundle: Bundle | SearchBundle }) {
     return (
-        <Card className="flex-row items-start gap-3.5 p-5">
-            <Avatar size="lg">
-                <AvatarFallback>{bundleInitials(bundle.name)}</AvatarFallback>
-            </Avatar>
-            <div className="flex min-w-0 flex-1 flex-col gap-1">
-                <span className="text-primary font-mono text-sm leading-none font-semibold tracking-tight">
-                    {bundle.name}
-                </span>
-                {bundle.description && (
-                    <CardDescription className="line-clamp-2 text-sm leading-relaxed">
-                        {bundle.description}
-                    </CardDescription>
-                )}
-            </div>
-        </Card>
+        <Link to={`/bundles/${encodeURIComponent(bundle.name)}`} className="block">
+            <Card className="hover:border-primary/50 flex-row items-start gap-3.5 p-5 transition-colors">
+                <Avatar size="lg">
+                    <AvatarFallback>{bundleInitials(bundle.name)}</AvatarFallback>
+                </Avatar>
+                <div className="flex min-w-0 flex-1 flex-col gap-1">
+                    <span className="text-primary font-mono text-sm leading-none font-semibold tracking-tight">
+                        {bundle.name}
+                    </span>
+                    {bundle.description && (
+                        <CardDescription className="line-clamp-2 text-sm leading-relaxed">
+                            {bundle.description}
+                        </CardDescription>
+                    )}
+                </div>
+            </Card>
+        </Link>
     )
 }
 

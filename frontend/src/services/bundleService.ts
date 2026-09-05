@@ -1,5 +1,6 @@
 import { http } from '@/lib/http/http.ts'
 import type { Bundle } from '@openapi/model/bundle.ts'
+import type { BundleDetail } from '@openapi/model/bundleDetail.ts'
 import type { CreateBundle } from '@openapi/model/createBundle.ts'
 import type { PaginatedBundles } from '@openapi/model/paginatedBundles.ts'
 import type { PaginatedSearchBundles } from '@openapi/model/paginatedSearchBundles.ts'
@@ -11,6 +12,12 @@ export async function getBundles(page: number, size?: number): Promise<Paginated
             size: size,
         },
     })
+
+    return res.data
+}
+
+export async function getBundleByName(name: string): Promise<BundleDetail> {
+    const res = await http.get<BundleDetail>(`/api/v1/bundles/${encodeURIComponent(name)}`)
 
     return res.data
 }

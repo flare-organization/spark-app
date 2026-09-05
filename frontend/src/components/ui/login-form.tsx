@@ -6,6 +6,7 @@ import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { login } from '@/services/authService.ts'
+import { toast } from "@/components/ui/toast"
 
 import {
     Form,
@@ -29,16 +30,19 @@ export function LoginForm() {
     })
 
     async function onSubmit(values: LoginCredentials) {
-        setSubmitError(null)
-
-        const request: LoginCredentials = {
+        const credentials: LoginCredentials = {
             username: values.username,
             password: values.password,
         }
 
         try {
-            await login(request)
+            await login(credentials)
         } catch {
+            toast.add({
+                type: "error",
+                title: "Login failed",
+            });
+
             setSubmitError('Failed to login. Please try again.')
         }
     }
@@ -103,7 +107,8 @@ export function LoginForm() {
 
                 <Field>
                     <FieldDescription className="text-center">
-                        Don&apos;t have an account? <Link to="/signup">Sign up</Link>
+                        Don&apos;t have an account?{" "}
+                        <Link to="/signup">Sign up</Link>
                     </FieldDescription>
                 </Field>
             </form>

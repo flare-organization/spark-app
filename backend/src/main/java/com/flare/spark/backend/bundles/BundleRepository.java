@@ -1,6 +1,7 @@
 package com.flare.spark.backend.bundles;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
@@ -14,6 +15,8 @@ public interface BundleRepository extends JpaRepository<Bundle, UUID> {
     Slice<Bundle> findAllBy(Pageable pageable);
 
     List<Bundle> findByName(String name);
+
+    Optional<Bundle> findByNameAndDeletedAtIsNull(String name);
 
     boolean existsByName(String bundleName);
 
